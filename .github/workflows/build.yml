@@ -30,10 +30,10 @@ jobs:
         run: mvn -B package -P prod --file pom.xml
 
       - name: Push to GitHub Packages
-          uses: docker/build-push-action@v1
-          with:
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
-            registry: docker.pkg.github.com
-            repository: seqaq/backend/spring
-            tag_with_ref: true
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: seqaq/backend/spring
+          tag_with_ref: true
