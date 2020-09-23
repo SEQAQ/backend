@@ -1,5 +1,9 @@
-# backend
+# QAQ Backend
 Backend for the QAQ
-## for running in local
-1. 修改application.properties中的数据库账号密码
-2. port设置为8848
+
+## Getting Started
+
+### Spring Profiles
+
+Create `application-local.properties` in `src/main/resources` and set active profile in IDE/commandline arguments.
+
