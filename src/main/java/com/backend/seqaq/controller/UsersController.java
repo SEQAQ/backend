@@ -3,12 +3,14 @@ package com.backend.seqaq.controller;
 
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.UsersService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
+@Api
 public class UsersController {
     @Autowired
     private UsersService usersService;
