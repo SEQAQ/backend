@@ -15,6 +15,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "uid")
     private Long uid;
+
     @Column(name = "uname")
     private String uname;//nickname
     @Column(name = "account")

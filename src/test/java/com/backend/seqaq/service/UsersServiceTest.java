@@ -14,6 +14,10 @@ class UsersServiceTest {
 
     @Test
     void findById() {
+        Users users;
+        Long uid = 2L;
+        users = usersService.FindById(uid);
+        System.out.println(users);
     }
 
     @Test

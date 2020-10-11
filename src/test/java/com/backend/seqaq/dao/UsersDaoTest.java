@@ -14,4 +14,8 @@ class UsersDaoTest {
     void findByAccount() {
         System.out.println(usersDao.FindByAccount("nihao"));
     }
+    @Test
+    void findbyid(){
+        System.out.println(usersDao.FindById((long)2));
+    }
 }

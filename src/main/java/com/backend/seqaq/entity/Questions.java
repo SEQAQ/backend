@@ -15,15 +15,23 @@ public class Questions {
 
     @Column(name = "tag")
     private String tag;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "ctime")
     private Timestamp ctime;
     @Column(name = "mtime")
     private Timestamp mtime;
+
+    //0: banned 1: active -1: delete
     @Column(name = "status")
     private Integer status;
 
-    @OneToOne
+    @Column(name = "uid")
+    private Long uid;
+
+    @Transient
+    @ManyToOne
     @JoinColumn(name = "uid",referencedColumnName = "uid",insertable = false,updatable = false)
     private Users users;
 

@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersDao usersDao;
-    public Users FindById(Long id){
-        return usersDao.FindById(id);
+    public Users findById(Long id){
+        return usersDao.findById(id);
     }
-    public Users FindByAccount(String account){
-        return usersDao.FindByAccount(account);
+    public Users findByAccount(String account){
+        return usersDao.findByAccount(account);
     }
-    public String Register(Users u){
-        return usersDao.Register(u);
+    public String register(Users u){
+        return usersDao.register(u);
     }
 
 }
