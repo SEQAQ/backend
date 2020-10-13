@@ -22,7 +22,7 @@ public class UsersDaoImpl implements UsersDao {
         else {
             usersRepository.save(u);
         }
-        return "Success";
+        return "OK";
     }
 
 }

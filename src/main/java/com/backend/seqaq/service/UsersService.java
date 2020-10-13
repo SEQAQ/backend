@@ -6,4 +6,6 @@ public interface UsersService {
     Users findById(Long id);
     Users findByAccount(String account);
     String register(Users u);
+    String banUser(Long uid);
+    String unbanUser(Long uid);
 }

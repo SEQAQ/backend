@@ -41,7 +41,7 @@ public class QuesServiceImpl implements QuesService {
         questions.setMtime(d);
         System.out.println(questions);
         quesDao.save(questions);
-        return "Success";
+        return "OK";
     }
     public void editQues(Long qid,String text){
         Questions questions = quesDao.findById(qid);

@@ -16,7 +16,7 @@ class UsersServiceTest {
     void findById() {
         Users users;
         Long uid = 2L;
-        users = usersService.FindById(uid);
+        users = usersService.findById(uid);
         System.out.println(users);
     }
 
@@ -27,6 +27,6 @@ class UsersServiceTest {
     @Test
     void register() {
         Users u = new Users();
-        System.out.println(usersService.Register(u));
+        System.out.println(usersService.register(u));
     }
 }

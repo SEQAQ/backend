@@ -20,7 +20,14 @@ public class UsersController {
     public String save(@RequestBody Users users) {
         return usersService.register(users);
     }
-
+    @PostMapping("/ban")
+    public String ban(@RequestParam("uid") Long uid) {
+        return usersService.banUser(uid);
+    }
+    @PostMapping("/unban")
+    public String unban(@RequestParam("uid") Long uid) {
+        return usersService.unbanUser(uid);
+    }
     @GetMapping("/findbyid")
     public Users findById(@RequestParam("uid") Long uid){
         System.out.println(usersService.findById(uid));

@@ -16,7 +16,7 @@ class QuesServiceTest {
 
     @Test
     void createQues() {
-        System.out.println(quesService.CreateQues("??","??",5L));
+        System.out.println(quesService.createQues("??","??",5L));
     }
 
     @Test

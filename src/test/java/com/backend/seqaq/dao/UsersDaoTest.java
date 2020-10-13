@@ -12,10 +12,10 @@ class UsersDaoTest {
     private UsersDao usersDao;
     @Test
     void findByAccount() {
-        System.out.println(usersDao.FindByAccount("nihao"));
+        System.out.println(usersDao.findByAccount("nihao"));
     }
     @Test
     void findbyid(){
-        System.out.println(usersDao.FindById((long)2));
+        System.out.println(usersDao.findById((long)2));
     }
 }

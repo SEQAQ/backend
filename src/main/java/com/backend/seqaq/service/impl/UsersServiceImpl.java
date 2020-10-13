@@ -19,5 +19,22 @@ public class UsersServiceImpl implements UsersService {
     public String register(Users u){
         return usersDao.register(u);
     }
-
+    public String banUser(Long uid)
+    {
+        Users users = usersDao.findById(uid);
+        if(users == null) return "Error";
+        else {
+            users.setStatus(0);
+            return "OK";
+        }
+    }
+    public String unbanUser(Long uid)
+    {
+        Users users = usersDao.findById(uid);
+        if(users == null) return "Error";
+        else {
+            users.setStatus(1);
+            return "OK";
+        }
+    }
 }
