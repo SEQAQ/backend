@@ -18,16 +18,24 @@ public class UsersController {
 
     @PostMapping("/register")
     public String save(@RequestBody Users users) {
-        return usersService.Register(users);
+        return usersService.register(users);
     }
-
+    @PostMapping("/ban")
+    public String ban(@RequestParam("uid") Long uid) {
+        return usersService.banUser(uid);
+    }
+    @PostMapping("/unban")
+    public String unban(@RequestParam("uid") Long uid) {
+        return usersService.unbanUser(uid);
+    }
     @GetMapping("/findbyid")
     public Users findById(@RequestParam("uid") Long uid){
-        return usersService.FindById(uid);
+        System.out.println(usersService.findById(uid));
+        return usersService.findById(uid);
     }
 
     @GetMapping("/findbyaccount")
     public Users findByAccount(@RequestParam("account") String account){
-        return usersService.FindByAccount(account);
+        return usersService.findByAccount(account);
     }
 }

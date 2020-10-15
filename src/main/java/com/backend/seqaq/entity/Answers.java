@@ -1,5 +1,6 @@
 package com.backend.seqaq.entity;
 
+
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,16 +8,11 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
-public class Questions {
+public class Answers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "qid")
-    private Long qid;
-
-    @Column(name = "tag")
-    private String tag;
-    @Column(name = "title")
-    private String title;
+    @Column(name = "aid")
+    private Long aid;
 
     @Column(name = "ctime")
     private Timestamp ctime;
@@ -29,13 +25,21 @@ public class Questions {
 
     @Column(name = "uid")
     private Long uid;
+    @Column(name = "qid")
+    private Long qid;
+    @Column(name = "like")
+    private Long like;
+    @Column(name = "dislike")
+    private Long dislike;
+
 
     @Transient
     @ManyToOne
     @JoinColumn(name = "uid",referencedColumnName = "uid",insertable = false,updatable = false)
     private Users users;
 
-    @Column(name = "follower")
-    private Long follower;
-
+    @Transient
+    @ManyToOne
+    @JoinColumn(name = "qid",referencedColumnName = "qid",insertable = false,updatable = false)
+    private Questions questions;
 }

@@ -11,18 +11,18 @@ public class UsersDaoImpl implements UsersDao {
     @Autowired
     private UsersRepository usersRepository;
 
-    public Users FindById(Long id){
+    public Users findById(Long id){
         return usersRepository.findById(id).orElse(null);
     }
-    public Users FindByAccount(String account){
+    public Users findByAccount(String account){
         return usersRepository.findByAccount(account);
     }
-    public String Register(Users u){
-        if(FindByAccount(u.getAccount())!=null) return "Account Exists";
+    public String register(Users u){
+        if(findByAccount(u.getAccount())!=null) return "Account Exists";
         else {
             usersRepository.save(u);
         }
-        return "Success";
+        return "OK";
     }
 
 }
