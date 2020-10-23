@@ -31,6 +31,8 @@ public class Answers {
     private Long like;
     @Column(name = "dislike")
     private Long dislike;
+    @Transient
+    private AnswerDetail detail;
 
 
     @Transient
@@ -42,4 +44,12 @@ public class Answers {
     @ManyToOne
     @JoinColumn(name = "qid",referencedColumnName = "qid",insertable = false,updatable = false)
     private Questions questions;
+
+    public AnswerDetail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(AnswerDetail detail) {
+        this.detail = detail;
+    }
 }

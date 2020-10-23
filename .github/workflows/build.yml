@@ -1,11 +1,13 @@
-name: Build and Deploy to Google Compute Engine
+name: Build and Deploy
 
 on:
   push:
     branches:
       - master
-
 env:
+  PROJECT_ID: ${{ secrets.GCE_PROJECT }}
+  GCE_INSTANCE: backend
+  GCE_INSTANCE_ZONE: asia-northeast1-b
 
 jobs:
   setup-build-publish:
@@ -37,3 +39,9 @@ jobs:
           registry: docker.pkg.github.com
           repository: seqaq/backend/spring
           tag_with_ref: true
+
+      - name: Deploy
+          run: |-
+            gcloud compute instances update-container "$GCE_INSTANCE" \
+              --zone "$GCE_INSTANCE_ZONE" \
+              --container-image "https://docker.pkg.github.com/seqaq/backend/spring"
