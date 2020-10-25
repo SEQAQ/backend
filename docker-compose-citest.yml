@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=ez_pass
+      - MYSQL_DATABASE=seqaq
+    ports:
+      - 54321:3306
+    volumes:
+      - ./scripts/mysql:/docker-entrypoint-initdb.d
+
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    ports:
+      - 27775:27017
