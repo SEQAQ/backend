@@ -25,7 +25,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Setup Databases
-        run: docker-compose -f docker-compose-citest.yml up --build
+        run: docker-compose -f docker-compose-citest.yml up --build -d
 
       - name: Test with Maven
         run: mvn test -D spring.profiles.active=test test
