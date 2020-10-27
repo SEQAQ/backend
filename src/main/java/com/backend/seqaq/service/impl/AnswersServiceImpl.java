@@ -20,7 +20,7 @@ public class AnswersServiceImpl implements AnswersService {
     private UsersDao usersDao;
     @Autowired
     private QuesDao quesDao;
-    public String addAnswers(Long uid,Long qid,String text) {
+    public String addAnswers(Long uid, Long qid, String text) {
         Users users = usersDao.findById(uid);
         Questions questions = quesDao.findById(qid);
         if( users == null || questions == null) return "Error";

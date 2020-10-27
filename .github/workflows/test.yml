@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  - push
+
+jobs:
+  build-test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Setup Databases
+        run: docker-compose -f docker-compose-citest.yml up --build -d
+
+      - name: Test with Maven
+        run: mvn test -D spring.profiles.active=test test
+
+      - name: Build with Maven
+        run: mvn -B package -Pprod --file pom.xml -DskipTests

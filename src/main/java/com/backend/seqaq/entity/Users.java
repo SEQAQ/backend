@@ -44,4 +44,14 @@ public class Users {
     private Long follower;//follower
     @Column(name = "followed")
     private Long followed;//#fans
+    @Transient
+    private UserDetail detail;
+
+    public UserDetail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(UserDetail detail) {
+        this.detail = detail;
+    }
 }

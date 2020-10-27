@@ -1,6 +1,7 @@
 package com.backend.seqaq.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.QuesService;
@@ -23,13 +24,21 @@ public class QuesController {
         System.out.println(quesService.findByUid(uid));
         return quesService.findByUid(uid);
     }
-    @GetMapping("/findById")
+    @GetMapping("/")
     public Questions findById(@RequestParam("qid") Long qid){
-        return quesService.findById(qid);
+        Questions ques = quesService.findById(qid);
+        System.out.println(ques);
+        return ques;
     }
     @PostMapping("/createQues")
     public void create(@RequestParam("title") String title,@RequestParam("tag") String tag,@RequestParam("uid") Long uid){
         quesService.createQues(title, tag, uid);
+    }
+
+    @PostMapping("/new")
+    public void createWithDetails(@RequestBody JSONObject test) {
+        System.out.println(test);
+        quesService.createQuestion(test);
     }
 
     @PostMapping("/editQues")

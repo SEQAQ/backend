@@ -38,4 +38,30 @@ public class Questions {
     @Column(name = "follower")
     private Long follower;
 
+    @Transient
+    private QuestionDetail detail;
+
+    public QuestionDetail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(QuestionDetail detail) {
+        this.detail = detail;
+    }
+
+    @Override
+    public String toString() {
+        return "Questions{" +
+                "qid=" + qid +
+                ", tag='" + tag + '\'' +
+                ", title='" + title + '\'' +
+                ", ctime=" + ctime +
+                ", mtime=" + mtime +
+                ", status=" + status +
+                ", uid=" + uid +
+                ", users=" + users +
+                ", follower=" + follower +
+                ", detail=" + detail +
+                '}';
+    }
 }

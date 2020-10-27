@@ -1,6 +1,5 @@
 package com.backend.seqaq.service;
 
-import org.springframework.stereotype.Service;
 
 public interface AnswersService {
     String addAnswers(Long uid,Long qid,String text);
