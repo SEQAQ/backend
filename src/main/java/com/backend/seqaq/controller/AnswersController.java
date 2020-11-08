@@ -1,5 +1,6 @@
 package com.backend.seqaq.controller;
 
+import com.backend.seqaq.entity.Answers;
 import com.backend.seqaq.service.AnswersService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ public class AnswersController {
     @Autowired
     private AnswersService answersService;
 
+
+    @GetMapping("/findByAid")
+    public Answers findAnswer(@RequestParam("aid")Long aid) {
+        return answersService.findAnswersByid(aid);
+    }
     @PostMapping("/addAnswer")
     public String addAnswer(@RequestParam("uid") Long uid,@RequestParam("qid") Long qid, @RequestParam("text") String text){
         return answersService.addAnswers(uid, qid, text);
@@ -34,5 +40,13 @@ public class AnswersController {
     @PostMapping("/delete")
     public String delete(@RequestParam("aid") Long aid) {
         return answersService.deleteAnswers(aid);
+    }
+    @PostMapping("/dislike")
+    public String dislike(@RequestParam("aid") Long aid) {
+        return answersService.dislikeAnswers(aid);
+    }
+    @PostMapping("/like")
+    public String like(@RequestParam("aid") Long aid) {
+        return answersService.likeAnswers(aid);
     }
 }

@@ -9,6 +9,7 @@ import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.AnswersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
@@ -20,6 +21,10 @@ public class AnswersServiceImpl implements AnswersService {
     private UsersDao usersDao;
     @Autowired
     private QuesDao quesDao;
+
+    public Answers findAnswersByid(Long aid){
+        return answersDao.findById(aid);
+    }
     public String addAnswers(Long uid, Long qid, String text) {
         Users users = usersDao.findById(uid);
         Questions questions = quesDao.findById(qid);
@@ -41,6 +46,7 @@ public class AnswersServiceImpl implements AnswersService {
             return "OK";
         }
     }
+    @Transactional
     public String editAnswers(Long aid,String text){
         Answers answers = answersDao.findById(aid);
         if (answers == null) return "Error";
@@ -50,6 +56,7 @@ public class AnswersServiceImpl implements AnswersService {
             return "OK";
         }
     }
+    @Transactional
     public String banAnswers(Long aid) {
         Answers answers = answersDao.findById(aid);
         if (answers == null) return "Error";
@@ -59,6 +66,7 @@ public class AnswersServiceImpl implements AnswersService {
             return "OK";
         }
     }
+    @Transactional
     public String unbanAnswers(Long aid){
         Answers answers = answersDao.findById(aid);
         if (answers == null) return "Error";
@@ -68,6 +76,30 @@ public class AnswersServiceImpl implements AnswersService {
             return "OK";
         }
     }
+    @Transactional
+    public String likeAnswers(Long aid){
+        Answers answers = answersDao.findById(aid);
+        if (answers == null) return "Error";
+        else {
+            Long like = answers.getLike();
+            answers.setLike(like+1);
+            answersDao.addOrChangeAnswer(answers);
+            return "OK";
+        }
+    }
+
+    @Transactional
+    public String dislikeAnswers(Long aid){
+        Answers answers = answersDao.findById(aid);
+        if (answers == null) return "Error";
+        else {
+            Long dislike = answers.getDislike();
+            answers.setDislike(dislike+1);
+            answersDao.addOrChangeAnswer(answers);
+            return "OK";
+        }
+    }
+    @Transactional
     public String deleteAnswers(Long aid){
         Answers answers = answersDao.findById(aid);
         if (answers == null) return "Error";

@@ -8,6 +8,8 @@ import com.backend.seqaq.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UsersDaoImpl implements UsersDao {
     private final UsersRepository usersRepository;
@@ -32,6 +34,9 @@ public class UsersDaoImpl implements UsersDao {
             usersRepository.save(u);
         }
         return "OK";
+    }
+    public List<Users> findAllByUnameContaining(String text){
+        return usersRepository.findAllByUnameContaining(text);
     }
 
     private Users attachDetail(Users user) {

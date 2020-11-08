@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface QuesRepository extends JpaRepository<Questions,Long> {
     List<Questions> findAllByUid(Long uid);
+    List<Questions> findAllByTitleContaining(String text);
+    List<Questions> findAllByTagContaining(String text);
 }

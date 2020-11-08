@@ -36,6 +36,14 @@ public class QuesDaoImpl implements QuesDao {
         Questions question = quesRepository.findById(id).orElse(null);
         return attachDetail(question);
     }
+    public List<Questions> findAllByTitleContaining(String text){
+        return quesRepository.findAllByTitleContaining(text);
+    }
+    public List<Questions> findAllByTagContaining(String text){
+        return quesRepository.findAllByTagContaining(text);
+    }
+
+
 
     /**
      * Given qid, fetch the detail for that question.

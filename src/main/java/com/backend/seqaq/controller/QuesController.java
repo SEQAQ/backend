@@ -24,7 +24,7 @@ public class QuesController {
         System.out.println(quesService.findByUid(uid));
         return quesService.findByUid(uid);
     }
-    @GetMapping("/")
+    @GetMapping("/findByQid")
     public Questions findById(@RequestParam("qid") Long qid){
         Questions ques = quesService.findById(qid);
         System.out.println(ques);
