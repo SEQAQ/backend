@@ -46,4 +46,23 @@ public class Replies {
 
     @Transient
     private Replies replies;
+
+    @Transient
+    private ReplyContent content;
+
+    public Long getRid() {
+        return rid;
+    }
+
+    public void setRid(Long rid) {
+        this.rid = rid;
+    }
+
+    public ReplyContent getContent() {
+        return content;
+    }
+
+    public void setContent(ReplyContent content) {
+        this.content = content;
+    }
 }
