@@ -12,17 +12,18 @@ import java.util.List;
 
 @Service
 public class QueryServiceImpl implements QueryService {
-    @Autowired
-    private QuesDao quesDao;
-    @Autowired
-    private UsersDao usersDao;
-    public List<Questions> queryForQuesByTag(String text){
-        return quesDao.findAllByTagContaining(text);
-    }
-    public List<Questions> queryForQuesByTitle(String text){
-        return quesDao.findAllByTitleContaining(text);
-    }
-    public List<Users> queryForUsers(String nickname){
-        return usersDao.findAllByUnameContaining(nickname);
-    }
+  @Autowired private QuesDao quesDao;
+  @Autowired private UsersDao usersDao;
+
+  public List<Questions> queryForQuesByTag(String text) {
+    return quesDao.findAllByTagContaining(text);
+  }
+
+  public List<Questions> queryForQuesByTitle(String text) {
+    return quesDao.findAllByTitleContaining(text);
+  }
+
+  public List<Users> queryForUsers(String nickname) {
+    return usersDao.findAllByUnameContaining(nickname);
+  }
 }

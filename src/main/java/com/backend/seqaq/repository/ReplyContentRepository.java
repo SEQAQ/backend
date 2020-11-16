@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface ReplyContentRepository extends MongoRepository<ReplyContent,
-        ObjectId> {
-    Optional<ReplyContent> findByRid(Long rid);
+public interface ReplyContentRepository extends MongoRepository<ReplyContent, ObjectId> {
+  Optional<ReplyContent> findByRid(Long rid);
 }
