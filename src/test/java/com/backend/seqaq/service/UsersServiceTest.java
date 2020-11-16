@@ -9,24 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UsersServiceTest {
-    @Autowired
-    private UsersService usersService;
+  @Autowired private UsersService usersService;
 
-    @Test
-    void findById() {
-        Users users;
-        Long uid = 2L;
-        users = usersService.findById(uid);
-        System.out.println(users);
-    }
+  @Test
+  void findById() {
+    Users users;
+    Long uid = 2L;
+    users = usersService.findById(uid);
+    System.out.println(users);
+  }
 
-    @Test
-    void findByAccount() {
-    }
+  @Test
+  void findByAccount() {}
 
-    @Test
-    void register() {
-        Users u = new Users();
-        System.out.println(usersService.register(u));
-    }
+  @Test
+  void register() {
+    Users u = new Users();
+    System.out.println(usersService.register(u));
+  }
 }

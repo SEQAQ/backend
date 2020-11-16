@@ -14,35 +14,35 @@ import java.util.List;
 
 @Service
 public class UserAndQuesServiceImpl implements UserAndQuesService {
-    @Autowired
-    private UsersDao usersDao;
-    @Autowired
-    private QuesDao quesDao;
-    @Autowired
-    private UserAndQuesDao userAndQuesDao;
+  @Autowired private UsersDao usersDao;
+  @Autowired private QuesDao quesDao;
+  @Autowired private UserAndQuesDao userAndQuesDao;
 
-    public List<UserAndQues> findAllQuesByUid(Long uid){
-        return userAndQuesDao.findAllQuesByUid(uid);
+  public List<UserAndQues> findAllQuesByUid(Long uid) {
+    return userAndQuesDao.findAllQuesByUid(uid);
+  }
+
+  public List<UserAndQues> findAllUsersByQid(Long qid) {
+    return userAndQuesDao.findAllUsersByQid(qid);
+  }
+
+  public String delFollow(Long uid, Long qid) {
+    userAndQuesDao.delFollow(uid, qid);
+    return "OK";
+  }
+
+  public String addFollow(Long uid, Long qid) {
+    Users users = usersDao.findById(uid);
+    Questions questions = quesDao.findById(qid);
+    if (users == null || questions == null) return "Error";
+    else {
+      UserAndQues userAndQues = new UserAndQues();
+      userAndQues.setQid(qid);
+      userAndQues.setUid(uid);
+      userAndQues.setUsers(users);
+      userAndQues.setQuestions(questions);
+      userAndQuesDao.addFollow(userAndQues);
+      return "OK";
     }
-    public List<UserAndQues> findAllUsersByQid(Long qid){
-        return userAndQuesDao.findAllUsersByQid(qid);
-    }
-    public String delFollow(Long uid,Long qid){
-        userAndQuesDao.delFollow(uid,qid);
-        return "OK";
-    }
-    public String addFollow(Long uid,Long qid){
-        Users users = usersDao.findById(uid);
-        Questions questions = quesDao.findById(qid);
-        if(users == null || questions == null) return "Error";
-        else {
-            UserAndQues userAndQues = new UserAndQues();
-            userAndQues.setQid(qid);
-            userAndQues.setUid(uid);
-            userAndQues.setUsers(users);
-            userAndQues.setQuestions(questions);
-            userAndQuesDao.addFollow(userAndQues);
-            return "OK";
-        }
-    }
+  }
 }

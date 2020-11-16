@@ -10,14 +10,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 class UsersDaoTest {
-    @Autowired
-    private UsersDao usersDao;
-    @Test
-    void findByAccount() {
-        System.out.println(usersDao.findByAccount("nihao"));
-    }
-    @Test
-    void findbyid(){
-        System.out.println(usersDao.findById((long)2));
-    }
+  @Autowired private UsersDao usersDao;
+
+  @Test
+  void findByAccount() {
+    System.out.println(usersDao.findByAccount("nihao"));
+  }
+
+  @Test
+  void findbyid() {
+    System.out.println(usersDao.findById((long) 2));
+  }
 }

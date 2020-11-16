@@ -10,18 +10,21 @@ import java.util.List;
 
 @Repository
 public class FollowersDaoImpl implements FollowersDao {
-    @Autowired
-    private FollowersRepository followersRepository;
-    public List<Followers> findAllFollowedByUid(Long uid){
-        return followersRepository.findAllByUid1(uid);
-    }
-    public List<Followers> findAllFollowerByUid(Long uid){
-        return followersRepository.findAllByUid2(uid);
-    }
-    public void addFollow(Followers followers){
-        followersRepository.save(followers);
-    }
-    public void delFollow(Long uid1,Long uid2){
-        followersRepository.deleteAllByUid1AndUid2(uid1,uid2);
-    }
+  @Autowired private FollowersRepository followersRepository;
+
+  public List<Followers> findAllFollowedByUid(Long uid) {
+    return followersRepository.findAllByUid1(uid);
+  }
+
+  public List<Followers> findAllFollowerByUid(Long uid) {
+    return followersRepository.findAllByUid2(uid);
+  }
+
+  public void addFollow(Followers followers) {
+    followersRepository.save(followers);
+  }
+
+  public void delFollow(Long uid1, Long uid2) {
+    followersRepository.deleteAllByUid1AndUid2(uid1, uid2);
+  }
 }

@@ -10,18 +10,21 @@ import java.util.List;
 
 @Repository
 public class UserAndQuesDaoImpl implements UserAndQuesDao {
-    @Autowired
-    private UserAndQuesRepository userAndQuesRepository;
-    public List<UserAndQues> findAllQuesByUid(Long uid){
-        return userAndQuesRepository.findAllByUid(uid);
-    }
-    public List<UserAndQues> findAllUsersByQid(Long qid){
-        return userAndQuesRepository.findAllByQid(qid);
-    }
-    public void delFollow(Long uid,Long qid){
-        userAndQuesRepository.deleteByUidAndQid(uid,qid);
-    }
-    public void addFollow(UserAndQues userAndQues){
-        userAndQuesRepository.save(userAndQues);
-    }
+  @Autowired private UserAndQuesRepository userAndQuesRepository;
+
+  public List<UserAndQues> findAllQuesByUid(Long uid) {
+    return userAndQuesRepository.findAllByUid(uid);
+  }
+
+  public List<UserAndQues> findAllUsersByQid(Long qid) {
+    return userAndQuesRepository.findAllByQid(qid);
+  }
+
+  public void delFollow(Long uid, Long qid) {
+    userAndQuesRepository.deleteByUidAndQid(uid, qid);
+  }
+
+  public void addFollow(UserAndQues userAndQues) {
+    userAndQuesRepository.save(userAndQues);
+  }
 }

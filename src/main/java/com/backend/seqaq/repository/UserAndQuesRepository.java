@@ -6,10 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface UserAndQuesRepository extends JpaRepository<UserAndQues,Long> {
-    List<UserAndQues> findAllByUid(Long uid);
-    List<UserAndQues> findAllByQid(Long qid);
+public interface UserAndQuesRepository extends JpaRepository<UserAndQues, Long> {
+  List<UserAndQues> findAllByUid(Long uid);
 
-    @Transactional
-    void deleteByUidAndQid(Long uid,Long qid);
+  List<UserAndQues> findAllByQid(Long qid);
+
+  @Transactional
+  void deleteByUidAndQid(Long uid, Long qid);
 }
