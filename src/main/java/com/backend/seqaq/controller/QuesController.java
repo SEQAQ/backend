@@ -14,7 +14,6 @@ import java.util.List;
 @CrossOrigin
 @Api
 public class QuesController {
-
   @Autowired private QuesService quesService;
 
   @GetMapping("/findByUid")

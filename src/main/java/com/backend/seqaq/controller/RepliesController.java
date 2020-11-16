@@ -17,7 +17,6 @@ import java.util.List;
 @CrossOrigin
 @Api
 public class RepliesController {
-
   @Autowired private RepliesService repliesService;
 
   @GetMapping("/findOneReply")
