@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface QuesDetailRepository extends MongoRepository<QuestionDetail,
-        ObjectId> {
-    Optional<QuestionDetail> findByQid(Long qid);
+public interface QuesDetailRepository extends MongoRepository<QuestionDetail, ObjectId> {
+  Optional<QuestionDetail> findByQid(Long qid);
 }

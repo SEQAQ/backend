@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface AnswerDetailRepository extends MongoRepository<AnswerDetail,
-        ObjectId> {
-    Optional<AnswerDetail> findByAid(Long aid);
+public interface AnswerDetailRepository extends MongoRepository<AnswerDetail, ObjectId> {
+  Optional<AnswerDetail> findByAid(Long aid);
 }

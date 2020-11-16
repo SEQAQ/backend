@@ -3,7 +3,6 @@ package com.backend.seqaq.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,30 +10,25 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 class QuesServiceTest {
-    @Autowired
-    private QuesService quesService;
-    @Test
-    void findByUid() {
-    }
+  @Autowired private QuesService quesService;
 
-    @Test
-    void createQues() {
-        System.out.println(quesService.createQues("??","??",5L));
-    }
+  @Test
+  void findByUid() {}
 
-    @Test
-    void editQues() {
-    }
+  @Test
+  void createQues() {
+    System.out.println(quesService.createQues("??", "??", 5L));
+  }
 
-    @Test
-    void banQues() {
-    }
+  @Test
+  void editQues() {}
 
-    @Test
-    void unbanQues() {
-    }
+  @Test
+  void banQues() {}
 
-    @Test
-    void delQues() {
-    }
+  @Test
+  void unbanQues() {}
+
+  @Test
+  void delQues() {}
 }
