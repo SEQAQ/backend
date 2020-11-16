@@ -32,18 +32,19 @@ public class UsersServiceImpl implements UsersService {
   }
 
   public String unbanUser(Long uid) {
-      Users users = usersDao.findById(uid);
-      if (users == null) return "Error";
-      else {
-          users.setStatus(1);
-          return "OK";
-      }
+    Users users = usersDao.findById(uid);
+    if (users == null) return "Error";
+    else {
+      users.setStatus(1);
+      return "OK";
+    }
   }
-  public String login(String account,String password) {
-      Users users = usersDao.findByAccount(account);
-      if (users == null) return "User doesn't exist";
-      else if (!users.getPassword().equals(password)) return "Password is wrong";
-      else if (users.getStatus()!=1) return "User is banned or deleted";
-      else return "Success";
+
+  public String login(String account, String password) {
+    Users users = usersDao.findByAccount(account);
+    if (users == null) return "User doesn't exist";
+    else if (!users.getPassword().equals(password)) return "Password is wrong";
+    else if (users.getStatus() != 1) return "User is banned or deleted";
+    else return "Success";
   }
 }

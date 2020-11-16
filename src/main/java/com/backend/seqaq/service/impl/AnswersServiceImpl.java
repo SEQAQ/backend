@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class AnswersServiceImpl implements AnswersService {
 
-
   @Autowired private AnswersDao answersDao;
   @Autowired private UsersDao usersDao;
   @Autowired private QuesDao quesDao;
@@ -25,9 +24,11 @@ public class AnswersServiceImpl implements AnswersService {
   public Answers findAnswersByid(Long aid) {
     return answersDao.findById(aid);
   }
+
   public List<Answers> findAnswersByUid(Long uid) {
     return answersDao.findAllByUid(uid);
   }
+
   public String addAnswers(Long uid, Long qid, String text) {
     Users users = usersDao.findById(uid);
     Questions questions = quesDao.findById(qid);

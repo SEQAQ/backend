@@ -13,6 +13,5 @@ public interface UsersService {
 
   String unbanUser(Long uid);
 
-  String login(String account,String password);
-
+  String login(String account, String password);
 }

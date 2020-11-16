@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Api
 public class UsersController {
   @Autowired private UsersService usersService;
+
   @PostMapping("/register")
   public String save(@RequestBody Users users) {
     return usersService.register(users);
@@ -34,12 +35,13 @@ public class UsersController {
   }
 
   @GetMapping("/findbyaccount")
-  public Users findByAccount(@RequestParam("account") String account){
-        return usersService.findByAccount(account);
-    }
+  public Users findByAccount(@RequestParam("account") String account) {
+    return usersService.findByAccount(account);
+  }
 
   @PostMapping("/login")
-  public String login(@RequestParam("account") String account,@RequestParam("password") String password) {
-    return usersService.login(account,password);
+  public String login(
+      @RequestParam("account") String account, @RequestParam("password") String password) {
+    return usersService.login(account, password);
   }
 }

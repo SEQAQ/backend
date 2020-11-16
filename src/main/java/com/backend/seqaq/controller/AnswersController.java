@@ -23,10 +23,10 @@ public class AnswersController {
   }
 
   @GetMapping("/findByUid")
-  public List<Answers> findAnswersByUid(@RequestParam("uid")Long uid)
-  {
+  public List<Answers> findAnswersByUid(@RequestParam("uid") Long uid) {
     return answersService.findAnswersByUid(uid);
   }
+
   @PostMapping("/addAnswer")
   public String addAnswer(@RequestBody JSONObject jsonObject) {
     Long uid = jsonObject.getLong("uid");
@@ -36,7 +36,6 @@ public class AnswersController {
   }
 
   @PostMapping("/editAnswer")
-
   public String editAnswer(@RequestBody JSONObject jsonObject) {
     String text = jsonObject.getString("text");
     Long aid = jsonObject.getLong("aid");
