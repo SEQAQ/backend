@@ -19,12 +19,17 @@ public class AnswersController {
 
   @GetMapping("/findByAid")
   public Answers findAnswer(@RequestParam("aid") Long aid) {
-    return answersService.findAnswersByid(aid);
+    return answersService.findAnswersById(aid);
   }
 
   @GetMapping("/findByUid")
   public List<Answers> findAnswersByUid(@RequestParam("uid") Long uid) {
     return answersService.findAnswersByUid(uid);
+  }
+
+  @GetMapping("/findByQid")
+  public List<Answers> findByQid(@RequestParam("qid") Long qid) {
+    return answersService.findAnswersByQid(qid);
   }
 
   @PostMapping("/addAnswer")

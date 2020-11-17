@@ -16,11 +16,13 @@ public interface AnswersService {
 
   String deleteAnswers(Long aid);
 
-  Answers findAnswersByid(Long aid);
+  Answers findAnswersById(Long aid);
 
   String likeAnswers(Long aid);
 
   String dislikeAnswers(Long aid);
 
   List<Answers> findAnswersByUid(Long uid);
+
+  List<Answers> findAnswersByQid(Long qid);
 }

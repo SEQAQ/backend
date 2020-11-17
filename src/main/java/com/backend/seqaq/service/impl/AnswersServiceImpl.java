@@ -21,12 +21,17 @@ public class AnswersServiceImpl implements AnswersService {
   @Autowired private UsersDao usersDao;
   @Autowired private QuesDao quesDao;
 
-  public Answers findAnswersByid(Long aid) {
+  public Answers findAnswersById(Long aid) {
     return answersDao.findById(aid);
   }
 
   public List<Answers> findAnswersByUid(Long uid) {
     return answersDao.findAllByUid(uid);
+  }
+
+  @Override
+  public List<Answers> findAnswersByQid(Long qid) {
+    return  answersDao.findAllByQid(qid);
   }
 
   public String addAnswers(Long uid, Long qid, String text) {

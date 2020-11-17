@@ -18,7 +18,7 @@ create table users
 	follower	bigint,
 	followed  bigint,
   primary key (uid)
-)DEFAULT CHARSET=utf8mb4;
+)DEFAULT CHARSET=utf8;
 
 create table questions
 (
@@ -32,7 +32,7 @@ create table questions
 	title			varchar(1024),
 	primary key (qid),
 	foreign key (uid) references users(uid)
-)DEFAULT CHARSET=utf8mb4;
+)DEFAULT CHARSET=utf8;
 
 
 create table answers
@@ -48,7 +48,7 @@ create table answers
 	primary key (aid),
 	foreign key (uid) references users(uid),
 	foreign key (qid) references questions(qid)
-)DEFAULT CHARSET=utf8mb4;
+)DEFAULT CHARSET=utf8;
 
 
 create table replies
@@ -63,7 +63,7 @@ create table replies
 	dtype			int,
 	primary key (rid),
 	foreign key (uid) references users(uid)
-)DEFAULT CHARSET=utf8mb4;
+)DEFAULT CHARSET=utf8;
 
 create table userandques
 (
@@ -73,7 +73,7 @@ create table userandques
   primary key (id),
 	foreign key (uid) references users(uid),
   foreign key (qid) references questions(qid)
-)DEFAULT CHARSET=utf8mb4;
+)DEFAULT CHARSET=utf8;
 
 
 create table followers
@@ -84,4 +84,4 @@ create table followers
   primary key (id),
 	foreign key (uid1) references users(uid),
   foreign key (uid2) references users(uid)
-)DEFAULT CHARSET=utf8mb4;
+)DEFAULT CHARSET=utf8;
