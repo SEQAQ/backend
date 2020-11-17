@@ -2,8 +2,8 @@ package com.backend.seqaq.entity;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Column;
 import javax.persistence.Id;
 
 @Document(collection = "answers")
@@ -29,7 +29,7 @@ public class AnswerDetail {
     this._id = _id;
   }
 
-  @Column(name = "aid")
+  @Field(name = "aid")
   public Long getAid() {
     return aid;
   }
@@ -38,12 +38,17 @@ public class AnswerDetail {
     this.aid = aid;
   }
 
-  @Column(name = "md")
+  @Field(name = "text")
   public String getMdText() {
     return mdText;
   }
 
   public void setMdText(String mdText) {
     this.mdText = mdText;
+  }
+
+  @Override
+  public String toString() {
+    return "{" + "_id:" + _id + ", aid:" + aid + ", mdText:'" + mdText + '\'' + '}';
   }
 }
