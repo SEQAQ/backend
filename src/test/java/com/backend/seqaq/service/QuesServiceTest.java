@@ -28,7 +28,6 @@ class QuesServiceTest {
     System.out.println(quesService.createQues("??", "??", 5L));
   }
 
-
   @Test
   void editQues() {}
 

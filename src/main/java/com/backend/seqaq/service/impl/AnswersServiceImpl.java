@@ -31,7 +31,7 @@ public class AnswersServiceImpl implements AnswersService {
 
   @Override
   public List<Answers> findAnswersByQid(Long qid) {
-    return  answersDao.findAllByQid(qid);
+    return answersDao.findAllByQid(qid);
   }
 
   public String addAnswers(Long uid, Long qid, String text) {
