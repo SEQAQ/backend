@@ -21,7 +21,10 @@ public class RepliesDaoImpl implements RepliesDao {
   }
 
   public void reply(Replies replies) {
-    repliesRepository.save(replies);
+    Replies r = repliesRepository.save(replies);
+    ReplyContent content = r.getContent();
+    content.setRid(r.getRid());
+    replyContentRepository.save(content);
   }
 
   public Replies findReply(Long rid) {
@@ -47,6 +50,7 @@ public class RepliesDaoImpl implements RepliesDao {
   private Replies attachDetail(Replies reply) {
     if (reply == null) return null;
     ReplyContent content = fetchDetail(reply.getRid());
+    System.out.println(content);
     reply.setContent(content);
     return reply;
   }

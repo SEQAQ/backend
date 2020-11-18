@@ -37,7 +37,6 @@ public class Answers {
 
   @Transient private AnswerDetail detail;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)
   private Users users;
