@@ -4,6 +4,9 @@ import com.backend.seqaq.entity.Replies;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +16,14 @@ class RepliesServiceTest {
   @Autowired private RepliesService repliesService;
 
   @Test
-  void replyAnswers() {}
+  @DirtiesContext
+  void replyAnswers() {
+    String expected = "Official sources say...";
+    String ret = repliesService.replyAnswers(1L, 1L, expected);
+    assertEquals("OK", ret);
+    List<Replies> l = repliesService.findByAid(1L);
+    assertEquals(expected, l.get(1).getContent().getContent());
+  }
 
   @Test
   void replyReplies() {}

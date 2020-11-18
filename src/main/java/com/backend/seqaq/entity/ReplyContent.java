@@ -30,12 +30,21 @@ public class ReplyContent {
     this.rid = rid;
   }
 
-  @Field(name = "content")
+  @Field(name = "text")
   public String getContent() {
     return content;
   }
 
   public void setContent(String content) {
     this.content = content;
+  }
+
+  @Override
+  public String toString() {
+    return "{\"_class\":\"ReplyContent\", " +
+            "\"_id\":" + (_id == null ? "null" : _id) + ", " +
+            "\"rid\":" + (rid == null ? "null" : "\"" + rid + "\"") + ", " +
+            "\"content\":" + (content == null ? "null" : "\"" + content + "\"") +
+            "}";
   }
 }

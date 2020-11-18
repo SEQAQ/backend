@@ -3,6 +3,7 @@ package com.backend.seqaq.service.impl;
 import com.backend.seqaq.dao.AnswersDao;
 import com.backend.seqaq.dao.QuesDao;
 import com.backend.seqaq.dao.UsersDao;
+import com.backend.seqaq.entity.AnswerDetail;
 import com.backend.seqaq.entity.Answers;
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
@@ -51,6 +52,9 @@ public class AnswersServiceImpl implements AnswersService {
       Timestamp d = new Timestamp(System.currentTimeMillis());
       answers.setCtime(d);
       answers.setMtime(d);
+      AnswerDetail detail = new AnswerDetail();
+      detail.setMdText(text);
+      answers.setDetail(detail);
       answersDao.addOrChangeAnswer(answers);
       return "OK";
     }

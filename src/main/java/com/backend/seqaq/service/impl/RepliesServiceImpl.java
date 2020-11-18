@@ -5,6 +5,7 @@ import com.backend.seqaq.dao.RepliesDao;
 import com.backend.seqaq.dao.UsersDao;
 import com.backend.seqaq.entity.Answers;
 import com.backend.seqaq.entity.Replies;
+import com.backend.seqaq.entity.ReplyContent;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.RepliesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class RepliesServiceImpl implements RepliesService {
       replies.setReplies(null);
       Timestamp d = new Timestamp(System.currentTimeMillis());
       replies.setCtime(d);
+      ReplyContent content = new ReplyContent();
+      content.setContent(text);
+      replies.setContent(content);
+      System.out.println(replies);
       repliesDao.reply(replies);
       return "OK";
     }
