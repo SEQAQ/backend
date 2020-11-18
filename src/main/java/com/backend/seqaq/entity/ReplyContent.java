@@ -41,10 +41,15 @@ public class ReplyContent {
 
   @Override
   public String toString() {
-    return "{\"_class\":\"ReplyContent\", " +
-            "\"_id\":" + (_id == null ? "null" : _id) + ", " +
-            "\"rid\":" + (rid == null ? "null" : "\"" + rid + "\"") + ", " +
-            "\"content\":" + (content == null ? "null" : "\"" + content + "\"") +
-            "}";
+    return "{\"_class\":\"ReplyContent\", "
+        + "\"_id\":"
+        + (_id == null ? "null" : _id)
+        + ", "
+        + "\"rid\":"
+        + (rid == null ? "null" : "\"" + rid + "\"")
+        + ", "
+        + "\"content\":"
+        + (content == null ? "null" : "\"" + content + "\"")
+        + "}";
   }
 }
