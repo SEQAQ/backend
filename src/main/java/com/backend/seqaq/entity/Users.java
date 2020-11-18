@@ -43,6 +43,7 @@ public class Users {
   private String role;
 
   // 0: banned 1: active -1: delete
+  @Column(name = "stat")
   private Integer status; // ban or not?
 
   @Column(name = "follower")
