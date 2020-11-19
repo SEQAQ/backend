@@ -13,12 +13,10 @@ public class UserAndQues {
   @Column(name = "id")
   private Long id;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)
   private Users users;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "qid", referencedColumnName = "qid", insertable = false, updatable = false)
   private Questions questions;
