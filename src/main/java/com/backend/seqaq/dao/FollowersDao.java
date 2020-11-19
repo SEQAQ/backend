@@ -12,4 +12,6 @@ public interface FollowersDao {
   void delFollow(Long uid1, Long uid2);
 
   void addFollow(Followers followers);
+
+  boolean checkFollowed(Long uid1, Long uid2);
 }

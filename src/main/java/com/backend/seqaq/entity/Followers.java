@@ -12,12 +12,10 @@ public class Followers {
   @Column(name = "id")
   private Long id;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "uid1", referencedColumnName = "uid", insertable = false, updatable = false)
   private Users users1;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "uid2", referencedColumnName = "uid", insertable = false, updatable = false)
   private Users users2;

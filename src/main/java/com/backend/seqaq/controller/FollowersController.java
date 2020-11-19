@@ -36,4 +36,10 @@ public class FollowersController {
   public String unfollow(@RequestParam("uid1") Long uid1, @RequestParam("uid2") Long uid2) {
     return followersService.delFollow(uid1, uid2);
   }
+
+  @GetMapping("/check")
+  public boolean checkFollowed(@RequestParam("uid1") Long uid1,
+                               @RequestParam("uid2") Long uid2) {
+    return followersService.checkFollowed(uid1, uid2);
+  }
 }

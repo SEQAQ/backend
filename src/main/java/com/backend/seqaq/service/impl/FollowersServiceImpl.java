@@ -47,4 +47,9 @@ public class FollowersServiceImpl implements FollowersService {
       return "OK";
     }
   }
+
+  @Override
+  public boolean checkFollowed(Long uid1, Long uid2) {
+    return followersDao.checkFollowed(uid1, uid2);
+  }
 }

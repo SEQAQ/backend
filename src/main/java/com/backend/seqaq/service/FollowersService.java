@@ -12,4 +12,6 @@ public interface FollowersService {
   String addFollow(Long uid1, Long uid2);
 
   String delFollow(Long uid1, Long uid2);
+
+  boolean checkFollowed(Long uid1, Long uid2);
 }

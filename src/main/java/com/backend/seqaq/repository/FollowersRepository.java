@@ -13,4 +13,6 @@ public interface FollowersRepository extends JpaRepository<Followers, Long> {
 
   @Transactional
   void deleteAllByUid1AndUid2(Long uid1, Long uid2);
+
+  boolean existsByUid1AndUid2(Long uid1, Long uid2);
 }

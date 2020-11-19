@@ -27,4 +27,9 @@ public class FollowersDaoImpl implements FollowersDao {
   public void delFollow(Long uid1, Long uid2) {
     followersRepository.deleteAllByUid1AndUid2(uid1, uid2);
   }
+
+  @Override
+  public boolean checkFollowed(Long uid1, Long uid2) {
+    return followersRepository.existsByUid1AndUid2(uid1, uid2);
+  }
 }
