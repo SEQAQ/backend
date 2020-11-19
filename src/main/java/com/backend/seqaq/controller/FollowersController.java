@@ -38,8 +38,7 @@ public class FollowersController {
   }
 
   @GetMapping("/check")
-  public boolean checkFollowed(@RequestParam("uid1") Long uid1,
-                               @RequestParam("uid2") Long uid2) {
+  public boolean checkFollowed(@RequestParam("uid1") Long uid1, @RequestParam("uid2") Long uid2) {
     return followersService.checkFollowed(uid1, uid2);
   }
 }
