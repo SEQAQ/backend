@@ -32,7 +32,6 @@ public class Questions {
   @Column(name = "uid")
   private Long uid;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)
   private Users users;
