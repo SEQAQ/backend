@@ -8,6 +8,7 @@ import com.backend.seqaq.repository.QuesRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class QuesDaoImpl implements QuesDao {
@@ -20,7 +21,9 @@ public class QuesDaoImpl implements QuesDao {
   }
 
   public List<Questions> findByUid(Long uid) {
-    return quesRepository.findAllByUid(uid);
+    List<Questions> l = quesRepository.findAllByUid(uid);
+    l.forEach(this::attachDetail);
+    return l;
   }
 
   public void save(Questions questions) {
@@ -36,11 +39,12 @@ public class QuesDaoImpl implements QuesDao {
   }
 
   public List<Questions> findAllByTitleContaining(String text) {
-    return quesRepository.findAllByTitleContaining(text);
+    return quesRepository.findAllByTitleContaining(text).stream().map(this::attachDetail).collect(Collectors.toList());
+
   }
 
   public List<Questions> findAllByTagContaining(String text) {
-    return quesRepository.findAllByTagContaining(text);
+    return quesRepository.findAllByTagContaining(text).stream().map(this::attachDetail).collect(Collectors.toList());
   }
 
   /**

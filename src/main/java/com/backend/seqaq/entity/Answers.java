@@ -41,7 +41,6 @@ public class Answers {
   @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)
   private Users users;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "qid", referencedColumnName = "qid", insertable = false, updatable = false)
   private Questions questions;
