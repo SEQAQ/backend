@@ -38,7 +38,7 @@ public class UFQController {
 
   @PostMapping("/isfollowed")
   public String isfollowed(@RequestParam("uid") Long uid, @RequestParam("qid") Long qid) {
-    boolean flag = userAndQuesService.existsByUidAndQid(uid,qid);
+    boolean flag = userAndQuesService.existsByUidAndQid(uid, qid);
     if (flag == true) return "Yes";
     else return "No";
   }

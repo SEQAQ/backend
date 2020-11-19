@@ -13,5 +13,5 @@ public interface UserAndQuesDao {
 
   void addFollow(UserAndQues userAndQues);
 
-  boolean existsByUidAndQid(Long uid,Long qid);
+  boolean existsByUidAndQid(Long uid, Long qid);
 }
