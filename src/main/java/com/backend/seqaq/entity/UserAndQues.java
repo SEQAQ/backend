@@ -6,18 +6,17 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "userandques")
 public class UserAndQues {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)
   private Users users;
 
-  @Transient
   @ManyToOne
   @JoinColumn(name = "qid", referencedColumnName = "qid", insertable = false, updatable = false)
   private Questions questions;
