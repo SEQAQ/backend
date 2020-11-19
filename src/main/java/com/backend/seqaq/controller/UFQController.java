@@ -35,4 +35,11 @@ public class UFQController {
   public String unfollow(@RequestParam("uid") Long uid, @RequestParam("qid") Long qid) {
     return userAndQuesService.delFollow(uid, qid);
   }
+
+  @PostMapping("/isfollowed")
+  public String isfollowed(@RequestParam("uid") Long uid, @RequestParam("qid") Long qid) {
+    boolean flag = userAndQuesService.existsByUidAndQid(uid,qid);
+    if (flag == true) return "Yes";
+    else return "No";
+  }
 }

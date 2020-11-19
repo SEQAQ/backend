@@ -26,6 +26,8 @@ public class UserAndQuesServiceImpl implements UserAndQuesService {
     return userAndQuesDao.findAllUsersByQid(qid);
   }
 
+  public boolean existsByUidAndQid(Long uid,Long qid) {return  userAndQuesDao.existsByUidAndQid(uid,qid);}
+
   public String delFollow(Long uid, Long qid) {
     userAndQuesDao.delFollow(uid, qid);
     return "OK";

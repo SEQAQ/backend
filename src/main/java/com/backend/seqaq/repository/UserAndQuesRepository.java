@@ -13,4 +13,6 @@ public interface UserAndQuesRepository extends JpaRepository<UserAndQues, Long> 
 
   @Transactional
   void deleteByUidAndQid(Long uid, Long qid);
+
+  boolean existsByUidAndQid(Long uid,Long qid);
 }

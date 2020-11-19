@@ -12,4 +12,6 @@ public interface UserAndQuesService {
   String delFollow(Long uid, Long qid);
 
   String addFollow(Long uid, Long qid);
+
+  boolean existsByUidAndQid(Long uid,Long qid);
 }

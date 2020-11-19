@@ -27,4 +27,8 @@ public class UserAndQuesDaoImpl implements UserAndQuesDao {
   public void addFollow(UserAndQues userAndQues) {
     userAndQuesRepository.save(userAndQues);
   }
+
+  public boolean existsByUidAndQid(Long uid,Long qid) {
+    return userAndQuesRepository.existsByUidAndQid(uid,qid);
+  }
 }
