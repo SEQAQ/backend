@@ -30,6 +30,8 @@ public class UsersDaoImpl implements UsersDao {
   public String register(Users u) {
     if (findByAccount(u.getAccount()) != null) return "Account Exists";
     else {
+      u.setStatus(1);
+      u.setRole("user");
       usersRepository.save(u);
     }
     return "OK";
