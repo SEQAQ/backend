@@ -39,12 +39,15 @@ public class QuesDaoImpl implements QuesDao {
   }
 
   public List<Questions> findAllByTitleContaining(String text) {
-    return quesRepository.findAllByTitleContaining(text).stream().map(this::attachDetail).collect(Collectors.toList());
-
+    return quesRepository.findAllByTitleContaining(text).stream()
+        .map(this::attachDetail)
+        .collect(Collectors.toList());
   }
 
   public List<Questions> findAllByTagContaining(String text) {
-    return quesRepository.findAllByTagContaining(text).stream().map(this::attachDetail).collect(Collectors.toList());
+    return quesRepository.findAllByTagContaining(text).stream()
+        .map(this::attachDetail)
+        .collect(Collectors.toList());
   }
 
   /**
