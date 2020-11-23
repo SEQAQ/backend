@@ -3,6 +3,7 @@ package com.backend.seqaq.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.backend.seqaq.entity.Answers;
 import com.backend.seqaq.service.AnswersService;
+import com.backend.seqaq.util.Message;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class AnswersController {
   @Autowired private AnswersService answersService;
 
   @GetMapping("/findByAid")
-  public Answers findAnswer(@RequestParam("aid") Long aid) {
-    return answersService.findAnswersById(aid);
+  public Message<Answers> findAnswer(@RequestParam("aid") Long aid) {
+    return new Message<>(answersService.findAnswersById(aid));
   }
 
   @GetMapping("/findByUid")
