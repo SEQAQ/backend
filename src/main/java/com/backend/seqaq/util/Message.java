@@ -9,8 +9,7 @@ public class Message<T> {
   private String message = "OK";
   private T data;
 
-  public Message() {
-  }
+  public Message() {}
 
   public Message(int code, String message, T data) {
     this.code = code;
