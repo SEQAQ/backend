@@ -11,7 +11,10 @@ Create `application-local.properties` in `src/main/resources` and set active pro
 ### Test Environments
 
 ```shell script
+# Start the test env
 docker-compose -f docker-compose-citest.yml up --build
+# reset test env
+docker-compose -f docker-compose-citest.yml down
 ```
 
 Refer to [config](docker-compose-citest.yml) to see the config for test environment.
