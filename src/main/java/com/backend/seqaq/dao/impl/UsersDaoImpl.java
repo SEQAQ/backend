@@ -28,13 +28,25 @@ public class UsersDaoImpl implements UsersDao {
   }
 
   public String register(Users u) {
+    String account = u.getAccount();
+    String pw = u.getPassword();
+    String eml = u.getEmail();
+    if(!checkAccount(account)){
+      return "Account unformal";
+    }
+    if(!checkPwd(pw)){
+      return "Password unformal";
+    }
+    if(!checkEmail(eml)){
+      return "Email unformal";
+    }
     if (findByAccount(u.getAccount()) != null) return "Account Exists";
     else {
       u.setStatus(1);
       u.setRole("user");
       usersRepository.save(u);
+      return "OK";
     }
-    return "OK";
   }
 
   public List<Users> findAllByUnameContaining(String text) {
@@ -46,5 +58,27 @@ public class UsersDaoImpl implements UsersDao {
     UserDetail detail = userDetailRepository.findByUid(user.getUid()).orElse(null);
     user.setDetail(detail);
     return user;
+  }
+  public static boolean checkAccount(String name) {
+    String regExp = "^[^0-9][\\w_]{5,9}$";
+    if(name.matches(regExp)) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+  public static boolean checkPwd(String pwd) {
+    String regExp = "^[\\w_]{6,20}$";
+    if(pwd.matches(regExp)) {
+      return true;
+    }
+    return false;
+  }
+  public static boolean checkEmail(String email) {
+    String regExp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$";
+    if(email.matches(regExp)) {
+      return true;
+    }
+    return false;
   }
 }

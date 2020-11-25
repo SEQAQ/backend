@@ -22,7 +22,7 @@ public class Users {
   private String password;
 
   @Column(name = "email")
-  private String emali;
+  private String email;
 
   @Column(name = "phone")
   private String phone;

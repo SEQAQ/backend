@@ -25,6 +25,9 @@ class UsersServiceTest {
   @Test
   void register() {
     Users u = new Users();
+    u.setAccount("acc1522");
+    u.setPassword("sadadwdd");
+    u.setEmail("541551");
     System.out.println(usersService.register(u));
   }
 }
