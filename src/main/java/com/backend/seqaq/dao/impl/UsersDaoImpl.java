@@ -31,13 +31,13 @@ public class UsersDaoImpl implements UsersDao {
     String account = u.getAccount();
     String pw = u.getPassword();
     String eml = u.getEmail();
-    if(!checkAccount(account)){
+    if (!checkAccount(account)) {
       return "Account unformal";
     }
-    if(!checkPwd(pw)){
+    if (!checkPwd(pw)) {
       return "Password unformal";
     }
-    if(!checkEmail(eml)){
+    if (!checkEmail(eml)) {
       return "Email unformal";
     }
     if (findByAccount(u.getAccount()) != null) return "Account Exists";
@@ -59,24 +59,27 @@ public class UsersDaoImpl implements UsersDao {
     user.setDetail(detail);
     return user;
   }
+
   public static boolean checkAccount(String name) {
     String regExp = "^[^0-9][\\w_]{5,9}$";
-    if(name.matches(regExp)) {
+    if (name.matches(regExp)) {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
+
   public static boolean checkPwd(String pwd) {
     String regExp = "^[\\w_]{6,20}$";
-    if(pwd.matches(regExp)) {
+    if (pwd.matches(regExp)) {
       return true;
     }
     return false;
   }
+
   public static boolean checkEmail(String email) {
     String regExp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$";
-    if(email.matches(regExp)) {
+    if (email.matches(regExp)) {
       return true;
     }
     return false;
