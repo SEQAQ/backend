@@ -85,3 +85,13 @@ create table followers
 	foreign key (uid1) references users(uid),
   foreign key (uid2) references users(uid)
 )DEFAULT CHARSET=utf8;
+
+create table confirmation_token
+(
+tid				BIGINT NOT null AUTO_INCREMENT,
+token     VARCHAR(255),
+created_date timestamp,
+uid				BIGINT NOT NULL,
+primary key (tid),
+foreign key (uid) references users(uid)
+)DEFAULT CHARSET=utf8;
