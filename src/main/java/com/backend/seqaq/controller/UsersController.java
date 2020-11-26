@@ -44,9 +44,9 @@ public class UsersController {
       @RequestParam("account") String account, @RequestParam("password") String password) {
     return usersService.login(account, password);
   }
+
   @PostMapping("/checkstatus")
-  public String checkstatus(
-          @RequestParam("account") String account) {
+  public String checkstatus(@RequestParam("account") String account) {
     return usersService.checkStatus(account);
   }
 }

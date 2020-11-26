@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UsersServiceImpl implements UsersService {
-  @Autowired
-  private UsersDao usersDao;
+  @Autowired private UsersDao usersDao;
 
   public Users findById(Long id) {
     return usersDao.findById(id);

@@ -56,12 +56,15 @@ public class Users {
   @Transient private UserDetail detail;
 
   private String token;
+
   public void setToken(String token) {
     this.token = token;
   }
+
   public String getToken() {
     return this.token;
   }
+
   public UserDetail getDetail() {
     return detail;
   }
