@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Data
 public class Users {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "uid")
@@ -42,7 +43,7 @@ public class Users {
   @Column(name = "role")
   private String role;
 
-  // 0: banned 1: active -1: delete
+  // 0: banned 1: 待激活 -1: delete 2: active
   @Column(name = "stat")
   private Integer status; // ban or not?
 
@@ -54,6 +55,13 @@ public class Users {
 
   @Transient private UserDetail detail;
 
+  private String token;
+  public void setToken(String token) {
+    this.token = token;
+  }
+  public String getToken() {
+    return this.token;
+  }
   public UserDetail getDetail() {
     return detail;
   }
