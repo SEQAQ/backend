@@ -19,4 +19,4 @@ spring:
       "[mail.smtp.writetimeout]": 5000
     username: ${EMAIL_USERNAME}
     password: ${EMAIL_PASSWORD}
-    port: 587
+    port: ${EMAIL_PORT}
