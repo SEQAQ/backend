@@ -1,11 +1,10 @@
 package com.backend.seqaq.service;
 
 import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.util.exception.RegistrationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UsersServiceTest {
@@ -23,7 +22,7 @@ class UsersServiceTest {
   void findByAccount() {}
 
   @Test
-  void register() {
+  void register() throws RegistrationException {
     Users u = new Users();
     u.setAccount("acc1522");
     u.setPassword("sadadwdd");

@@ -3,6 +3,7 @@ package com.backend.seqaq.service.impl;
 import com.backend.seqaq.dao.UsersDao;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.UsersService;
+import com.backend.seqaq.util.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class UsersServiceImpl implements UsersService {
     return usersDao.findByAccount(account);
   }
 
-  public String register(Users u) {
+  public Users register(Users u) throws RegistrationException {
     return usersDao.register(u);
   }
 
@@ -58,7 +59,7 @@ public class UsersServiceImpl implements UsersService {
       case 1:
         result = "用户未激活";
         break;
-      case 2:
+      case Users.STAT_ACTIVATED:
         result = "用户已激活";
         break;
       case 0:
@@ -70,4 +71,11 @@ public class UsersServiceImpl implements UsersService {
     }
     return result;
   }
+
+  @Override
+  public void activate(Users user) {
+    user.setStatus(Users.STAT_ACTIVATED);
+    usersDao.saveUser(user);
+  }
+
 }

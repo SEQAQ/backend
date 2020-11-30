@@ -5,6 +5,7 @@ import com.backend.seqaq.entity.UserDetail;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.repository.UserDetailRepository;
 import com.backend.seqaq.repository.UsersRepository;
+import com.backend.seqaq.util.exception.RegistrationException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,26 +28,9 @@ public class UsersDaoImpl implements UsersDao {
     return attachDetail(usersRepository.findByAccount(account));
   }
 
-  public String register(Users u) {
-    String account = u.getAccount();
-    String pw = u.getPassword();
-    String eml = u.getEmail();
-    if (!checkAccount(account)) {
-      return "Account unformal";
-    }
-    if (!checkPwd(pw)) {
-      return "Password unformal";
-    }
-    if (!checkEmail(eml)) {
-      return "Email unformal";
-    }
-    if (findByAccount(u.getAccount()) != null) return "Account Exists";
-    else {
-      u.setStatus(1);
-      u.setRole("user");
-      usersRepository.save(u);
-      return "OK";
-    }
+  public static boolean checkAccount(String name) {
+    String regExp = "^[^0-9][\\w_]{5,9}$";
+    return name.matches(regExp);
   }
 
   public List<Users> findAllByUnameContaining(String text) {
@@ -60,28 +44,40 @@ public class UsersDaoImpl implements UsersDao {
     return user;
   }
 
-  public static boolean checkAccount(String name) {
-    String regExp = "^[^0-9][\\w_]{5,9}$";
-    if (name.matches(regExp)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   public static boolean checkPwd(String pwd) {
     String regExp = "^[\\w_]{6,20}$";
-    if (pwd.matches(regExp)) {
-      return true;
-    }
-    return false;
+    return pwd.matches(regExp);
   }
 
   public static boolean checkEmail(String email) {
     String regExp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$";
-    if (email.matches(regExp)) {
-      return true;
+    return email.matches(regExp);
+  }
+
+  public Users register(Users u) throws RegistrationException {
+    String account = u.getAccount();
+    String pw = u.getPassword();
+    String eml = u.getEmail();
+    if (!checkAccount(account)) {
+      throw new RegistrationException("Wrong account format");
     }
-    return false;
+    if (!checkPwd(pw)) {
+      throw new RegistrationException("Wrong password format");
+    }
+    if (!checkEmail(eml)) {
+      throw new RegistrationException("Wrong email format");
+    }
+    if (findByAccount(u.getAccount()) != null)
+      throw new RegistrationException("Account exists");
+    else {
+      u.setStatus(1);
+      u.setRole("user");
+      return usersRepository.save(u);
+    }
+  }
+
+  @Override
+  public Users saveUser(Users user) {
+    return usersRepository.save(user);
   }
 }

@@ -34,3 +34,4 @@ build/
 
 ### Privacy
 application-local.properties
+application-local.yml
