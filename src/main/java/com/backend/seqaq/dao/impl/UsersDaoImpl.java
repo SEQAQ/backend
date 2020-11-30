@@ -67,8 +67,7 @@ public class UsersDaoImpl implements UsersDao {
     if (!checkEmail(eml)) {
       throw new RegistrationException("Wrong email format");
     }
-    if (findByAccount(u.getAccount()) != null)
-      throw new RegistrationException("Account exists");
+    if (findByAccount(u.getAccount()) != null) throw new RegistrationException("Account exists");
     else {
       u.setStatus(1);
       u.setRole("user");

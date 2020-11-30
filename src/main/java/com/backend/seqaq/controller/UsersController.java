@@ -23,9 +23,9 @@ public class UsersController {
   private final ConfirmationTokenService confirmationTokenService;
 
   public UsersController(
-          UsersService usersService,
-          ApplicationEventPublisher eventPublisher,
-          ConfirmationTokenService confirmationTokenService) {
+      UsersService usersService,
+      ApplicationEventPublisher eventPublisher,
+      ConfirmationTokenService confirmationTokenService) {
     this.usersService = usersService;
     this.eventPublisher = eventPublisher;
     this.confirmationTokenService = confirmationTokenService;
@@ -65,7 +65,7 @@ public class UsersController {
 
   @PostMapping("/login")
   public String login(
-          @RequestParam("account") String account, @RequestParam("password") String password) {
+      @RequestParam("account") String account, @RequestParam("password") String password) {
     return usersService.login(account, password);
   }
 

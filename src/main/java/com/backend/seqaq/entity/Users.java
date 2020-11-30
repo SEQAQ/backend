@@ -54,11 +54,10 @@ public class Users {
   @Column(name = "followed")
   private Long followed; // #fans
 
-  @Transient
-  private UserDetail detail;
+  @Transient private UserDetail detail;
 
   @OneToOne(mappedBy = "user")
-//  @persistent
+  //  @persistent
   private ConfirmationToken token;
 
   public ConfirmationToken getToken() {

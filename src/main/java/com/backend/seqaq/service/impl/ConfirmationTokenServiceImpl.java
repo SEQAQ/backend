@@ -10,23 +10,23 @@ import java.util.Date;
 
 @Service
 public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
-    private final ConfirmationTokenDao confirmationTokenDao;
+  private final ConfirmationTokenDao confirmationTokenDao;
 
-    public ConfirmationTokenServiceImpl(ConfirmationTokenDao confirmationTokenDao) {
-        this.confirmationTokenDao = confirmationTokenDao;
-    }
+  public ConfirmationTokenServiceImpl(ConfirmationTokenDao confirmationTokenDao) {
+    this.confirmationTokenDao = confirmationTokenDao;
+  }
 
-    @Override
-    public ConfirmationToken findByToken(String token) {
-        return confirmationTokenDao.findByToken(token);
-    }
+  @Override
+  public ConfirmationToken findByToken(String token) {
+    return confirmationTokenDao.findByToken(token);
+  }
 
-    @Override
-    public void saveNewToken(Users user, String tokenString) {
-        ConfirmationToken confirmationToken = new ConfirmationToken();
-        confirmationToken.setUser(user);
-        confirmationToken.setToken(tokenString);
-        confirmationToken.setCreatedDate(new Date());
-        confirmationTokenDao.saveToken(confirmationToken);
-    }
+  @Override
+  public void saveNewToken(Users user, String tokenString) {
+    ConfirmationToken confirmationToken = new ConfirmationToken();
+    confirmationToken.setUser(user);
+    confirmationToken.setToken(tokenString);
+    confirmationToken.setCreatedDate(new Date());
+    confirmationTokenDao.saveToken(confirmationToken);
+  }
 }

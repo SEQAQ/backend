@@ -7,19 +7,19 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ConfirmationDaoImpl implements ConfirmationTokenDao {
-    private final ConfirmationTokenRepository confirmationTokenRepository;
+  private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public ConfirmationDaoImpl(ConfirmationTokenRepository confirmationTokenRepository) {
-        this.confirmationTokenRepository = confirmationTokenRepository;
-    }
+  public ConfirmationDaoImpl(ConfirmationTokenRepository confirmationTokenRepository) {
+    this.confirmationTokenRepository = confirmationTokenRepository;
+  }
 
-    @Override
-    public ConfirmationToken findByToken(String token) {
-        return confirmationTokenRepository.findByToken(token);
-    }
+  @Override
+  public ConfirmationToken findByToken(String token) {
+    return confirmationTokenRepository.findByToken(token);
+  }
 
-    @Override
-    public ConfirmationToken saveToken(ConfirmationToken token) {
-        return confirmationTokenRepository.save(token);
-    }
+  @Override
+  public ConfirmationToken saveToken(ConfirmationToken token) {
+    return confirmationTokenRepository.save(token);
+  }
 }

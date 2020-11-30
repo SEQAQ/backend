@@ -77,5 +77,4 @@ public class UsersServiceImpl implements UsersService {
     user.setStatus(Users.STAT_ACTIVATED);
     usersDao.saveUser(user);
   }
-
 }

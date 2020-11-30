@@ -17,14 +17,10 @@ import java.util.UUID;
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompletedEvent> {
 
-  @Autowired
-  private UsersService service;
-  @Autowired
-  private ConfirmationTokenService tokenService;
-  @Autowired
-  private JavaMailSender mailSender;
-  @Autowired
-  private Environment env;
+  @Autowired private UsersService service;
+  @Autowired private ConfirmationTokenService tokenService;
+  @Autowired private JavaMailSender mailSender;
+  @Autowired private Environment env;
 
   @Override
   public void onApplicationEvent(OnRegistrationCompletedEvent event) {
@@ -36,10 +32,9 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
   }
 
   private void confirmRegistration(OnRegistrationCompletedEvent event)
-          throws RegistrationException {
+      throws RegistrationException {
     String senderAddr = env.getProperty("spring.mail.username");
-    if (senderAddr == null)
-      throw new RegistrationException("Email service failure");
+    if (senderAddr == null) throw new RegistrationException("Email service failure");
 
     Users user = event.getUser();
     String tokenString = UUID.randomUUID().toString();
@@ -47,11 +42,11 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     String recipientAddress = user.getEmail();
     String subject = "开启 QAQ 世界的大门";
     String text =
-            "Hi, "
-                    + user.getRname()
-                    + "!\r\n\r\n 🔗 https://uniqaq"
-                    + ".tk/users/activate?token="
-                    + tokenString;
+        "Hi, "
+            + user.getRname()
+            + "!\r\n\r\n 🔗 https://uniqaq"
+            + ".tk/users/activate?token="
+            + tokenString;
     SimpleMailMessage email = new SimpleMailMessage();
     email.setFrom(senderAddr);
     email.setTo(recipientAddress);

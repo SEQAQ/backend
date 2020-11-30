@@ -4,7 +4,7 @@ import com.backend.seqaq.entity.ConfirmationToken;
 import com.backend.seqaq.entity.Users;
 
 public interface ConfirmationTokenService {
-    ConfirmationToken findByToken(String token);
+  ConfirmationToken findByToken(String token);
 
-    void saveNewToken(Users user, String tokenString);
+  void saveNewToken(Users user, String tokenString);
 }
