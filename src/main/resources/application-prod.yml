@@ -1,0 +1,22 @@
+server:
+  port: 80
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URL}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${MYSQL_PASSWORD}
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+  mail:
+    host: ${EMAIL_HOST}
+    properties:
+      "[mail.smtp.auth]": true
+      "[mail.smtp.startssl.enable]": true
+      "[mail.smtp.connectiontimeout]": 5000
+      "[mail.smtp.timeout]": 3000
+      "[mail.smtp.writetimeout]": 5000
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    port: ${EMAIL_PORT}

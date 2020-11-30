@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Data
 public class Users {
+  public static final int STAT_ACTIVATED = 2;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,15 +56,17 @@ public class Users {
 
   @Transient private UserDetail detail;
 
-  //  private String token;
-  //
-  //  public void setToken(String token) {
-  //    this.token = token;
-  //  }
-  //
-  //  public String getToken() {
-  //    return this.token;
-  //  }
+  @OneToOne(mappedBy = "user")
+  //  @persistent
+  private ConfirmationToken token;
+
+  public ConfirmationToken getToken() {
+    return this.token;
+  }
+
+  public void setToken(ConfirmationToken token) {
+    this.token = token;
+  }
 
   public UserDetail getDetail() {
     return detail;
@@ -71,5 +74,117 @@ public class Users {
 
   public void setDetail(UserDetail detail) {
     this.detail = detail;
+  }
+
+  public Long getUid() {
+    return uid;
+  }
+
+  public void setUid(Long uid) {
+    this.uid = uid;
+  }
+
+  public String getUname() {
+    return uname;
+  }
+
+  public void setUname(String uname) {
+    this.uname = uname;
+  }
+
+  public String getAccount() {
+    return account;
+  }
+
+  public void setAccount(String account) {
+    this.account = account;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getSex() {
+    return sex;
+  }
+
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
+
+  public String getRname() {
+    return rname;
+  }
+
+  public void setRname(String rname) {
+    this.rname = rname;
+  }
+
+  public String getCid() {
+    return cid;
+  }
+
+  public void setCid(String cid) {
+    this.cid = cid;
+  }
+
+  public String getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(String department) {
+    this.department = department;
+  }
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
+
+  public Long getFollower() {
+    return follower;
+  }
+
+  public void setFollower(Long follower) {
+    this.follower = follower;
+  }
+
+  public Long getFollowed() {
+    return followed;
+  }
+
+  public void setFollowed(Long followed) {
+    this.followed = followed;
   }
 }
