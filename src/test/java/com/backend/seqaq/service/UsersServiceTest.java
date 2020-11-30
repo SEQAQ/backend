@@ -26,7 +26,7 @@ class UsersServiceTest {
     Users u = new Users();
     u.setAccount("acc1522");
     u.setPassword("sadadwdd");
-    u.setEmail("541551");
+    u.setEmail("541551@dobby.free");
     System.out.println(usersService.register(u));
   }
 }

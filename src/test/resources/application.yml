@@ -1,0 +1,15 @@
+# For CI environment, copy and modify a local version if necessary
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:example@localhost:27775/qaq?authSource=admin
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ez_pass
+    url: jdbc:mysql://localhost:54321/seqaq?characterEncoding=utf-8
+    username: root
+  mail:
+    host: "todo.fixme"
+    username: todo
+    password: todo
+    port: 587
