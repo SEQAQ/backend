@@ -3,6 +3,8 @@ package com.backend.seqaq.service;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.util.exception.RegistrationException;
 
+import java.util.List;
+
 public interface UsersService {
   Users findById(Long id);
 
@@ -19,4 +21,14 @@ public interface UsersService {
   String checkStatus(String account);
 
   void activate(Users user);
+
+  String generateJwtToken(String account);
+
+  Users getJwtTokenInfo(String account);
+
+  void deleteLoginInfo(String account);
+
+  Users getUserInfo(String account);
+
+  List<String> getUserRoles(Long uid);
 }

@@ -1,11 +1,16 @@
 package com.backend.seqaq.entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Data;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
+@TypeDef(name = "json", typeClass = JsonStringType.class)
 public class Users {
   public static final int STAT_ACTIVATED = 2;
 
@@ -22,6 +27,12 @@ public class Users {
 
   @Column(name = "password")
   private String password;
+
+  @Column(name = "encryptPwd")
+  private String encryptPwd;
+
+  @Column(name = "salt")
+  private String salt;
 
   @Column(name = "email")
   private String email;
@@ -44,8 +55,12 @@ public class Users {
   @Column(name = "role")
   private String role;
 
+  @Type( type = "json" )
+  @Column(name = "roles", columnDefinition = "json")
+  private List<String> roles;
+
   // 0: banned 1: 待激活 -1: delete 2: active
-  @Column(name = "stat")
+  @Column(name = "status")
   private Integer status; // ban or not?
 
   @Column(name = "follower")
@@ -108,6 +123,14 @@ public class Users {
     this.password = password;
   }
 
+  public String getEncryptPwd() { return encryptPwd; }
+
+  public void setEncryptPwd(String encryptPwd) { this.encryptPwd = encryptPwd; }
+
+  public String getSalt() { return salt; }
+
+  public void setSalt(String salt) { this.salt = salt; }
+
   public String getEmail() {
     return email;
   }
@@ -163,6 +186,10 @@ public class Users {
   public void setRole(String role) {
     this.role = role;
   }
+
+  public List<String> getRoles() { return roles; }
+
+  public void setRoles(List<String> roles) { this.roles = roles; }
 
   public Integer getStatus() {
     return status;

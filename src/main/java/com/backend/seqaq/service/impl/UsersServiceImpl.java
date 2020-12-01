@@ -1,11 +1,16 @@
 package com.backend.seqaq.service.impl;
 
+import com.backend.seqaq.config.JwtUtils;
 import com.backend.seqaq.dao.UsersDao;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.exception.RegistrationException;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+//import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -76,5 +81,39 @@ public class UsersServiceImpl implements UsersService {
   public void activate(Users user) {
     user.setStatus(Users.STAT_ACTIVATED);
     usersDao.saveUser(user);
+  }
+
+  public String generateJwtToken(String account) {
+    String salt = JwtUtils.generateSalt();
+    Users user = usersDao.findByAccount(account);
+    if(user == null) return "Error";
+    user.setSalt(salt);
+    return JwtUtils.sign(account, salt, 3600);
+  }
+
+  public Users getJwtTokenInfo(String account) {
+    return findByAccount(account);
+  }
+
+  public void deleteLoginInfo(String account) {
+    Users user = usersDao.findByAccount(account);
+    user.setSalt("");
+  }
+
+  public Users getUserInfo(String account) {
+    Users user = new Users();
+    user.setEncryptPwd(new Sha256Hash(user.getPassword(), user.getSalt()).toHex());
+    return user;
+  }
+
+  /**
+   * 获取用户角色列表，强烈建议从缓存中获取
+   * @param uid
+   * @return
+   */
+  public List<String> getUserRoles(Long uid){
+    Users user = usersDao.findById(uid);
+//    return Arrays.asList("admin");
+    return user.getRoles();
   }
 }
