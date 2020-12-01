@@ -9,7 +9,7 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//import java.util.Arrays;
+// import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -86,7 +86,7 @@ public class UsersServiceImpl implements UsersService {
   public String generateJwtToken(String account) {
     String salt = JwtUtils.generateSalt();
     Users user = usersDao.findByAccount(account);
-    if(user == null) return "Error";
+    if (user == null) return "Error";
     user.setSalt(salt);
     return JwtUtils.sign(account, salt, 3600);
   }
@@ -108,12 +108,13 @@ public class UsersServiceImpl implements UsersService {
 
   /**
    * 获取用户角色列表，强烈建议从缓存中获取
+   *
    * @param uid
    * @return
    */
-  public List<String> getUserRoles(Long uid){
+  public List<String> getUserRoles(Long uid) {
     Users user = usersDao.findById(uid);
-//    return Arrays.asList("admin");
+    //    return Arrays.asList("admin");
     return user.getRoles();
   }
 }
