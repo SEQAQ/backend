@@ -55,7 +55,7 @@ public class Users {
   @Column(name = "role")
   private String role;
 
-  @Type( type = "json" )
+  @Type(type = "json")
   @Column(name = "roles", columnDefinition = "json")
   private List<String> roles;
 
@@ -123,13 +123,21 @@ public class Users {
     this.password = password;
   }
 
-  public String getEncryptPwd() { return encryptPwd; }
+  public String getEncryptPwd() {
+    return encryptPwd;
+  }
 
-  public void setEncryptPwd(String encryptPwd) { this.encryptPwd = encryptPwd; }
+  public void setEncryptPwd(String encryptPwd) {
+    this.encryptPwd = encryptPwd;
+  }
 
-  public String getSalt() { return salt; }
+  public String getSalt() {
+    return salt;
+  }
 
-  public void setSalt(String salt) { this.salt = salt; }
+  public void setSalt(String salt) {
+    this.salt = salt;
+  }
 
   public String getEmail() {
     return email;
@@ -187,9 +195,13 @@ public class Users {
     this.role = role;
   }
 
-  public List<String> getRoles() { return roles; }
+  public List<String> getRoles() {
+    return roles;
+  }
 
-  public void setRoles(List<String> roles) { this.roles = roles; }
+  public void setRoles(List<String> roles) {
+    this.roles = roles;
+  }
 
   public Integer getStatus() {
     return status;

@@ -24,12 +24,9 @@ import javax.servlet.Filter;
 import java.util.Arrays;
 import java.util.Map;
 
-/**
- * shiro配置类
- */
+/** shiro配置类 */
 @Configuration
 public class ShiroConfig {
-
     @Bean
     public FilterRegistrationBean<Filter> filterRegistrationBean(SecurityManager securityManager,UsersService usersService) throws Exception{
         FilterRegistrationBean<Filter> filterRegistration = new FilterRegistrationBean<Filter>();
@@ -106,5 +103,4 @@ public class ShiroConfig {
     protected AnyRolesAuthorizationFilter createRolesFilter(){
         return new AnyRolesAuthorizationFilter();
     }
-
 }
