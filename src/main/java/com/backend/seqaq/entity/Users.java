@@ -60,7 +60,7 @@ public class Users {
   private List<String> roles;
 
   // 0: banned 1: 待激活 -1: delete 2: active
-  @Column(name = "status")
+  @Column(name = "stat")
   private Integer status; // ban or not?
 
   @Column(name = "follower")

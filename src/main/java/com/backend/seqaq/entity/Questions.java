@@ -26,7 +26,7 @@ public class Questions {
   private Timestamp mtime;
 
   // 0: banned 1: active -1: delete
-  @Column(name = "status")
+  @Column(name = "stat")
   private Integer status;
 
   @Column(name = "uid")
