@@ -27,80 +27,83 @@ import java.util.Map;
 /** shiro配置类 */
 @Configuration
 public class ShiroConfig {
-    @Bean
-    public FilterRegistrationBean<Filter> filterRegistrationBean(SecurityManager securityManager,UsersService usersService) throws Exception{
-        FilterRegistrationBean<Filter> filterRegistration = new FilterRegistrationBean<Filter>();
-        filterRegistration.setFilter((Filter)shiroFilter(securityManager, usersService).getObject());
-        filterRegistration.addInitParameter("targetFilterLifecycle", "true");
-        filterRegistration.setAsyncSupported(true);
-        filterRegistration.setEnabled(true);
-        filterRegistration.setDispatcherTypes(DispatcherType.REQUEST,DispatcherType.ASYNC);
+  @Bean
+  public FilterRegistrationBean<Filter> filterRegistrationBean(
+      SecurityManager securityManager, UsersService usersService) throws Exception {
+    FilterRegistrationBean<Filter> filterRegistration = new FilterRegistrationBean<Filter>();
+    filterRegistration.setFilter((Filter) shiroFilter(securityManager, usersService).getObject());
+    filterRegistration.addInitParameter("targetFilterLifecycle", "true");
+    filterRegistration.setAsyncSupported(true);
+    filterRegistration.setEnabled(true);
+    filterRegistration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC);
 
-        return filterRegistration;
-    }
+    return filterRegistration;
+  }
 
-    @Bean
-    public Authenticator authenticator(UsersService usersService) {
-        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
-        authenticator.setRealms(Arrays.asList(jwtShiroRealm(usersService), dbShiroRealm(usersService)));
-        authenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
-        return authenticator;
-    }
+  @Bean
+  public Authenticator authenticator(UsersService usersService) {
+    ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+    authenticator.setRealms(Arrays.asList(jwtShiroRealm(usersService), dbShiroRealm(usersService)));
+    authenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
+    return authenticator;
+  }
 
-    @Bean
-    protected SessionStorageEvaluator sessionStorageEvaluator(){
-        DefaultWebSessionStorageEvaluator sessionStorageEvaluator = new DefaultWebSessionStorageEvaluator();
-        sessionStorageEvaluator.setSessionStorageEnabled(false);
-        return sessionStorageEvaluator;
-    }
+  @Bean
+  protected SessionStorageEvaluator sessionStorageEvaluator() {
+    DefaultWebSessionStorageEvaluator sessionStorageEvaluator =
+        new DefaultWebSessionStorageEvaluator();
+    sessionStorageEvaluator.setSessionStorageEnabled(false);
+    return sessionStorageEvaluator;
+  }
 
-    @Bean("dbRealm")
-    public Realm dbShiroRealm(UsersService usersService) {
-        DbShiroRealm myShiroRealm = new DbShiroRealm(usersService);
-        return myShiroRealm;
-    }
+  @Bean("dbRealm")
+  public Realm dbShiroRealm(UsersService usersService) {
+    DbShiroRealm myShiroRealm = new DbShiroRealm(usersService);
+    return myShiroRealm;
+  }
 
-    @Bean("jwtRealm")
-    public Realm jwtShiroRealm(UsersService usersService) {
-        JWTShiroRealm myShiroRealm = new JWTShiroRealm(usersService);
-        return myShiroRealm;
-    }
+  @Bean("jwtRealm")
+  public Realm jwtShiroRealm(UsersService usersService) {
+    JWTShiroRealm myShiroRealm = new JWTShiroRealm(usersService);
+    return myShiroRealm;
+  }
 
-    /**
-     * 设置过滤器
-     */
-    @Bean("shiroFilterFactoryBean")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager, UsersService usersService) {
-        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
-        factoryBean.setSecurityManager(securityManager);
-        Map<String, Filter> filterMap = factoryBean.getFilters();
-        filterMap.put("authcToken", createAuthFilter(usersService));
-        filterMap.put("anyRole", createRolesFilter());
-        factoryBean.setFilters(filterMap);
-        factoryBean.setFilterChainDefinitionMap(shiroFilterChainDefinition().getFilterChainMap());
+  /** 设置过滤器 */
+  @Bean("shiroFilterFactoryBean")
+  public ShiroFilterFactoryBean shiroFilter(
+      SecurityManager securityManager, UsersService usersService) {
+    ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+    factoryBean.setSecurityManager(securityManager);
+    Map<String, Filter> filterMap = factoryBean.getFilters();
+    filterMap.put("authcToken", createAuthFilter(usersService));
+    filterMap.put("anyRole", createRolesFilter());
+    factoryBean.setFilters(filterMap);
+    factoryBean.setFilterChainDefinitionMap(shiroFilterChainDefinition().getFilterChainMap());
 
-        return factoryBean;
-    }
+    return factoryBean;
+  }
 
-    @Bean
-    protected ShiroFilterChainDefinition shiroFilterChainDefinition() {
-        DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
-        chainDefinition.addPathDefinition("/users/login", "noSessionCreation,anon");
-        chainDefinition.addPathDefinition("/users/register", "noSessionCreation,anon");
-        chainDefinition.addPathDefinition("/users/logout", "noSessionCreation,authcToken[permissive]");
-        chainDefinition.addPathDefinition("/image/**", "anon");
-        chainDefinition.addPathDefinition("/admin/**", "noSessionCreation,authcToken,anyRole[admin,manager]"); //只允许admin或manager角色的用户访问
-        chainDefinition.addPathDefinition("/article/list", "noSessionCreation,authcToken");
-        chainDefinition.addPathDefinition("/article/*", "noSessionCreation,authcToken[permissive]");
-        chainDefinition.addPathDefinition("/**", "noSessionCreation,authcToken");
-        return chainDefinition;
-    }
+  @Bean
+  protected ShiroFilterChainDefinition shiroFilterChainDefinition() {
+    DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+    chainDefinition.addPathDefinition("/users/login", "noSessionCreation,anon");
+    chainDefinition.addPathDefinition("/users/register", "noSessionCreation,anon");
+    chainDefinition.addPathDefinition("/users/logout", "noSessionCreation,authcToken[permissive]");
+    chainDefinition.addPathDefinition("/image/**", "anon");
+    chainDefinition.addPathDefinition(
+        "/admin/**",
+        "noSessionCreation,authcToken,anyRole[admin,manager]"); // 只允许admin或manager角色的用户访问
+    chainDefinition.addPathDefinition("/article/list", "noSessionCreation,authcToken");
+    chainDefinition.addPathDefinition("/article/*", "noSessionCreation,authcToken[permissive]");
+    chainDefinition.addPathDefinition("/**", "noSessionCreation,authcToken");
+    return chainDefinition;
+  }
 
-    protected JwtAuthFilter createAuthFilter(UsersService usersService){
-        return new JwtAuthFilter(usersService);
-    }
+  protected JwtAuthFilter createAuthFilter(UsersService usersService) {
+    return new JwtAuthFilter(usersService);
+  }
 
-    protected AnyRolesAuthorizationFilter createRolesFilter(){
-        return new AnyRolesAuthorizationFilter();
-    }
+  protected AnyRolesAuthorizationFilter createRolesFilter() {
+    return new AnyRolesAuthorizationFilter();
+  }
 }
