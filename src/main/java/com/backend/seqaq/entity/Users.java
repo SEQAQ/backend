@@ -28,7 +28,7 @@ public class Users {
   @Column(name = "password")
   private String password;
 
-  @Column(name = "encryptPwd")
+  @Column(name = "encrypt_pwd")
   private String encryptPwd;
 
   @Column(name = "salt")
