@@ -9,24 +9,22 @@ import com.backend.seqaq.tools.fenci.jieba.JiebaSegmenter;
 import com.backend.seqaq.tools.fenci.jieba.SegToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class QueryServiceImpl implements QueryService {
   @Autowired private QuesDao quesDao;
   @Autowired private UsersDao usersDao;
   private JiebaSegmenter segmenter = new JiebaSegmenter();
+
   public List<String> fenci(String test) {
     List<SegToken> tokens = segmenter.process(test, JiebaSegmenter.SegMode.INDEX);
     List<String> result = new ArrayList<String>();
-    for (int i = 0; i<tokens.size();++i) {
+    for (int i = 0; i < tokens.size(); ++i) {
       System.out.println(tokens.get(i).toString());
-      result.add(i,tokens.get(i).toString());
+      result.add(i, tokens.get(i).toString());
     }
     System.out.println(result);
     return result;
@@ -34,15 +32,14 @@ public class QueryServiceImpl implements QueryService {
 
   public List<Questions> queryForQuesByTag(String text) {
     List<String> tmp = fenci(text);
-    List<Questions> result  = new ArrayList<Questions>();
-    for (int i=0; i < tmp.size();++i)
-    {
+    List<Questions> result = new ArrayList<Questions>();
+    for (int i = 0; i < tmp.size(); ++i) {
       List<Questions> tmpques = quesDao.findAllByTagContaining(tmp.get(i));
       result.addAll(tmpques);
     }
     List<Questions> fresult = new ArrayList<Questions>();
-    for (Questions cd:result) {
-      if(!fresult.contains(cd)) {
+    for (Questions cd : result) {
+      if (!fresult.contains(cd)) {
         fresult.add(cd);
       }
     }
@@ -51,15 +48,14 @@ public class QueryServiceImpl implements QueryService {
 
   public List<Questions> queryForQuesByTitle(String text) {
     List<String> tmp = fenci(text);
-    List<Questions> result  = new ArrayList<Questions>();
-    for (int i=0; i < tmp.size();++i)
-    {
+    List<Questions> result = new ArrayList<Questions>();
+    for (int i = 0; i < tmp.size(); ++i) {
       List<Questions> tmpques = quesDao.findAllByTitleContaining(tmp.get(i));
       result.addAll(tmpques);
     }
     List<Questions> fresult = new ArrayList<Questions>();
-    for (Questions cd:result) {
-      if(!fresult.contains(cd)) {
+    for (Questions cd : result) {
+      if (!fresult.contains(cd)) {
         fresult.add(cd);
       }
     }
