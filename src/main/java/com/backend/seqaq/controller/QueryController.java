@@ -30,4 +30,9 @@ public class QueryController {
   public List<Questions> queryForQuesByTitle(@RequestParam("title") String title) {
     return queryService.queryForQuesByTitle(title);
   }
+
+  @GetMapping("/ques/content")
+  public List<Questions> queryForQuesByContent(@RequestParam("content") String content) {
+    return queryService.queryForQuesByContent(content);
+  }
 }
