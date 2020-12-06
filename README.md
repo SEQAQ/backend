@@ -1,5 +1,9 @@
 # QAQ Backend
 
+![Format](https://github.com/SEQAQ/backend/workflows/Format/badge.svg)
+![Tests](https://github.com/SEQAQ/backend/workflows/Tests/badge.svg)
+![Build and Deploy](https://github.com/SEQAQ/backend/workflows/Build%20and%20Deploy/badge.svg)
+
 Backend for the QAQ
 
 ## Getting Started
@@ -26,7 +30,3 @@ Update the [initial MySQL Script](scripts/mysql/1_init_data.sql) if necessary fo
 We follow [Google Java Format](https://github.com/google/google-java-format)
 
 A [GitHub Action](https://github.com/axel-op/googlejavaformat-action) will also format all files.
-
-### Deployment
-
-Update container `ENV` according to profile files.
