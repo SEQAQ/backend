@@ -9,7 +9,7 @@ public interface QueryService {
   List<Questions> queryForQuesByTag(String text);
 
   List<Questions> queryForQuesByTitle(String text);
-  // List<Questions> queryForQuesByText(String text);
+  List<Questions> queryForQuesByContent(String text);
   // List<String> getSubString(String text);
   List<Users> queryForUsers(String nickname);
 }

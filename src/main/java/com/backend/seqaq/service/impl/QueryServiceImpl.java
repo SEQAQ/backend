@@ -45,7 +45,21 @@ public class QueryServiceImpl implements QueryService {
     }
     return fresult;
   }
-
+  public List<Questions> queryForQuesByContent(String text) {
+    List<String> tmp = fenci(text);
+    List<Questions> result = new ArrayList<Questions>();
+    for (int i = 0; i < tmp.size(); ++i) {
+      List<Questions> tmpques = quesDao.findAllByDetailContaining(tmp.get(i));
+      result.addAll(tmpques);
+    }
+    List<Questions> fresult = new ArrayList<Questions>();
+    for (Questions cd : result) {
+      if (!fresult.contains(cd)) {
+        fresult.add(cd);
+      }
+    }
+    return fresult;
+  }
   public List<Questions> queryForQuesByTitle(String text) {
     List<String> tmp = fenci(text);
     List<Questions> result = new ArrayList<Questions>();
