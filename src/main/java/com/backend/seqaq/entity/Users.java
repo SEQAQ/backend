@@ -57,7 +57,6 @@ public class Users {
   @Transient private UserDetail detail;
 
   @OneToOne(mappedBy = "user")
-  //  @persistent
   private ConfirmationToken token;
 
   public ConfirmationToken getToken() {
