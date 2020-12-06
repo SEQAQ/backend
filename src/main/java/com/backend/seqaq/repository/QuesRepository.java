@@ -11,4 +11,6 @@ public interface QuesRepository extends JpaRepository<Questions, Long> {
   List<Questions> findAllByTitleContaining(String text);
 
   List<Questions> findAllByTagContaining(String text);
+
+  List<Questions> findByQidIn(List<Long> integers);
 }

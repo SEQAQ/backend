@@ -50,6 +50,16 @@ public class QuesDaoImpl implements QuesDao {
         .collect(Collectors.toList());
   }
 
+  @Override
+  public List<Questions> findAllByDetailContaining(String text) {
+    List<Long> idList =
+        detailRepository.findIdByDetailContaining(text).stream()
+            .map(QuestionDetail::getQid)
+            .collect(Collectors.toList());
+    List<Questions> questions = quesRepository.findByQidIn(idList);
+    return questions.stream().map(this::attachDetail).collect(Collectors.toList());
+  }
+
   /**
    * Given qid, fetch the detail for that question.
    *
