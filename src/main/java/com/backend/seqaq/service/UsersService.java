@@ -1,13 +1,14 @@
 package com.backend.seqaq.service;
 
 import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.util.exception.RegistrationException;
 
 public interface UsersService {
   Users findById(Long id);
 
   Users findByAccount(String account);
 
-  String register(Users u);
+  Users register(Users u) throws RegistrationException;
 
   String banUser(Long uid);
 
@@ -16,4 +17,6 @@ public interface UsersService {
   String login(String account, String password);
 
   String checkStatus(String account);
+
+  void activate(Users user);
 }

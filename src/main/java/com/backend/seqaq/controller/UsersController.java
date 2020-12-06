@@ -1,9 +1,14 @@
 package com.backend.seqaq.controller;
 
+import com.backend.seqaq.entity.ConfirmationToken;
 import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.event.OnRegistrationCompletedEvent;
+import com.backend.seqaq.service.ConfirmationTokenService;
 import com.backend.seqaq.service.UsersService;
+import com.backend.seqaq.util.Message;
+import com.backend.seqaq.util.exception.RegistrationException;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,11 +16,30 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @Api
 public class UsersController {
-  @Autowired private UsersService usersService;
+  private final int CODE_REG_FAILED = 1;
+
+  private final UsersService usersService;
+  private final ApplicationEventPublisher eventPublisher;
+  private final ConfirmationTokenService confirmationTokenService;
+
+  public UsersController(
+      UsersService usersService,
+      ApplicationEventPublisher eventPublisher,
+      ConfirmationTokenService confirmationTokenService) {
+    this.usersService = usersService;
+    this.eventPublisher = eventPublisher;
+    this.confirmationTokenService = confirmationTokenService;
+  }
 
   @PostMapping("/register")
-  public String save(@RequestBody Users users) {
-    return usersService.register(users);
+  public Message<Users> save(@RequestBody Users users) {
+    try {
+      Users savedUser = usersService.register(users);
+      eventPublisher.publishEvent(new OnRegistrationCompletedEvent(savedUser, ""));
+      return new Message<>(0, "OK");
+    } catch (RegistrationException e) {
+      return new Message<>(CODE_REG_FAILED, e.getMessage());
+    }
   }
 
   @PostMapping("/ban")
@@ -48,5 +72,14 @@ public class UsersController {
   @PostMapping("/checkstatus")
   public String checkstatus(@RequestParam("account") String account) {
     return usersService.checkStatus(account);
+  }
+
+  @GetMapping("/activate")
+  public Message<String> confirmRegistration(@RequestParam("token") String tokenString) {
+    ConfirmationToken token = confirmationTokenService.findByToken(tokenString);
+    Users user = token.getUser();
+    if (user == null) return new Message<>(1, "invalid token");
+    usersService.activate(user);
+    return new Message<>("OK!");
   }
 }

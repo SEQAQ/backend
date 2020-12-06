@@ -1,6 +1,7 @@
 package com.backend.seqaq.dao;
 
 import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.util.exception.RegistrationException;
 
 import java.util.List;
 
@@ -9,7 +10,9 @@ public interface UsersDao {
 
   Users findByAccount(String account);
 
-  String register(Users u);
+  Users register(Users u) throws RegistrationException;
 
   List<Users> findAllByUnameContaining(String text);
+
+  Users saveUser(Users user);
 }

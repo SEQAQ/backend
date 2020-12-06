@@ -26,3 +26,7 @@ Update the [initial MySQL Script](scripts/mysql/1_init_data.sql) if necessary fo
 We follow [Google Java Format](https://github.com/google/google-java-format)
 
 A [GitHub Action](https://github.com/axel-op/googlejavaformat-action) will also format all files.
+
+### Deployment
+
+Update container `ENV` according to profile files.
