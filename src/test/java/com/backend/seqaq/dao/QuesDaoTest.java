@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @ActiveProfiles("test")
 public class QuesDaoTest {
-  @Autowired
-  QuesDao quesDao;
+  @Autowired QuesDao quesDao;
 
   @Test
   void TestFindQuestionByDetailContaining() {

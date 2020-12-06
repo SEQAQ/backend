@@ -40,22 +40,22 @@ public class QuesDaoImpl implements QuesDao {
 
   public List<Questions> findAllByTitleContaining(String text) {
     return quesRepository.findAllByTitleContaining(text).stream()
-            .map(this::attachDetail)
-            .collect(Collectors.toList());
+        .map(this::attachDetail)
+        .collect(Collectors.toList());
   }
 
   public List<Questions> findAllByTagContaining(String text) {
     return quesRepository.findAllByTagContaining(text).stream()
-            .map(this::attachDetail)
-            .collect(Collectors.toList());
+        .map(this::attachDetail)
+        .collect(Collectors.toList());
   }
 
   @Override
   public List<Questions> findAllByDetailContaining(String text) {
     List<Long> idList =
-            detailRepository.findIdByDetailContaining(text).stream()
-                    .map(QuestionDetail::getQid)
-                    .collect(Collectors.toList());
+        detailRepository.findIdByDetailContaining(text).stream()
+            .map(QuestionDetail::getQid)
+            .collect(Collectors.toList());
     List<Questions> questions = quesRepository.findByQidIn(idList);
     return questions.stream().map(this::attachDetail).collect(Collectors.toList());
   }
