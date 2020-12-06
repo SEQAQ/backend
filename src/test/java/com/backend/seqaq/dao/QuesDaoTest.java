@@ -5,15 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@ActiveProfiles("local")
-class QuesDaoTest {
-  @Autowired private QuesDao quesDao;
+@ActiveProfiles("test")
+public class QuesDaoTest {
+  @Autowired QuesDao quesDao;
 
   @Test
-  void findAllByTitleContaining() {
-    System.out.println(quesDao.findAllByTitleContaining("为什么"));
+  void TestFindQuestionByDetailContaining() {
+    var quesList = quesDao.findAllByDetailContaining("RA");
+    assertNotNull(quesList);
+    assertTrue(quesList.size() > 0);
   }
 }

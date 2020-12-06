@@ -14,4 +14,6 @@ public interface QuesDao {
   List<Questions> findAllByTitleContaining(String text);
 
   List<Questions> findAllByTagContaining(String text);
+
+  List<Questions> findAllByDetailContaining(String text);
 }
