@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("local")
 class QueryServiceTest {
 
-    @Autowired
-    private QueryService queryService;
-    @Test
-    void queryForQuesByContent() {
-        System.out.println(queryService.queryForQuesByContent("123"));
-    }
+  @Autowired private QueryService queryService;
+
+  @Test
+  void queryForQuesByContent() {
+    System.out.println(queryService.queryForQuesByContent("123"));
+  }
 }
