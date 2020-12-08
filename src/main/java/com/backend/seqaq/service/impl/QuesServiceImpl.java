@@ -7,6 +7,7 @@ import com.backend.seqaq.entity.QuestionDetail;
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.QuesService;
+import com.backend.seqaq.tools.examine.Examine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class QuesServiceImpl implements QuesService {
   @Autowired private QuesDao quesDao;
   @Autowired private UsersDao usersDao;
+  private Examine examine = new Examine();
 
   public List<Questions> findByUid(Long uid) {
     Users users = usersDao.findById(uid);
@@ -47,14 +49,34 @@ public class QuesServiceImpl implements QuesService {
   }
 
   @Override
-  public Questions createQuestion(JSONObject json) {
+  public String createQuestion(JSONObject json) {
     Questions question = new Questions();
+    Users u = usersDao.findById(json.getLong("uid"));
+    if (u == null) return "Error";
     question.setTitle(json.getString("title"));
     question.setUid(json.getLong("uid"));
     QuestionDetail detail = new QuestionDetail(json.getString("detail"));
+    question.setUsers(u);
+    question.setFollower(0L);
+    question.setStatus(1);
+    Timestamp d = new Timestamp(System.currentTimeMillis());
+    question.setCtime(d);
+    question.setMtime(d);
+    org.json.JSONObject object = examine.forText(detail.getDetail());
+    if (object.getInt("conclusionType") != 1) {
+      String words =
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题内容存在敏感词汇: " + words + " 等";
+    }
     question.setDetail(detail);
     quesDao.save(question);
-    return null;
+    return "OK";
   }
 
   public void editQues(Long qid, String text) {

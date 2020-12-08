@@ -10,7 +10,7 @@ public interface QuesService {
 
   String createQues(String title, String tag, Long uid);
 
-  Questions createQuestion(JSONObject json);
+  String createQuestion(JSONObject json);
 
   Questions findById(Long qid);
 
