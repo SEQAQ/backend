@@ -23,6 +23,7 @@ public class AnswersServiceImpl implements AnswersService {
   @Autowired private UsersDao usersDao;
   @Autowired private QuesDao quesDao;
   private Examine examine = new Examine();
+
   public Answers findAnswersById(Long aid) {
     return answersDao.findById(aid);
   }
@@ -54,11 +55,15 @@ public class AnswersServiceImpl implements AnswersService {
       answers.setCtime(d);
       answers.setMtime(d);
       org.json.JSONObject object = examine.forText(text);
-      if (object.getInt("conclusionType") != 1)
-      {
-        String words = object.
-                getJSONArray("data").getJSONObject(0).getJSONArray("hits").
-                getJSONObject(0).getJSONArray("words").toString();
+      if (object.getInt("conclusionType") != 1) {
+        String words =
+            object
+                .getJSONArray("data")
+                .getJSONObject(0)
+                .getJSONArray("hits")
+                .getJSONObject(0)
+                .getJSONArray("words")
+                .toString();
         return "问题内容存在敏感词汇: " + words + " 等";
       }
       AnswerDetail detail = new AnswerDetail();

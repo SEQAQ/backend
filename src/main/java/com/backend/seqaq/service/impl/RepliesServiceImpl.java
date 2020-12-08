@@ -21,6 +21,7 @@ public class RepliesServiceImpl implements RepliesService {
   @Autowired private UsersDao usersDao;
   @Autowired private AnswersDao answersDao;
   private Examine examine = new Examine();
+
   public String replyAnswers(Long uid, Long did, String text) {
     Users users = usersDao.findById(uid);
     Answers answers = answersDao.findById(did);
@@ -39,11 +40,15 @@ public class RepliesServiceImpl implements RepliesService {
       Timestamp d = new Timestamp(System.currentTimeMillis());
       replies.setCtime(d);
       org.json.JSONObject object = examine.forText(text);
-      if (object.getInt("conclusionType") != 1)
-      {
-        String words = object.
-                getJSONArray("data").getJSONObject(0).getJSONArray("hits").
-                getJSONObject(0).getJSONArray("words").toString();
+      if (object.getInt("conclusionType") != 1) {
+        String words =
+            object
+                .getJSONArray("data")
+                .getJSONObject(0)
+                .getJSONArray("hits")
+                .getJSONObject(0)
+                .getJSONArray("words")
+                .toString();
         return "问题内容存在敏感词汇: " + words + " 等";
       }
       ReplyContent content = new ReplyContent();
@@ -73,11 +78,15 @@ public class RepliesServiceImpl implements RepliesService {
       Timestamp d = new Timestamp(System.currentTimeMillis());
       replies.setCtime(d);
       org.json.JSONObject object = examine.forText(text);
-      if (object.getInt("conclusionType") != 1)
-      {
-        String words = object.
-                getJSONArray("data").getJSONObject(0).getJSONArray("hits").
-                getJSONObject(0).getJSONArray("words").toString();
+      if (object.getInt("conclusionType") != 1) {
+        String words =
+            object
+                .getJSONArray("data")
+                .getJSONObject(0)
+                .getJSONArray("hits")
+                .getJSONObject(0)
+                .getJSONArray("words")
+                .toString();
         return "问题内容存在敏感词汇: " + words + " 等";
       }
       ReplyContent content = new ReplyContent();
