@@ -38,9 +38,9 @@ public class QuesController {
   }
 
   @PostMapping("/new")
-  public void createWithDetails(@RequestBody JSONObject test) {
+  public String createWithDetails(@RequestBody JSONObject test) {
     System.out.println(test);
-    quesService.createQuestion(test);
+    return quesService.createQuestion(test);
   }
 
   @PostMapping("/editQues")

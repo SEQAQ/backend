@@ -8,6 +8,7 @@ import com.backend.seqaq.entity.Answers;
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.AnswersService;
+import com.backend.seqaq.tools.examine.Examine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ public class AnswersServiceImpl implements AnswersService {
   @Autowired private AnswersDao answersDao;
   @Autowired private UsersDao usersDao;
   @Autowired private QuesDao quesDao;
-
+  private Examine examine = new Examine();
   public Answers findAnswersById(Long aid) {
     return answersDao.findById(aid);
   }
@@ -52,6 +53,14 @@ public class AnswersServiceImpl implements AnswersService {
       Timestamp d = new Timestamp(System.currentTimeMillis());
       answers.setCtime(d);
       answers.setMtime(d);
+      org.json.JSONObject object = examine.forText(text);
+      if (object.getInt("conclusionType") != 1)
+      {
+        String words = object.
+                getJSONArray("data").getJSONObject(0).getJSONArray("hits").
+                getJSONObject(0).getJSONArray("words").toString();
+        return "问题内容存在敏感词汇: " + words + " 等";
+      }
       AnswerDetail detail = new AnswerDetail();
       detail.setMdText(text);
       answers.setDetail(detail);
