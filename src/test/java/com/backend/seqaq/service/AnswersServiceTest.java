@@ -26,8 +26,9 @@ public class AnswersServiceTest {
     assertNotEquals("", ans0.getDetail().getMdText());
     List<Answers> ans2 = answersService.findAnswersByQid(-1L);
     System.out.println(ans2);
-    assertEquals(0,ans2.size());
+    assertEquals(0, ans2.size());
   }
+
   @Test
   public void getAnswersByUid() {
     List<Answers> ans = answersService.findAnswersByUid(1L);
@@ -39,16 +40,17 @@ public class AnswersServiceTest {
     assertNotEquals("", ans0.getDetail().getMdText());
     List<Answers> ans2 = answersService.findAnswersByUid(-1L);
     System.out.println(ans2);
-    assertEquals(0,ans2.size());
+    assertEquals(0, ans2.size());
   }
+
   @Test
   public void ban_unban() {
     answersService.banAnswers(3L);
     Answers answers = answersService.findAnswersById(3L);
-    assertEquals(0,answers.getStatus());
+    assertEquals(0, answers.getStatus());
     answersService.unbanAnswers(3L);
     Answers answers2 = answersService.findAnswersById(3L);
-    assertEquals(1,answers2.getStatus());
+    assertEquals(1, answers2.getStatus());
   }
 
   @Test
@@ -56,11 +58,11 @@ public class AnswersServiceTest {
     Long likebefore = answersService.findAnswersById(3L).getLike();
     answersService.likeAnswers(3L);
     Long likeafter = answersService.findAnswersById(3L).getLike();
-    assertEquals(1L,likeafter-likebefore);
+    assertEquals(1L, likeafter - likebefore);
     Long dlikebefore = answersService.findAnswersById(3L).getDislike();
     answersService.dislikeAnswers(3L);
     Long dlikeafter = answersService.findAnswersById(3L).getDislike();
-    assertEquals(1L,dlikeafter-dlikebefore);
+    assertEquals(1L, dlikeafter - dlikebefore);
   }
 
   @Test
@@ -73,7 +75,9 @@ public class AnswersServiceTest {
     answersService.deleteAnswers(aid);
     assertEquals(-1,answersService.findAnswersById(aid).getStatus());
     assertNotEquals("OK",result);
+
   }
+
   @Test
   public void edit(){
     String text = "edit test";
@@ -82,5 +86,6 @@ public class AnswersServiceTest {
     String text2 = "翻墙软件真好用";
     String ret = answersService.editAnswers(1L,text2);
     assertNotEquals("OK",ret);
+
   }
 }
