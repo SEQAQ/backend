@@ -93,8 +93,8 @@ public class RepliesServiceImpl implements RepliesService {
       content.setContent(text);
       replies.setContent(content);
       System.out.println(replies);
-      repliesDao.reply(replies);
-      return "OK";
+      String result = repliesDao.reply(replies).toString();
+      return result;
     }
   }
 

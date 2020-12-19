@@ -6,6 +6,7 @@ import com.backend.seqaq.entity.ReplyContent;
 import com.backend.seqaq.repository.RepliesRepository;
 import com.backend.seqaq.repository.ReplyContentRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,9 +21,10 @@ public class RepliesDaoImpl implements RepliesDao {
     this.replyContentRepository = replyContentRepository;
   }
 
+  @Transactional
   public Long reply(Replies replies) {
     Replies r = repliesRepository.save(replies);
-    ReplyContent content = r.getContent();
+    ReplyContent content = replies.getContent();
     content.setRid(r.getRid());
     return replyContentRepository.save(content).getRid();
   }

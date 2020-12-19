@@ -94,7 +94,7 @@ public class AnswersServiceImpl implements AnswersService {
                         .toString();
         return "问题内容存在敏感词汇: " + words + " 等";
       }
-      AnswerDetail detail = new AnswerDetail();
+      AnswerDetail detail = answers.getDetail();
       detail.setMdText(text);
       answers.setDetail(detail);
       answersDao.addOrChangeAnswer(answers);
