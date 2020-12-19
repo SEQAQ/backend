@@ -20,11 +20,11 @@ public class RepliesDaoImpl implements RepliesDao {
     this.replyContentRepository = replyContentRepository;
   }
 
-  public void reply(Replies replies) {
+  public Long reply(Replies replies) {
     Replies r = repliesRepository.save(replies);
     ReplyContent content = r.getContent();
     content.setRid(r.getRid());
-    replyContentRepository.save(content);
+    return replyContentRepository.save(content).getRid();
   }
 
   public Replies findReply(Long rid) {

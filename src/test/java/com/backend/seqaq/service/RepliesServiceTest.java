@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ class RepliesServiceTest {
     String expected = "Official sources say...";
     String ret = repliesService.replyAnswers(1L, 1L, expected);
     assertEquals("OK", ret);
-    List<Replies> l = repliesService.findByAid(1L);
+    List<Replies> l = repliesService.findByAid(2L);
     assertEquals(expected, l.get(1).getContent().getContent());
   }
 
