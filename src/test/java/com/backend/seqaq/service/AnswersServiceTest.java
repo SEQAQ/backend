@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 public class AnswersServiceTest {
   @Autowired AnswersService answersService;
 
