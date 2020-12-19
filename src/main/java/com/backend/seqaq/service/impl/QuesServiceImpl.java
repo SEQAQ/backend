@@ -30,7 +30,6 @@ public class QuesServiceImpl implements QuesService {
     return quesDao.findById(qid);
   }
 
-
   @Override
   public String createQuestion(JSONObject json) {
     Questions question = new Questions();
@@ -50,33 +49,36 @@ public class QuesServiceImpl implements QuesService {
     org.json.JSONObject object2 = examine.forText(question.getTitle());
     org.json.JSONObject object3 = examine.forText(question.getTag());
     if (object.getInt("conclusionType") != 1) {
-      String words = object
-        .getJSONArray("data")
-        .getJSONObject(0)
-        .getJSONArray("hits")
-        .getJSONObject(0)
-        .getJSONArray("words")
-        .toString();
+      String words =
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
       return "问题内容存在敏感词汇: " + words + " 等";
     }
     if (object2.getInt("conclusionType") != 1) {
-      String words = object2
-        .getJSONArray("data")
-        .getJSONObject(0)
-        .getJSONArray("hits")
-        .getJSONObject(0)
-        .getJSONArray("words")
-        .toString();
+      String words =
+          object2
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
       return "问题标题存在敏感词汇: " + words + " 等";
     }
     if (object3.getInt("conclusionType") != 1) {
-      String words = object3
-        .getJSONArray("data")
-        .getJSONObject(0)
-        .getJSONArray("hits")
-        .getJSONObject(0)
-        .getJSONArray("words")
-        .toString();
+      String words =
+          object3
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
       return "问题标签存在敏感词汇: " + words + " 等";
     }
     question.setDetail(detail);
@@ -91,13 +93,14 @@ public class QuesServiceImpl implements QuesService {
     questions.setMtime(d);
     org.json.JSONObject object = examine.forText(text);
     if (object.getInt("conclusionType") != 1) {
-      String words = object
-        .getJSONArray("data")
-        .getJSONObject(0)
-        .getJSONArray("hits")
-        .getJSONObject(0)
-        .getJSONArray("words")
-        .toString();
+      String words =
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
       return "问题内容存在敏感词汇: " + words + " 等";
     }
     QuestionDetail detail = questions.getDetail();

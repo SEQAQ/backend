@@ -69,23 +69,21 @@ public class AnswersServiceTest {
   public void add_delete() {
     String text1 = "测试测试";
     String text2 = "翻墙软件真好用";
-    Long aid = Long.parseLong(answersService.addAnswers(1L,1L,text1));
-    assertEquals("测试测试",answersService.findAnswersById(aid).getDetail().getMdText());
-    String result = answersService.addAnswers(1L,1L,text2);
+    Long aid = Long.parseLong(answersService.addAnswers(1L, 1L, text1));
+    assertEquals("测试测试", answersService.findAnswersById(aid).getDetail().getMdText());
+    String result = answersService.addAnswers(1L, 1L, text2);
     answersService.deleteAnswers(aid);
-    assertEquals(-1,answersService.findAnswersById(aid).getStatus());
-    assertNotEquals("OK",result);
-
+    assertEquals(-1, answersService.findAnswersById(aid).getStatus());
+    assertNotEquals("OK", result);
   }
 
   @Test
-  public void edit(){
+  public void edit() {
     String text = "edit test";
-    answersService.editAnswers(1L,text);
+    answersService.editAnswers(1L, text);
     System.out.println(answersService.findAnswersById(1L).getDetail().getMdText());
     String text2 = "翻墙软件真好用";
-    String ret = answersService.editAnswers(1L,text2);
-    assertNotEquals("OK",ret);
-
+    String ret = answersService.editAnswers(1L, text2);
+    assertNotEquals("OK", ret);
   }
 }
