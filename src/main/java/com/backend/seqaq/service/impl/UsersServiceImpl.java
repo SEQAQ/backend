@@ -28,6 +28,7 @@ public class UsersServiceImpl implements UsersService {
     if (users == null) return "Error";
     else {
       users.setStatus(0);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
@@ -37,6 +38,7 @@ public class UsersServiceImpl implements UsersService {
     if (users == null) return "Error";
     else {
       users.setStatus(1);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
