@@ -7,7 +7,7 @@ create table users
 	uname			varchar(30),
 	account		varchar(30),
 	`password` varchar(30),
-    encrypt_pwd		varchar(50),
+    encrypt_pwd		varchar(100),
     salt			varchar(50),
 	email			varchar(50),
 	phone			varchar(30),

@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
@@ -30,6 +35,8 @@ public class UsersController {
   private final UsersService usersService;
   private final ApplicationEventPublisher eventPublisher;
   private final ConfirmationTokenService confirmationTokenService;
+
+  private final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public UsersController(
       UsersService usersService,
@@ -84,18 +91,28 @@ public class UsersController {
     Subject subject = SecurityUtils.getSubject();
     try {
       // 将用户请求参数封装后，直接提交给Shiro处理
+      System.out.println("loginInfo: ");
+      System.out.println(loginInfo);
+
       UsernamePasswordToken token =
-          new UsernamePasswordToken(loginInfo.getAccount(), loginInfo.getPassword());
+          new UsernamePasswordToken(loginInfo.getAccount(), loginInfo.getPassword().toCharArray());
+
+      System.out.println("UsernamePasswordToken: ");
+      System.out.println(token);
+
       subject.login(token);
       // Shiro认证通过后会将user信息放到subject内，生成token并返回
       Users user = (Users) subject.getPrincipal();
       String newToken = usersService.generateJwtToken(user.getAccount());
+      System.out.println("Token: ");
+      System.out.println(newToken);
       response.setHeader("x-auth-token", newToken);
+      response.setHeader("Access-Control-Expose-Headers", "x-auth-token");
 
       return ResponseEntity.ok().build();
     } catch (AuthenticationException e) {
       // 如果校验失败，shiro会抛出异常，返回客户端失败
-      //      logger.error("User {} login fail, Reason:{}", loginInfo.getAccount(), e.getMessage());
+      logger.error("User {} login fail, Reason:{}", loginInfo.getAccount(), e.getMessage());
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -56,7 +56,7 @@ public class Users {
   private String role;
 
   @Type(type = "json")
-  @Column(name = "roles", columnDefinition = "json")
+  @Column(name = "roles", columnDefinition = "longtext")
   private List<String> roles;
 
   // 0: banned 1: 待激活 -1: delete 2: active

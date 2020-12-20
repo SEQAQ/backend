@@ -33,6 +33,7 @@ public class UsersServiceImpl implements UsersService {
     if (users == null) return "Error";
     else {
       users.setStatus(0);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
@@ -42,6 +43,7 @@ public class UsersServiceImpl implements UsersService {
     if (users == null) return "Error";
     else {
       users.setStatus(1);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
@@ -98,11 +100,20 @@ public class UsersServiceImpl implements UsersService {
   public void deleteLoginInfo(String account) {
     Users user = usersDao.findByAccount(account);
     user.setSalt("");
+    user.setEncryptPwd("");
+    usersDao.saveUser(user);
   }
 
   public Users getUserInfo(String account) {
-    Users user = new Users();
+    Users user = usersDao.findByAccount(account);
+    System.out.println("find user: ");
+    System.out.println(user);
+    user.setSalt(JwtUtils.generateSalt());
+    System.out.println("salt: " + user.getSalt());
+    System.out.println("encryptPwd: " + new Sha256Hash(user.getPassword(), user.getSalt()).toHex());
     user.setEncryptPwd(new Sha256Hash(user.getPassword(), user.getSalt()).toHex());
+    usersDao.saveUser(user);
+    System.out.println(user);
     return user;
   }
 
