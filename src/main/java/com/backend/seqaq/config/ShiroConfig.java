@@ -92,55 +92,76 @@ public class ShiroConfig {
     chainDefinition.addPathDefinition("/users/active", "noSessionCreation,anon");
     chainDefinition.addPathDefinition("/users/findbyid", "noSessionCreation,anon");
     chainDefinition.addPathDefinition("/users/findbyaccount", "noSessionCreation,anon");
-    chainDefinition.addPathDefinition("/query/ques/tag", "noSessionCreation,anon"); // 为了方便调试和之后添加登录前主页，将部分搜索接口设为无需登录即可访问
+    chainDefinition.addPathDefinition(
+        "/query/ques/tag", "noSessionCreation,anon"); // 为了方便调试和之后添加登录前主页，将部分搜索接口设为无需登录即可访问
     chainDefinition.addPathDefinition("/query/ques/title", "noSessionCreation,anon");
     chainDefinition.addPathDefinition("/query/users", "noSessionCreation,anon");
 
     // 用户登录后
     chainDefinition.addPathDefinition("/users/logout", "noSessionCreation,authcToken[permissive]");
     chainDefinition.addPathDefinition("/image/**", "anon");
-      // 限定用户的接口
-    chainDefinition.addPathDefinition("/ques/createQues", "noSessionCreation,authcToken[permissive]"); // 问题
+    // 限定用户的接口
+    chainDefinition.addPathDefinition(
+        "/ques/createQues", "noSessionCreation,authcToken[permissive]"); // 问题
     chainDefinition.addPathDefinition("/ques/new", "noSessionCreation,authcToken[permissive]");
     chainDefinition.addPathDefinition("/ques/delQues", "noSessionCreation,authcToken[permissive]");
     chainDefinition.addPathDefinition("/ques/editQues", "noSessionCreation,authcToken[permissive]");
-    chainDefinition.addPathDefinition("/answers/addAnswer", "noSessionCreation,authcToken[permissive]");  // 回答
-    chainDefinition.addPathDefinition("/answers/delete", "noSessionCreation,authcToken[permissive]");
-    chainDefinition.addPathDefinition("/answers/editAnswer", "noSessionCreation,authcToken[permissive]");
+    chainDefinition.addPathDefinition(
+        "/answers/addAnswer", "noSessionCreation,authcToken[permissive]"); // 回答
+    chainDefinition.addPathDefinition(
+        "/answers/delete", "noSessionCreation,authcToken[permissive]");
+    chainDefinition.addPathDefinition(
+        "/answers/editAnswer", "noSessionCreation,authcToken[permissive]");
     chainDefinition.addPathDefinition("/answers/like", "noSessionCreation,authcToken[permissive]");
-    chainDefinition.addPathDefinition("/answers/dislike", "noSessionCreation,authcToken[permissive]");
-    chainDefinition.addPathDefinition("/replies/replyForAnswer", "noSessionCreation,authcToken[permissive]"); // 评论
-    chainDefinition.addPathDefinition("/replies/replyForReply", "noSessionCreation,authcToken[permissive]");
+    chainDefinition.addPathDefinition(
+        "/answers/dislike", "noSessionCreation,authcToken[permissive]");
+    chainDefinition.addPathDefinition(
+        "/replies/replyForAnswer", "noSessionCreation,authcToken[permissive]"); // 评论
+    chainDefinition.addPathDefinition(
+        "/replies/replyForReply", "noSessionCreation,authcToken[permissive]");
     chainDefinition.addPathDefinition("/replies/like", "noSessionCreation,authcToken[permissive]");
-    chainDefinition.addPathDefinition("/replies/dislike", "noSessionCreation,authcToken[permissive]");
-    chainDefinition.addPathDefinition("/followers/followSomeone", "noSessionCreation,authcToken[permissive]");  // 关注用户
-    chainDefinition.addPathDefinition("/followers/unfollowSomeone", "noSessionCreation,authcToken[permissive]");
-    chainDefinition.addPathDefinition("/UFQ/followSomeQues", "noSessionCreation,authcToken[permissive]"); // 关注问题
-    chainDefinition.addPathDefinition("/UFQ/unfollowSomeQues", "noSessionCreation,authcToken[permissive]");
-      // 不限定用户的接口
+    chainDefinition.addPathDefinition(
+        "/replies/dislike", "noSessionCreation,authcToken[permissive]");
+    chainDefinition.addPathDefinition(
+        "/followers/followSomeone", "noSessionCreation,authcToken[permissive]"); // 关注用户
+    chainDefinition.addPathDefinition(
+        "/followers/unfollowSomeone", "noSessionCreation,authcToken[permissive]");
+    chainDefinition.addPathDefinition(
+        "/UFQ/followSomeQues", "noSessionCreation,authcToken[permissive]"); // 关注问题
+    chainDefinition.addPathDefinition(
+        "/UFQ/unfollowSomeQues", "noSessionCreation,authcToken[permissive]");
+    // 不限定用户的接口
     chainDefinition.addPathDefinition("/ques/findByDid", "noSessionCreation,authcToken"); // 问题
     chainDefinition.addPathDefinition("/ques/findByUid", "noSessionCreation,authcToken");
-    chainDefinition.addPathDefinition("/answers/findByAid", "noSessionCreation,authcToken");  // 回答
+    chainDefinition.addPathDefinition("/answers/findByAid", "noSessionCreation,authcToken"); // 回答
     chainDefinition.addPathDefinition("/answers/findByQid", "noSessionCreation,authcToken");
     chainDefinition.addPathDefinition("/answers/findByUid", "noSessionCreation,authcToken");
-    chainDefinition.addPathDefinition("/replies/findOneReply", "noSessionCreation,authcToken"); // 评论
-    chainDefinition.addPathDefinition("/replies/findRepliesForAnswer", "noSessionCreation,authcToken");
-    chainDefinition.addPathDefinition("/replies/findRepliesForReply", "noSessionCreation,authcToken");
-    chainDefinition.addPathDefinition("/followers/check", "noSessionCreation,authcToken");  // 关注用户
+    chainDefinition.addPathDefinition(
+        "/replies/findOneReply", "noSessionCreation,authcToken"); // 评论
+    chainDefinition.addPathDefinition(
+        "/replies/findRepliesForAnswer", "noSessionCreation,authcToken");
+    chainDefinition.addPathDefinition(
+        "/replies/findRepliesForReply", "noSessionCreation,authcToken");
+    chainDefinition.addPathDefinition("/followers/check", "noSessionCreation,authcToken"); // 关注用户
     chainDefinition.addPathDefinition("/followers/findFans", "noSessionCreation,authcToken");
     chainDefinition.addPathDefinition("/followers/findFollowed", "noSessionCreation,authcToken");
-    chainDefinition.addPathDefinition("/UFQ/findByQid", "noSessionCreation,authcToken");  // 关注问题
+    chainDefinition.addPathDefinition("/UFQ/findByQid", "noSessionCreation,authcToken"); // 关注问题
     chainDefinition.addPathDefinition("/UFQ/findByUid", "noSessionCreation,authcToken");
     chainDefinition.addPathDefinition("/UFQ/isFollowed", "noSessionCreation,authcToken");
 
     // 管理员访问控制
-    chainDefinition.addPathDefinition("/users/ban", "noSessionCreation,authcToken,anyRole[admin,manager]"); // 封禁用户
-    chainDefinition.addPathDefinition("/users/unban", "noSessionCreation,authcToken,anyRole[admin,manager]");
-    chainDefinition.addPathDefinition("/ques/banQues", "noSessionCreation,authcToken,anyRole[admin,manager]");  // 封禁问题
-    chainDefinition.addPathDefinition("/ques/unbanQues", "noSessionCreation,authcToken,anyRole[admin,manager]");
-    chainDefinition.addPathDefinition("/answers/ban", "noSessionCreation,authcToken,anyRole[admin,manager]"); // 封禁回答
-    chainDefinition.addPathDefinition("/answers/unban", "noSessionCreation,authcToken,anyRole[admin,manager]");
-
+    chainDefinition.addPathDefinition(
+        "/users/ban", "noSessionCreation,authcToken,anyRole[admin,manager]"); // 封禁用户
+    chainDefinition.addPathDefinition(
+        "/users/unban", "noSessionCreation,authcToken,anyRole[admin,manager]");
+    chainDefinition.addPathDefinition(
+        "/ques/banQues", "noSessionCreation,authcToken,anyRole[admin,manager]"); // 封禁问题
+    chainDefinition.addPathDefinition(
+        "/ques/unbanQues", "noSessionCreation,authcToken,anyRole[admin,manager]");
+    chainDefinition.addPathDefinition(
+        "/answers/ban", "noSessionCreation,authcToken,anyRole[admin,manager]"); // 封禁回答
+    chainDefinition.addPathDefinition(
+        "/answers/unban", "noSessionCreation,authcToken,anyRole[admin,manager]");
 
     chainDefinition.addPathDefinition("/**", "noSessionCreation,authcToken");
     return chainDefinition;
