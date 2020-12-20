@@ -45,23 +45,23 @@ public class AnswersServiceTest {
 
   @Test
   public void ban_unban() {
-    answersService.banAnswers(3L);
-    Answers answers = answersService.findAnswersById(3L);
+    answersService.banAnswers(1L);
+    Answers answers = answersService.findAnswersById(1L);
     assertEquals(0, answers.getStatus());
-    answersService.unbanAnswers(3L);
-    Answers answers2 = answersService.findAnswersById(3L);
+    answersService.unbanAnswers(1L);
+    Answers answers2 = answersService.findAnswersById(1L);
     assertEquals(1, answers2.getStatus());
   }
 
   @Test
   public void like_dislike() {
-    Long likebefore = answersService.findAnswersById(3L).getLike();
-    answersService.likeAnswers(3L);
-    Long likeafter = answersService.findAnswersById(3L).getLike();
+    Long likebefore = answersService.findAnswersById(1L).getLike();
+    answersService.likeAnswers(1L);
+    Long likeafter = answersService.findAnswersById(1L).getLike();
     assertEquals(1L, likeafter - likebefore);
-    Long dlikebefore = answersService.findAnswersById(3L).getDislike();
-    answersService.dislikeAnswers(3L);
-    Long dlikeafter = answersService.findAnswersById(3L).getDislike();
+    Long dlikebefore = answersService.findAnswersById(1L).getDislike();
+    answersService.dislikeAnswers(1L);
+    Long dlikeafter = answersService.findAnswersById(1L).getDislike();
     assertEquals(1L, dlikeafter - dlikebefore);
   }
 
