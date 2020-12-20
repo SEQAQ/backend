@@ -28,9 +28,8 @@ public class JWTCredentialsMatcher implements CredentialsMatcher {
     Users user = (Users) authenticationInfo.getPrincipals().getPrimaryPrincipal();
     try {
       Algorithm algorithm = Algorithm.HMAC256(salt);
-      JWTVerifier verifier = JWT.require(algorithm)
-              .withClaim("username", user.getAccount())
-              .build();
+      JWTVerifier verifier =
+          JWT.require(algorithm).withClaim("username", user.getAccount()).build();
       verifier.verify(token);
       return true;
     } catch (JWTVerificationException e) {
