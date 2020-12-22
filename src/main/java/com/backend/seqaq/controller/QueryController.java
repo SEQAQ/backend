@@ -4,10 +4,7 @@ import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.QueryService;
 import io.swagger.annotations.Api;
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
