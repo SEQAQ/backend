@@ -37,14 +37,20 @@ public class Replies {
   private Long did;
 
   // 0:answers,1:replies
+  public static final Integer TYPE_ANSWER = 0;
+  public static final Integer TYPE_REPLY = 1;
+
   @Column(name = "dtype")
   private Integer dtype;
 
-  @Transient private Answers answers;
+  @Transient
+  private Answers answers;
 
-  @Transient private Replies replies;
+  @Transient
+  private Replies replies;
 
-  @Transient private ReplyContent content;
+  @Transient
+  private ReplyContent content;
 
   public Long getRid() {
     return rid;

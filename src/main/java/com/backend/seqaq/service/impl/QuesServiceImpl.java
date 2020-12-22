@@ -6,9 +6,11 @@ import com.backend.seqaq.dao.UsersDao;
 import com.backend.seqaq.entity.QuestionDetail;
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.event.OnNewQuestionEvent;
 import com.backend.seqaq.service.QuesService;
 import com.backend.seqaq.tools.examine.Examine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -16,9 +18,13 @@ import java.util.List;
 
 @Service
 public class QuesServiceImpl implements QuesService {
-  @Autowired private QuesDao quesDao;
-  @Autowired private UsersDao usersDao;
+  @Autowired
+  private QuesDao quesDao;
+  @Autowired
+  private UsersDao usersDao;
   private Examine examine = new Examine();
+  @Autowired
+  private ApplicationEventPublisher eventPublisher;
 
   public List<Questions> findByUid(Long uid) {
     Users users = usersDao.findById(uid);
@@ -45,6 +51,7 @@ public class QuesServiceImpl implements QuesService {
     questions.setMtime(d);
     System.out.println(questions);
     quesDao.save(questions);
+    eventPublisher.publishEvent(new OnNewQuestionEvent(questions));
     return "OK";
   }
 
