@@ -21,7 +21,6 @@ public class QueryController {
   @Autowired private QueryService queryService;
 
   @GetMapping("/users")
-  @RequiresPermissions(logical = Logical.AND, value = {"view", "edit"})
   public List<Users> queryForUsers(@RequestParam("nickname") String nickname) {
     return queryService.queryForUsers(nickname);
   }
@@ -33,7 +32,6 @@ public class QueryController {
   }
 
   @GetMapping("/ques/title")
-  @RequiresRoles("admin")
   public List<Questions> queryForQuesByTitle(@RequestParam("title") String title) {
     return queryService.queryForQuesByTitle(title);
   }

@@ -12,6 +12,7 @@ import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.Message;
 import com.backend.seqaq.util.exception.RegistrationException;
 import io.swagger.annotations.Api;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -48,11 +49,13 @@ public class UsersController {
   }
 
   @PostMapping("/ban")
+  @RequiresRoles("admin")
   public String ban(@RequestParam("uid") Long uid) {
     return usersService.banUser(uid);
   }
 
   @PostMapping("/unban")
+  @RequiresRoles("admin")
   public String unban(@RequestParam("uid") Long uid) {
     return usersService.unbanUser(uid);
   }
