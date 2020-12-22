@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/health")
 public class HealthController {
-  @Autowired
-  UsersService usersService;
-  @Autowired
-  Notifier notifier;
-  @Autowired
-  private SimpMessagingTemplate websocket;
+  @Autowired UsersService usersService;
+  @Autowired Notifier notifier;
+  @Autowired private SimpMessagingTemplate websocket;
 
   @GetMapping("/")
   public String healthCheck() {
@@ -25,8 +22,8 @@ public class HealthController {
 
   @GetMapping("/echo/{channel}")
   public void websocketTest(
-          @PathVariable(name = "channel") String channelName,
-          @RequestParam(name = "data") String data) {
+      @PathVariable(name = "channel") String channelName,
+      @RequestParam(name = "data") String data) {
     String channel = "/notify/" + channelName;
     System.out.println(channel + " <- " + data);
     websocket.convertAndSend(channel, data);

@@ -15,10 +15,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class NewQuestionListener implements ApplicationListener<OnNewQuestionEvent> {
-  @Autowired
-  FollowersService followersService;
-  @Autowired
-  Notifier notifier;
+  @Autowired FollowersService followersService;
+  @Autowired Notifier notifier;
 
   @Override
   public void onApplicationEvent(OnNewQuestionEvent onNewAnswerEvent) {
@@ -27,9 +25,9 @@ public class NewQuestionListener implements ApplicationListener<OnNewQuestionEve
     // Notify the followers of the questioner
     Users questioner = question.getUsers();
     var followers =
-            followersService.findAllFollowerByUid(questioner.getUid()).stream()
-                    .map(Followers::getUsers2)
-                    .collect(Collectors.toList());
+        followersService.findAllFollowerByUid(questioner.getUid()).stream()
+            .map(Followers::getUsers2)
+            .collect(Collectors.toList());
     notifier.notify(followers, msg);
   }
 }

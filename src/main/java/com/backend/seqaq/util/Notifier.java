@@ -10,10 +10,8 @@ import java.util.List;
 
 @Component
 public class Notifier {
-  @Autowired
-  private SimpMessagingTemplate websocket;
-  @Autowired
-  private UsersService usersService;
+  @Autowired private SimpMessagingTemplate websocket;
+  @Autowired private UsersService usersService;
 
   private static String buildDst(Users user) {
     return "/notify/user" + user.getUid();

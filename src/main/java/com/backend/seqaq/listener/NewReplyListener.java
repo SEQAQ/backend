@@ -12,10 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NewReplyListener implements ApplicationListener<OnNewReplyEvent> {
-  @Autowired
-  FollowersService followersService;
-  @Autowired
-  Notifier notifier;
+  @Autowired FollowersService followersService;
+  @Autowired Notifier notifier;
 
   @Override
   public void onApplicationEvent(OnNewReplyEvent onNewAnswerEvent) {

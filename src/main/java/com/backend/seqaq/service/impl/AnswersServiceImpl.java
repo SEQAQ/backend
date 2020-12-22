@@ -21,15 +21,11 @@ import java.util.List;
 @Service
 public class AnswersServiceImpl implements AnswersService {
 
-  @Autowired
-  private AnswersDao answersDao;
-  @Autowired
-  private UsersDao usersDao;
-  @Autowired
-  private QuesDao quesDao;
+  @Autowired private AnswersDao answersDao;
+  @Autowired private UsersDao usersDao;
+  @Autowired private QuesDao quesDao;
   private Examine examine = new Examine();
-  @Autowired
-  private ApplicationEventPublisher eventPublisher;
+  @Autowired private ApplicationEventPublisher eventPublisher;
 
   public Answers findAnswersById(Long aid) {
     return answersDao.findById(aid);

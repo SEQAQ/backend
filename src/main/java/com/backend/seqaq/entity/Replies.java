@@ -43,14 +43,11 @@ public class Replies {
   @Column(name = "dtype")
   private Integer dtype;
 
-  @Transient
-  private Answers answers;
+  @Transient private Answers answers;
 
-  @Transient
-  private Replies replies;
+  @Transient private Replies replies;
 
-  @Transient
-  private ReplyContent content;
+  @Transient private ReplyContent content;
 
   public Long getRid() {
     return rid;

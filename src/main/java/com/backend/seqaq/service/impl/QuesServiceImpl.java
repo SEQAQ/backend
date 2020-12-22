@@ -18,13 +18,10 @@ import java.util.List;
 
 @Service
 public class QuesServiceImpl implements QuesService {
-  @Autowired
-  private QuesDao quesDao;
-  @Autowired
-  private UsersDao usersDao;
+  @Autowired private QuesDao quesDao;
+  @Autowired private UsersDao usersDao;
   private Examine examine = new Examine();
-  @Autowired
-  private ApplicationEventPublisher eventPublisher;
+  @Autowired private ApplicationEventPublisher eventPublisher;
 
   public List<Questions> findByUid(Long uid) {
     Users users = usersDao.findById(uid);

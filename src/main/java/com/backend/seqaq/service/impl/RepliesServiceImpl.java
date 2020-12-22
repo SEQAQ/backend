@@ -19,14 +19,10 @@ import java.util.List;
 
 @Service
 public class RepliesServiceImpl implements RepliesService {
-  @Autowired
-  private RepliesDao repliesDao;
-  @Autowired
-  private UsersDao usersDao;
-  @Autowired
-  private AnswersDao answersDao;
-  @Autowired
-  private ApplicationEventPublisher eventPublisher;
+  @Autowired private RepliesDao repliesDao;
+  @Autowired private UsersDao usersDao;
+  @Autowired private AnswersDao answersDao;
+  @Autowired private ApplicationEventPublisher eventPublisher;
 
   private Examine examine = new Examine();
 
