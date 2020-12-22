@@ -4,6 +4,10 @@ import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.QueryService;
 import io.swagger.annotations.Api;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,16 +21,19 @@ public class QueryController {
   @Autowired private QueryService queryService;
 
   @GetMapping("/users")
+  @RequiresPermissions(logical = Logical.AND, value = {"view", "edit"})
   public List<Users> queryForUsers(@RequestParam("nickname") String nickname) {
     return queryService.queryForUsers(nickname);
   }
 
   @GetMapping("/ques/tag")
+  @RequiresAuthentication
   public List<Questions> queryForQuesByTag(@RequestParam("tag") String tag) {
     return queryService.queryForQuesByTag(tag);
   }
 
   @GetMapping("/ques/title")
+  @RequiresRoles("admin")
   public List<Questions> queryForQuesByTitle(@RequestParam("title") String title) {
     return queryService.queryForQuesByTitle(title);
   }

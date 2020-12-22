@@ -1,5 +1,6 @@
 package com.backend.seqaq.service;
 
+import com.backend.seqaq.entity.UserBean;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.util.exception.RegistrationException;
 
@@ -19,4 +20,6 @@ public interface UsersService {
   String checkStatus(String account);
 
   void activate(Users user);
+
+  UserBean getUser(String username);
 }

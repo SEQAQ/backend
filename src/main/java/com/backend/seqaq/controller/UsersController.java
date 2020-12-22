@@ -1,6 +1,10 @@
 package com.backend.seqaq.controller;
 
+import com.backend.seqaq.config.JWTUtil;
+import com.backend.seqaq.config.UnauthorizedException;
 import com.backend.seqaq.entity.ConfirmationToken;
+import com.backend.seqaq.entity.ResponseBean;
+import com.backend.seqaq.entity.UserBean;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.event.OnRegistrationCompletedEvent;
 import com.backend.seqaq.service.ConfirmationTokenService;
@@ -9,6 +13,7 @@ import com.backend.seqaq.util.Message;
 import com.backend.seqaq.util.exception.RegistrationException;
 import io.swagger.annotations.Api;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -64,10 +69,19 @@ public class UsersController {
   }
 
   @PostMapping("/login")
-  public String login(
-      @RequestParam("account") String account, @RequestParam("password") String password) {
-    return usersService.login(account, password);
+  public ResponseBean login(@RequestParam("username") String username,
+                            @RequestParam("password") String password) {
+    UserBean userBean = usersService.getUser(username);
+    if (userBean.getPassword().equals(password)) {
+      return new ResponseBean(200, "Login success", JWTUtil.sign(username, password));
+    } else {
+      throw new UnauthorizedException();
+    }
   }
+//  public String login(
+//      @RequestParam("account") String account, @RequestParam("password") String password) {
+//    return usersService.login(account, password);
+//  }
 
   @PostMapping("/checkstatus")
   public String checkstatus(@RequestParam("account") String account) {
@@ -81,5 +95,11 @@ public class UsersController {
     if (user == null) return new Message<>(1, "invalid token");
     usersService.activate(user);
     return new Message<>("OK!");
+  }
+
+  @RequestMapping(path = "/401")
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  public ResponseBean unauthorized() {
+    return new ResponseBean(401, "Unauthorized", null);
   }
 }
