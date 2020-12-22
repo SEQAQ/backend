@@ -1,11 +1,11 @@
 package com.backend.seqaq.config;
 
-public class UnauthorizedException extends RuntimeException{
-    public UnauthorizedException(String msg) {
-        super(msg);
-    }
+public class UnauthorizedException extends RuntimeException {
+  public UnauthorizedException(String msg) {
+    super(msg);
+  }
 
-    public UnauthorizedException() {
-        super();
-    }
+  public UnauthorizedException() {
+    super();
+  }
 }

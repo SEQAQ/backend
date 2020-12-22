@@ -72,8 +72,8 @@ public class UsersController {
   }
 
   @PostMapping("/login")
-  public ResponseBean login(@RequestParam("username") String username,
-                            @RequestParam("password") String password) {
+  public ResponseBean login(
+      @RequestParam("username") String username, @RequestParam("password") String password) {
     UserBean userBean = usersService.getUser(username);
     if (userBean.getPassword().equals(password)) {
       return new ResponseBean(200, "Login success", JWTUtil.sign(username, password));
@@ -81,10 +81,10 @@ public class UsersController {
       throw new UnauthorizedException();
     }
   }
-//  public String login(
-//      @RequestParam("account") String account, @RequestParam("password") String password) {
-//    return usersService.login(account, password);
-//  }
+  //  public String login(
+  //      @RequestParam("account") String account, @RequestParam("password") String password) {
+  //    return usersService.login(account, password);
+  //  }
 
   @PostMapping("/checkstatus")
   public String checkstatus(@RequestParam("account") String account) {
