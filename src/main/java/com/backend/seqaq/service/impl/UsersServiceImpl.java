@@ -1,6 +1,7 @@
 package com.backend.seqaq.service.impl;
 
 import com.backend.seqaq.dao.UsersDao;
+import com.backend.seqaq.entity.UserBean;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.exception.RegistrationException;
@@ -28,6 +29,7 @@ public class UsersServiceImpl implements UsersService {
     if (users == null) return "Error";
     else {
       users.setStatus(0);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
@@ -37,6 +39,7 @@ public class UsersServiceImpl implements UsersService {
     if (users == null) return "Error";
     else {
       users.setStatus(1);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
@@ -76,5 +79,21 @@ public class UsersServiceImpl implements UsersService {
   public void activate(Users user) {
     user.setStatus(Users.STAT_ACTIVATED);
     usersDao.saveUser(user);
+  }
+
+  @Override
+  public UserBean getUser(String username) {
+    Users users = usersDao.findByAccount(username);
+    if (users == null) {
+      return null;
+    }
+
+    UserBean user = new UserBean();
+    user.setUsername(username);
+    user.setPassword(users.getPassword());
+    user.setRole(users.getRole());
+    user.setPermission(users.getPermission());
+
+    return user;
   }
 }

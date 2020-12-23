@@ -44,6 +44,9 @@ public class Users {
   @Column(name = "role")
   private String role;
 
+  @Column(name = "permission")
+  private String permission;
+
   // 0: banned 1: 待激活 -1: delete 2: active
   @Column(name = "stat")
   private Integer status; // ban or not?
@@ -161,6 +164,14 @@ public class Users {
 
   public void setRole(String role) {
     this.role = role;
+  }
+
+  public String getPermission() {
+    return permission;
+  }
+
+  public void setPermission(String permission) {
+    this.permission = permission;
   }
 
   public Integer getStatus() {

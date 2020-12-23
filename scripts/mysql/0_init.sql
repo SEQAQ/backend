@@ -14,6 +14,7 @@ create table users
 	cid				varchar(20),
 	department varchar(20),
 	role			varchar(20),
+	permission      varchar(50),
     stat  int,
 	follower	bigint,
 	followed  bigint,

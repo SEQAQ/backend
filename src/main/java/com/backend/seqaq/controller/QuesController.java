@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.service.QuesService;
 import io.swagger.annotations.Api;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +32,7 @@ public class QuesController {
   }
 
   @PostMapping("/createQues")
+  @RequiresAuthentication
   public void create(@RequestBody JSONObject jsonObject) {
     String title = jsonObject.getString("title");
     String tag = jsonObject.getString("tag");
@@ -38,27 +41,32 @@ public class QuesController {
   }
 
   @PostMapping("/new")
+  @RequiresAuthentication
   public String createWithDetails(@RequestBody JSONObject test) {
     System.out.println(test);
     return quesService.createQuestion(test);
   }
 
   @PostMapping("/editQues")
+  @RequiresAuthentication
   public void edit(@RequestParam("qid") Long qid, @RequestParam("text") String text) {
     quesService.editQues(qid, text);
   }
 
   @PostMapping("/banQues")
+  @RequiresRoles("admin")
   public void ban(@RequestParam("qid") Long qid) {
     quesService.banQues(qid);
   }
 
   @PostMapping("/unbanQues")
+  @RequiresRoles("admin")
   public void unban(@RequestParam("qid") Long qid) {
     quesService.unbanQues(qid);
   }
 
   @PostMapping("/delQues")
+  @RequiresAuthentication
   public void del(@RequestParam("qid") Long qid) {
     quesService.delQues(qid);
   }
