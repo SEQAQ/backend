@@ -8,13 +8,16 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 class QueryServiceTest {
 
   @Autowired private QueryService queryService;
 
   @Test
-  void queryForQuesByContent() {
+  void queryForQues() {
     System.out.println(queryService.queryForQuesByContent("123"));
+    System.out.println(queryService.queryForQuesByTag("123"));
+    System.out.println(queryService.queryForQuesByTitle("123"));
+    System.out.println(queryService.queryForUsers("123"));
   }
 }

@@ -37,6 +37,7 @@ public class AnswersServiceImpl implements AnswersService {
     return answersDao.findAllByQid(qid);
   }
 
+  @Transactional
   public String addAnswers(Long uid, Long qid, String text) {
     Users users = usersDao.findById(uid);
     Questions questions = quesDao.findById(qid);
@@ -69,8 +70,8 @@ public class AnswersServiceImpl implements AnswersService {
       AnswerDetail detail = new AnswerDetail();
       detail.setMdText(text);
       answers.setDetail(detail);
-      answersDao.addOrChangeAnswer(answers);
-      return "OK";
+      String result = answersDao.addOrChangeAnswer(answers).toString();
+      return result;
     }
   }
 
@@ -81,6 +82,22 @@ public class AnswersServiceImpl implements AnswersService {
     else {
       Timestamp d = new Timestamp(System.currentTimeMillis());
       answers.setMtime(d);
+      org.json.JSONObject object = examine.forText(text);
+      if (object.getInt("conclusionType") != 1) {
+        String words =
+            object
+                .getJSONArray("data")
+                .getJSONObject(0)
+                .getJSONArray("hits")
+                .getJSONObject(0)
+                .getJSONArray("words")
+                .toString();
+        return "问题内容存在敏感词汇: " + words + " 等";
+      }
+      AnswerDetail detail = answers.getDetail();
+      detail.setMdText(text);
+      answers.setDetail(detail);
+      answersDao.addOrChangeAnswer(answers);
       return "OK";
     }
   }

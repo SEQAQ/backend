@@ -8,17 +8,15 @@ import java.util.List;
 public interface QuesService {
   List<Questions> findByUid(Long uid);
 
-  String createQues(String title, String tag, Long uid);
-
   String createQuestion(JSONObject json);
 
   Questions findById(Long qid);
 
-  void editQues(Long qid, String text);
+  String editQues(Long qid, String text);
 
-  void banQues(Long qid);
+  String banQues(Long qid);
 
-  void unbanQues(Long qid);
+  String unbanQues(Long qid);
 
-  void delQues(Long qid);
+  String delQues(Long qid);
 }

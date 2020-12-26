@@ -7,7 +7,7 @@ import java.util.List;
 public interface QuesDao {
   List<Questions> findByUid(Long uid);
 
-  void save(Questions questions);
+  Long save(Questions questions);
 
   Questions findById(Long id);
 

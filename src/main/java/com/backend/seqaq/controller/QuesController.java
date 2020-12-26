@@ -31,14 +31,6 @@ public class QuesController {
     return ques;
   }
 
-  @PostMapping("/createQues")
-  @RequiresAuthentication
-  public void create(@RequestBody JSONObject jsonObject) {
-    String title = jsonObject.getString("title");
-    String tag = jsonObject.getString("tag");
-    Long uid = jsonObject.getLong("uid");
-    quesService.createQues(title, tag, uid);
-  }
 
   @PostMapping("/new")
   @RequiresAuthentication

@@ -30,24 +30,6 @@ public class QuesServiceImpl implements QuesService {
     return quesDao.findById(qid);
   }
 
-  public String createQues(String title, String tag, Long uid) {
-    Questions questions = new Questions();
-    Users u = usersDao.findById(uid);
-    if (u == null) return "Error";
-    questions.setUsers(u);
-    questions.setFollower(0L);
-    questions.setStatus(1);
-    questions.setTag(tag);
-    questions.setTitle(title);
-    questions.setUid(uid);
-    Timestamp d = new Timestamp(System.currentTimeMillis());
-    questions.setCtime(d);
-    questions.setMtime(d);
-    System.out.println(questions);
-    quesDao.save(questions);
-    return "OK";
-  }
-
   @Override
   public String createQuestion(JSONObject json) {
     Questions question = new Questions();
@@ -57,12 +39,15 @@ public class QuesServiceImpl implements QuesService {
     question.setUid(json.getLong("uid"));
     QuestionDetail detail = new QuestionDetail(json.getString("detail"));
     question.setUsers(u);
+    question.setTag(json.getString("tag"));
     question.setFollower(0L);
     question.setStatus(1);
     Timestamp d = new Timestamp(System.currentTimeMillis());
     question.setCtime(d);
     question.setMtime(d);
     org.json.JSONObject object = examine.forText(detail.getDetail());
+    org.json.JSONObject object2 = examine.forText(question.getTitle());
+    org.json.JSONObject object3 = examine.forText(question.getTag());
     if (object.getInt("conclusionType") != 1) {
       String words =
           object
@@ -74,33 +59,78 @@ public class QuesServiceImpl implements QuesService {
               .toString();
       return "问题内容存在敏感词汇: " + words + " 等";
     }
+    if (object2.getInt("conclusionType") != 1) {
+      String words =
+          object2
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题标题存在敏感词汇: " + words + " 等";
+    }
+    if (object3.getInt("conclusionType") != 1) {
+      String words =
+          object3
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题标签存在敏感词汇: " + words + " 等";
+    }
     question.setDetail(detail);
-    quesDao.save(question);
+    String result = quesDao.save(question).toString();
+    return result;
+  }
+
+  public String editQues(Long qid, String text) {
+    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
+    Timestamp d = new Timestamp(System.currentTimeMillis());
+    questions.setMtime(d);
+    org.json.JSONObject object = examine.forText(text);
+    if (object.getInt("conclusionType") != 1) {
+      String words =
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题内容存在敏感词汇: " + words + " 等";
+    }
+    QuestionDetail detail = questions.getDetail();
+    detail.setDetail(text);
+    questions.setDetail(detail);
+    String result = quesDao.save(questions).toString();
+    return result;
+  }
+
+  public String banQues(Long qid) {
+    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
+    questions.setStatus(0);
+    quesDao.save(questions);
     return "OK";
   }
 
-  public void editQues(Long qid, String text) {
+  public String unbanQues(Long qid) {
     Questions questions = quesDao.findById(qid);
-    Timestamp d = new Timestamp(System.currentTimeMillis());
-    questions.setMtime(d);
-    quesDao.save(questions);
-  }
-
-  public void banQues(Long qid) {
-    Questions questions = quesDao.findById(qid);
-    questions.setStatus(0);
-    quesDao.save(questions);
-  }
-
-  public void unbanQues(Long qid) {
-    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
     questions.setStatus(1);
     quesDao.save(questions);
+    return "OK";
   }
 
-  public void delQues(Long qid) {
+  public String delQues(Long qid) {
     Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
     questions.setStatus(-1);
     quesDao.save(questions);
+    return "OK";
   }
 }

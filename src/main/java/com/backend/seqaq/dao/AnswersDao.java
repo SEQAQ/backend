@@ -5,7 +5,7 @@ import com.backend.seqaq.entity.Answers;
 import java.util.List;
 
 public interface AnswersDao {
-  void addOrChangeAnswer(Answers answers);
+  Long addOrChangeAnswer(Answers answers);
 
   Answers findById(Long aid);
 

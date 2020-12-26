@@ -22,11 +22,11 @@ public class AnswersDaoImpl implements AnswersDao {
   }
 
   @Transactional
-  public void addOrChangeAnswer(Answers answers) {
+  public Long addOrChangeAnswer(Answers answers) {
     Answers ans = answersRepository.save(answers);
-    AnswerDetail detail = ans.getDetail();
+    AnswerDetail detail = answers.getDetail();
     detail.setAid(ans.getAid());
-    answerDetailRepository.save(detail);
+    return answerDetailRepository.save(detail).getAid();
   }
 
   public List<Answers> findAllByQid(Long qid) {
