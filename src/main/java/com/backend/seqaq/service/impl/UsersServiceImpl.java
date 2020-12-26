@@ -42,6 +42,7 @@ public class UsersServiceImpl implements UsersService {
       return "OK";
     }
   }
+
   public String login(String account, String password) {
     Users users = usersDao.findByAccount(account);
     if (users == null) return "User doesn't exist";

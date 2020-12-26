@@ -14,7 +14,7 @@ class QueryServiceTest {
   @Autowired private QueryService queryService;
 
   @Test
-  void queryForQues(){
+  void queryForQues() {
     System.out.println(queryService.queryForQuesByContent("123"));
     System.out.println(queryService.queryForQuesByTag("123"));
     System.out.println(queryService.queryForQuesByTitle("123"));
