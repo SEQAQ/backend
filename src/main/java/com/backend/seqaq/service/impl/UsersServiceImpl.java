@@ -28,6 +28,7 @@ public class UsersServiceImpl implements UsersService {
     if (users == null) return "Error";
     else {
       users.setStatus(0);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
@@ -37,10 +38,10 @@ public class UsersServiceImpl implements UsersService {
     if (users == null) return "Error";
     else {
       users.setStatus(1);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
-
   public String login(String account, String password) {
     Users users = usersDao.findByAccount(account);
     if (users == null) return "User doesn't exist";
