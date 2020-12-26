@@ -31,7 +31,6 @@ public class QuesController {
     return ques;
   }
 
-
   @PostMapping("/new")
   @RequiresAuthentication
   public String createWithDetails(@RequestBody JSONObject test) {
