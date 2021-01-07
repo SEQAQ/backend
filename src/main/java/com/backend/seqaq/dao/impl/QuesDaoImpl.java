@@ -45,10 +45,11 @@ public class QuesDaoImpl implements QuesDao {
         .map(this::attachDetail)
         .collect(Collectors.toList());
   }
-  public Page<Questions> findAll(Pageable pageable)
-  {
+
+  public Page<Questions> findAll(Pageable pageable) {
     return quesRepository.findAll(pageable);
   }
+
   public List<Questions> findAllByTagContaining(String text) {
     return quesRepository.findAllByTagContaining(text).stream()
         .map(this::attachDetail)

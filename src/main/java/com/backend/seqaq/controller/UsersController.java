@@ -68,11 +68,14 @@ public class UsersController {
     System.out.println(usersService.findById(uid));
     return usersService.findById(uid);
   }
+
   @GetMapping("/findAll")
-  public Page<Users> findById(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+  public Page<Users> findById(
+      @RequestParam("page") Integer page, @RequestParam("size") Integer size) {
     Pageable pageable = PageRequest.of(page, size);
     return usersService.findAll(pageable);
   }
+
   @GetMapping("/findbyaccount")
   public Users findByAccount(@RequestParam("account") String account) {
     return usersService.findByAccount(account);
