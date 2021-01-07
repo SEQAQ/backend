@@ -6,6 +6,8 @@ import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.QuesService;
 import com.backend.seqaq.service.UsersService;
+
+import com.backend.seqaq.util.Message;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -52,15 +55,34 @@ public class QuesController {
 
   @PostMapping("/new")
   @RequiresAuthentication
-  public String createWithDetails(@RequestBody JSONObject test) {
-    System.out.println(test);
-    return quesService.createQuestion(test);
+  public String createWithDetails(@RequestBody JSONObject data) {
+    return quesService.createQuestion(data);
   }
 
   @PostMapping("/editQues")
   @RequiresAuthentication
-  public void edit(@RequestParam("qid") Long qid, @RequestParam("text") String text) {
-    quesService.editQues(qid, text);
+  public Message<String> edit(
+      @RequestHeader("Authorization") String token, @RequestBody JSONObject data) {
+    String account = JWTUtil.getUsername(token);
+    Users user = usersService.findByAccount(account);
+    if (user == null) return new Message<>(233, "Authentication failed!");
+    Long qid = data.getLong("qid");
+    String title = data.getString("title");
+    String mdText = data.getString("detail");
+    Questions ques = quesService.findById(qid);
+    // not a admin, nor the ask-er
+    if (ques.getUsers() == null
+        || (!ques.getUsers().getRole().equals("admin")
+            && !ques.getUsers().getUid().equals(user.getUid())))
+      return new Message<>(666, "Access denied for current user");
+    // within 24hours
+    Timestamp ctimeAfterOneDay = ques.getCtime();
+    ctimeAfterOneDay.setTime(ctimeAfterOneDay.getTime() + 60 * 24 * 24);
+    Timestamp now = new Timestamp(System.currentTimeMillis());
+    if (!ques.getUsers().getRole().equals("admin") && !now.before(ctimeAfterOneDay))
+      return new Message<>(30, "Questions can only be edited within 24hours");
+    quesService.editQues(qid, title, mdText);
+    return new Message<>("OK");
   }
 
   @PostMapping("/banQues")
@@ -82,11 +104,11 @@ public class QuesController {
   }
 
   @PostMapping("/closeQues")
-  public void close(@RequestHeader("Authorization") String token,@RequestParam("qid") Long qid){
+  public void close(@RequestHeader("Authorization") String token, @RequestParam("qid") Long qid) {
     String account = JWTUtil.getUsername(token);
     Users user = usersService.findByAccount(account);
     Questions questions = quesService.findById(qid);
-    if (questions.getUid()!= user.getUid()) return;
+    if (questions.getUid() != user.getUid()) return;
     quesService.close(qid);
   }
 

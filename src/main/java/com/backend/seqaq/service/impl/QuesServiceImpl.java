@@ -25,15 +25,15 @@ public class QuesServiceImpl implements QuesService {
   private Examine examine = new Examine();
   @Autowired private ApplicationEventPublisher eventPublisher;
 
-
   private int checklevel(int exp) {
-    if(exp<50) return 1;
-    else if(exp<150) return 2;
-    else if(exp<300) return 3;
-    else if(exp<600) return 4;
-    else if(exp<1000) return 5;
+    if (exp < 50) return 1;
+    else if (exp < 150) return 2;
+    else if (exp < 300) return 3;
+    else if (exp < 600) return 4;
+    else if (exp < 1000) return 5;
     else return 6;
   }
+
   public List<Questions> findByUid(Long uid) {
     Users users = usersDao.findById(uid);
     if (users == null) return null;
@@ -98,13 +98,11 @@ public class QuesServiceImpl implements QuesService {
     question.setDetail(detail);
     int exp = u.getExp();
     int level = 1;
-    exp+=10;
-    if(exp>1000)
-    {
+    exp += 10;
+    if (exp > 1000) {
       exp = 1000;
       level = 6;
-    }
-    else level = checklevel(exp);
+    } else level = checklevel(exp);
     u.setExp(exp);
     u.setLevel(level);
     usersDao.saveUser(u);
@@ -113,12 +111,13 @@ public class QuesServiceImpl implements QuesService {
     return result;
   }
 
-  public String editQues(Long qid, String text) {
+  public String editQues(Long qid, String title, String detailString) {
     Questions questions = quesDao.findById(qid);
     if (questions == null) return "Error";
     Timestamp d = new Timestamp(System.currentTimeMillis());
     questions.setMtime(d);
-    org.json.JSONObject object = examine.forText(text);
+    questions.setTitle(title);
+    org.json.JSONObject object = examine.forText(title);
     if (object.getInt("conclusionType") != 1) {
       String words =
           object
@@ -131,10 +130,29 @@ public class QuesServiceImpl implements QuesService {
       return "问题内容存在敏感词汇: " + words + " 等";
     }
     QuestionDetail detail = questions.getDetail();
-    detail.setDetail(text);
+    detail.setDetail(detailString);
     questions.setDetail(detail);
-    String result = quesDao.save(questions).toString();
-    return result;
+    return quesDao.save(questions).toString();
+  }
+
+  public String editQues(Long qid, String title) {
+    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
+    Timestamp d = new Timestamp(System.currentTimeMillis());
+    questions.setMtime(d);
+    org.json.JSONObject object = examine.forText(title);
+    if (object.getInt("conclusionType") != 1) {
+      String words =
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题内容存在敏感词汇: " + words + " 等";
+    }
+    return quesDao.save(questions).toString();
   }
 
   public String banQues(Long qid) {

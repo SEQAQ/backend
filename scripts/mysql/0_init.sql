@@ -108,3 +108,11 @@ uid             BIGINT NOT null,
 created_date timestamp,
 primary key (hid)
 )DEFAULT CHARSET=utf8;
+
+create table like_record
+(
+lid             BIGINT NOT null AUTO_INCREMENT,
+aid             BIGINT NOT null,
+uid             BIGINT NOT null,
+primary key (lid)
+)DEFAULT CHARSET=utf8;
