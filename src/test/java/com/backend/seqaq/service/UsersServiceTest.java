@@ -41,7 +41,7 @@ class UsersServiceTest {
     random = new Random(System.currentTimeMillis());
     Integer account2 = random.nextInt(10000);
     String Account = account.toString();
-    Account = "t" + Account+account2.toString();
+    Account = "t" + Account + account2.toString();
     System.out.println(Account);
     u.setAccount(Account);
     u.setPassword("sadadwdd");
@@ -50,7 +50,7 @@ class UsersServiceTest {
     users.setPassword("wysjzmk");
     Long id = usersService.editUser(users);
     users = usersService.findById(id);
-    assertEquals("wysjzmk",users.getPassword());
+    assertEquals("wysjzmk", users.getPassword());
   }
 
   @Test
