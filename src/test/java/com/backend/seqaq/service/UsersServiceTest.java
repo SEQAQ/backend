@@ -42,7 +42,7 @@ class UsersServiceTest {
     Integer account2 = random.nextInt(10000);
     String Account = account.toString();
     Account = "t" + Account + account2.toString();
-    Account=Account.substring(0,18);
+    Account = Account.substring(0, 18);
     System.out.println(Account);
     u.setAccount(Account);
     u.setPassword("sadadwdd");
