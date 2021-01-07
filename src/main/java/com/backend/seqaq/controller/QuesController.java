@@ -82,11 +82,11 @@ public class QuesController {
   }
 
   @PostMapping("/closeQues")
-  public void close(@RequestHeader("Authorization") String token,@RequestParam("qid") Long qid){
+  public void close(@RequestHeader("Authorization") String token, @RequestParam("qid") Long qid) {
     String account = JWTUtil.getUsername(token);
     Users user = usersService.findByAccount(account);
     Questions questions = quesService.findById(qid);
-    if (questions.getUid()!= user.getUid()) return;
+    if (questions.getUid() != user.getUid()) return;
     quesService.close(qid);
   }
 

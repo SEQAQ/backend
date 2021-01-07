@@ -41,13 +41,14 @@ public class AnswersServiceImpl implements AnswersService {
   }
 
   private int checklevel(int exp) {
-    if(exp<50) return 1;
-    else if(exp<150) return 2;
-    else if(exp<300) return 3;
-    else if(exp<600) return 4;
-    else if(exp<1000) return 5;
+    if (exp < 50) return 1;
+    else if (exp < 150) return 2;
+    else if (exp < 300) return 3;
+    else if (exp < 600) return 4;
+    else if (exp < 1000) return 5;
     else return 6;
   }
+
   @Transactional
   public String addAnswers(Long uid, Long qid, String text) {
     Users users = usersDao.findById(uid);
@@ -56,13 +57,11 @@ public class AnswersServiceImpl implements AnswersService {
     else {
       int exp = users.getExp();
       int level = 1;
-      exp+=5;
-      if(exp>1000)
-      {
+      exp += 5;
+      if (exp > 1000) {
         exp = 1000;
         level = 6;
-      }
-      else level = checklevel(exp);
+      } else level = checklevel(exp);
       users.setExp(exp);
       users.setLevel(level);
       usersDao.saveUser(users);
@@ -160,13 +159,11 @@ public class AnswersServiceImpl implements AnswersService {
       Users u = usersDao.findById(answers.getUid());
       int exp = u.getExp();
       int level = 1;
-      exp+=2;
-      if(exp>1000)
-      {
+      exp += 2;
+      if (exp > 1000) {
         exp = 1000;
         level = 6;
-      }
-      else level = checklevel(exp);
+      } else level = checklevel(exp);
       u.setExp(exp);
       u.setLevel(level);
       usersDao.saveUser(u);
