@@ -56,7 +56,7 @@ public class AnswersServiceTest {
   @Test
   public void like_dislike() {
     Long likebefore = answersService.findAnswersById(1L).getLike();
-    answersService.likeAnswers(1L);
+    answersService.likeAnswers(1L, 1L);
     Long likeafter = answersService.findAnswersById(1L).getLike();
     assertEquals(1L, likeafter - likebefore);
     Long dlikebefore = answersService.findAnswersById(1L).getDislike();
