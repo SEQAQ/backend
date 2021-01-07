@@ -6,6 +6,8 @@ import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.repository.UserDetailRepository;
 import com.backend.seqaq.repository.UsersRepository;
 import com.backend.seqaq.util.exception.RegistrationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public class UsersDaoImpl implements UsersDao {
   }
 
   public static boolean checkAccount(String name) {
-    String regExp = "^[^0-9][\\w_]{5,9}$";
+    String regExp = "^[^0-9][\\w_]{5,20}$";
     return name.matches(regExp);
   }
 
@@ -70,13 +72,30 @@ public class UsersDaoImpl implements UsersDao {
     if (findByAccount(u.getAccount()) != null) throw new RegistrationException("Account exists");
     else {
       u.setStatus(1);
+      u.setFollowed(0L);
+      u.setFollower(0L);
       u.setRole("user");
-      return usersRepository.save(u);
+      return usersRepository.findById(saveForEdit(u)).orElse(null);
     }
+  }
+
+  public Page<Users> findAll(Pageable pageable) {
+    return usersRepository.findAll(pageable);
   }
 
   @Override
   public Users saveUser(Users user) {
     return usersRepository.save(user);
+  }
+
+  public Long saveForEdit(Users users) {
+    //    Questions savedQues = quesRepository.save(questions);
+    Users saveUsers = usersRepository.save(users);
+
+    UserDetail detail = users.getDetail();
+    //    QuestionDetail detail = questions.getDetail();
+    //    detail.setQid(savedQues.getQid());
+    detail.setUid(users.getUid());
+    return userDetailRepository.save(detail).getUid();
   }
 }

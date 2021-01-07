@@ -39,7 +39,7 @@ class QuesServiceTest {
     String abnormal = "傻逼";
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("uid", "1");
-    jsonObject.put("tag", "awsl");
+    jsonObject.put("tag", "");
     jsonObject.put("title", "单元测试写不完了怎么办");
     jsonObject.put("detail", textnormal);
     System.out.println(jsonObject.getLong("uid"));

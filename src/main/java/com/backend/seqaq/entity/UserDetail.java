@@ -1,6 +1,5 @@
 package com.backend.seqaq.entity;
 
-import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -11,7 +10,7 @@ import javax.persistence.Id;
 public class UserDetail {
   private ObjectId _id;
   private Long uid;
-  private Binary avatar;
+  private String avatar;
 
   @Id
   public ObjectId get_id() {
@@ -32,11 +31,11 @@ public class UserDetail {
   }
 
   @Field(name = "avatar")
-  public Binary getAvatar() {
+  public String getAvatar() {
     return avatar;
   }
 
-  public void setAvatar(Binary avatar) {
+  public void setAvatar(String avatar) {
     this.avatar = avatar;
   }
 }

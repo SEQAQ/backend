@@ -5,6 +5,8 @@ import com.backend.seqaq.util.exception.RegistrationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Random;
 
@@ -34,15 +36,22 @@ class UsersServiceTest {
   @Test
   void register() throws RegistrationException {
     Users u = new Users();
-    Random random = new Random(1000);
-    Integer account = random.nextInt(100000);
+    Random random = new Random(System.currentTimeMillis());
+    Integer account = random.nextInt(10000);
+    random = new Random(System.currentTimeMillis());
+    Integer account2 = random.nextInt(10000);
     String Account = account.toString();
-    Account = "t" + Account;
+    Account = "t" + Account + account2.toString();
+    Account = Account.substring(0, 18);
     System.out.println(Account);
     u.setAccount(Account);
     u.setPassword("sadadwdd");
     u.setEmail("541551@dobby.free");
-    System.out.println(usersService.register(u));
+    Users users = usersService.findById(usersService.register(u).getUid());
+    users.setPassword("wysjzmk");
+    Long id = usersService.editUser(users);
+    users = usersService.findById(id);
+    assertEquals("wysjzmk", users.getPassword());
   }
 
   @Test
@@ -60,5 +69,13 @@ class UsersServiceTest {
     assertEquals("用户已激活", result);
     result = usersService.login(users.getAccount(), users.getPassword());
     assertEquals("Success", result);
+  }
+
+  @Test
+  void findAll() {
+    int page = 0;
+    int size = 10;
+    Pageable pageable = PageRequest.of(page, size);
+    System.out.println(usersService.findAll(pageable));
   }
 }

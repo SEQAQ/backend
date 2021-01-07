@@ -43,18 +43,18 @@ public class RepliesServiceImpl implements RepliesService {
       replies.setReplies(null);
       Timestamp d = new Timestamp(System.currentTimeMillis());
       replies.setCtime(d);
-      org.json.JSONObject object = examine.forText(text);
-      if (object.getInt("conclusionType") != 1) {
-        String words =
-            object
-                .getJSONArray("data")
-                .getJSONObject(0)
-                .getJSONArray("hits")
-                .getJSONObject(0)
-                .getJSONArray("words")
-                .toString();
-        return "问题内容存在敏感词汇: " + words + " 等";
-      }
+      //      org.json.JSONObject object = examine.forText(text);
+      //      if (object.getInt("conclusionType") != 1) {
+      //        String words =
+      //            object
+      //                .getJSONArray("data")
+      //                .getJSONObject(0)
+      //                .getJSONArray("hits")
+      //                .getJSONObject(0)
+      //                .getJSONArray("words")
+      //                .toString();
+      //        return "问题内容存在敏感词汇: " + words + " 等";
+      //      }
       ReplyContent content = new ReplyContent();
       content.setContent(text);
       replies.setContent(content);
@@ -82,18 +82,18 @@ public class RepliesServiceImpl implements RepliesService {
       replies.setReplies(repliestmp);
       Timestamp d = new Timestamp(System.currentTimeMillis());
       replies.setCtime(d);
-      org.json.JSONObject object = examine.forText(text);
-      if (object.getInt("conclusionType") != 1) {
-        String words =
-            object
-                .getJSONArray("data")
-                .getJSONObject(0)
-                .getJSONArray("hits")
-                .getJSONObject(0)
-                .getJSONArray("words")
-                .toString();
-        return "问题内容存在敏感词汇: " + words + " 等";
-      }
+      //      org.json.JSONObject object = examine.forText(text);
+      //      if (object.getInt("conclusionType") != 1) {
+      //        String words =
+      //            object
+      //                .getJSONArray("data")
+      //                .getJSONObject(0)
+      //                .getJSONArray("hits")
+      //                .getJSONObject(0)
+      //                .getJSONArray("words")
+      //                .toString();
+      //        return "问题内容存在敏感词汇: " + words + " 等";
+      //      }
       ReplyContent content = new ReplyContent();
       content.setContent(text);
       replies.setContent(content);

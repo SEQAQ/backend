@@ -28,7 +28,7 @@ create table questions
 	ctime			timestamp,
 	stat  int,
 	uid				bigint not null,
-  follower  bigint,
+    follower  bigint,
 	mtime			timestamp,
 	title			varchar(1024),
 	primary key (qid),
