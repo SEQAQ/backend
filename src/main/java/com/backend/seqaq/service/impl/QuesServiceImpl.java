@@ -80,6 +80,7 @@ public class QuesServiceImpl implements QuesService {
     }
     question.setDetail(detail);
     quesDao.save(question);
+    eventPublisher.publishEvent(new OnNewQuestionEvent(question));
     return "OK";
   }
 

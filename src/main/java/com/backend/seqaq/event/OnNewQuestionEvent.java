@@ -8,11 +8,7 @@ public class OnNewQuestionEvent extends ApplicationEvent {
 
   public OnNewQuestionEvent(Object source) {
     super(source);
-  }
-
-  public OnNewQuestionEvent(Object source, Questions question) {
-    super(source);
-    this.question = question;
+    this.question = (Questions) source;
   }
 
   public Questions getQuestion() {

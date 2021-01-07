@@ -19,14 +19,15 @@ public class NewQuestionListener implements ApplicationListener<OnNewQuestionEve
   @Autowired Notifier notifier;
 
   @Override
-  public void onApplicationEvent(OnNewQuestionEvent onNewAnswerEvent) {
-    Questions question = onNewAnswerEvent.getQuestion();
+  public void onApplicationEvent(OnNewQuestionEvent onNewQuestionEvent) {
+    Questions question = onNewQuestionEvent.getQuestion();
+    System.out.println("new question released: " + question);
     NotificationMsg<Questions> msg = new NotificationMsg<>(NotificationMsg.TYPE_QUESTION, question);
     // Notify the followers of the questioner
     Users questioner = question.getUsers();
     var followers =
         followersService.findAllFollowerByUid(questioner.getUid()).stream()
-            .map(Followers::getUsers2)
+            .map(Followers::getUsers1)
             .collect(Collectors.toList());
     notifier.notify(followers, msg);
   }

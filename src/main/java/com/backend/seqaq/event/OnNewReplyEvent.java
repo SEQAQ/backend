@@ -6,14 +6,10 @@ import org.springframework.context.ApplicationEvent;
 public class OnNewReplyEvent extends ApplicationEvent {
   private Replies replies;
 
-  public OnNewReplyEvent(Object source) {
-    super(source);
-  }
-
-  public OnNewReplyEvent(Object source, Replies answer) {
-    super(source);
-    this.replies = answer;
-  }
+    public OnNewReplyEvent(Replies reply) {
+        super(reply);
+        this.replies = reply;
+    }
 
   public Replies getReplies() {
     return replies;

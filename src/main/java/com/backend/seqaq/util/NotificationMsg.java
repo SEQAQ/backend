@@ -1,9 +1,9 @@
 package com.backend.seqaq.util;
 
 public class NotificationMsg<T> {
-  public static final int TYPE_ANSWER = 0;
-  public static final int TYPE_QUESTION = 1;
-  public static final int TYPE_COMMENT = 2;
+  public static final int TYPE_ANSWER = 1;
+  public static final int TYPE_QUESTION = 2;
+  public static final int TYPE_COMMENT = 3;
 
   private int type;
   private T data;
