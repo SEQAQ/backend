@@ -25,6 +25,15 @@ public class QuesServiceImpl implements QuesService {
   private Examine examine = new Examine();
   @Autowired private ApplicationEventPublisher eventPublisher;
 
+
+  private int checklevel(int exp) {
+    if(exp<50) return 1;
+    else if(exp<150) return 2;
+    else if(exp<300) return 3;
+    else if(exp<600) return 4;
+    else if(exp<1000) return 5;
+    else return 6;
+  }
   public List<Questions> findByUid(Long uid) {
     Users users = usersDao.findById(uid);
     if (users == null) return null;
@@ -87,6 +96,18 @@ public class QuesServiceImpl implements QuesService {
       return "问题标签存在敏感词汇: " + words + " 等";
     }
     question.setDetail(detail);
+    int exp = u.getExp();
+    int level = 1;
+    exp+=10;
+    if(exp>1000)
+    {
+      exp = 1000;
+      level = 6;
+    }
+    else level = checklevel(exp);
+    u.setExp(exp);
+    u.setLevel(level);
+    usersDao.saveUser(u);
     String result = quesDao.save(question).toString();
     eventPublisher.publishEvent(new OnNewQuestionEvent(question));
     return result;

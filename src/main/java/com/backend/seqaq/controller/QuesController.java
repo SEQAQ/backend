@@ -1,8 +1,11 @@
 package com.backend.seqaq.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.backend.seqaq.config.JWTUtil;
 import com.backend.seqaq.entity.Questions;
+import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.QuesService;
+import com.backend.seqaq.service.UsersService;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -20,6 +23,7 @@ import java.util.List;
 @Api
 public class QuesController {
   @Autowired private QuesService quesService;
+  @Autowired private UsersService usersService;
 
   @GetMapping("/findByUid")
   public List<Questions> findByUid(@RequestParam("uid") Long uid) {
@@ -78,7 +82,11 @@ public class QuesController {
   }
 
   @PostMapping("/closeQues")
-  public void close(@RequestParam("qid") Long qid){
+  public void close(@RequestHeader("Authorization") String token,@RequestParam("qid") Long qid){
+    String account = JWTUtil.getUsername(token);
+    Users user = usersService.findByAccount(account);
+    Questions questions = quesService.findById(qid);
+    if (questions.getUid()!= user.getUid()) return;
     quesService.close(qid);
   }
   @PostMapping("/openQues")
