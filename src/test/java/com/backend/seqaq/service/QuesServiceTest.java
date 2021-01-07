@@ -5,14 +5,12 @@ import com.backend.seqaq.entity.Questions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles("test")
 class QuesServiceTest {
   @Autowired private QuesService quesService;
 
@@ -99,5 +97,10 @@ class QuesServiceTest {
     quesService.unbanQues(1L);
     Questions questions1 = quesService.findById(1L);
     assertEquals(1, questions1.getStatus());
+  }
+
+  @Test
+  void tmp() {
+    System.out.println(quesService.findById(1L).getCtime());
   }
 }

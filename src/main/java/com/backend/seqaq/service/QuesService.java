@@ -22,6 +22,8 @@ public interface QuesService {
 
   String delQues(Long qid);
 
+  String close(Long qid);
+
   Page<Questions> findAll(Pageable pageable);
 
   List<Questions> findAll();
