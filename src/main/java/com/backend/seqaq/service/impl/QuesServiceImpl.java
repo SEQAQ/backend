@@ -153,7 +153,6 @@ public class QuesServiceImpl implements QuesService {
     return "OK";
   }
 
-
   public String unbanQues(Long qid) {
     Questions questions = quesDao.findById(qid);
     if (questions == null) return "Error";

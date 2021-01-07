@@ -89,8 +89,9 @@ public class QuesController {
     if (questions.getUid()!= user.getUid()) return;
     quesService.close(qid);
   }
+
   @PostMapping("/openQues")
-  public void open(@RequestParam("qid") Long qid){
+  public void open(@RequestParam("qid") Long qid) {
     quesService.unbanQues(qid);
   }
 }

@@ -1,6 +1,5 @@
 package com.backend.seqaq.controller;
 
-
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.RecommendService;
@@ -15,21 +14,20 @@ import java.util.List;
 @CrossOrigin
 @Api
 public class RecommendController {
-    @Autowired private RecommendService recommendService;
+  @Autowired private RecommendService recommendService;
 
-    @GetMapping("/recommendUsersByFriends")
-    public List<Users> recommendByFriends(@RequestParam("uid") Long uid)
-    {
-        return recommendService.recommendByfriends(uid);
-    }
-    @GetMapping("/recommendUsersByQues")
-    public List<Users> recommendUsersByQues(@RequestParam("uid") Long uid)
-    {
-        return recommendService.recommendByQues(uid);
-    }
-    @GetMapping("/recommendQues")
-    public List<Questions> recommendQues(@RequestParam("uid") Long uid)
-    {
-        return recommendService.recommendQues(uid);
-    }
+  @GetMapping("/recommendUsersByFriends")
+  public List<Users> recommendByFriends(@RequestParam("uid") Long uid) {
+    return recommendService.recommendByfriends(uid);
+  }
+
+  @GetMapping("/recommendUsersByQues")
+  public List<Users> recommendUsersByQues(@RequestParam("uid") Long uid) {
+    return recommendService.recommendByQues(uid);
+  }
+
+  @GetMapping("/recommendQues")
+  public List<Questions> recommendQues(@RequestParam("uid") Long uid) {
+    return recommendService.recommendQues(uid);
+  }
 }
