@@ -101,13 +101,13 @@ public class QuesServiceImpl implements QuesService {
     org.json.JSONObject object = examine.forText(title);
     if (object.getInt("conclusionType") != 1) {
       String words =
-              object
-                      .getJSONArray("data")
-                      .getJSONObject(0)
-                      .getJSONArray("hits")
-                      .getJSONObject(0)
-                      .getJSONArray("words")
-                      .toString();
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
       return "问题内容存在敏感词汇: " + words + " 等";
     }
     QuestionDetail detail = questions.getDetail();
@@ -124,13 +124,13 @@ public class QuesServiceImpl implements QuesService {
     org.json.JSONObject object = examine.forText(title);
     if (object.getInt("conclusionType") != 1) {
       String words =
-              object
-                      .getJSONArray("data")
-                      .getJSONObject(0)
-                      .getJSONArray("hits")
-                      .getJSONObject(0)
-                      .getJSONArray("words")
-                      .toString();
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
       return "问题内容存在敏感词汇: " + words + " 等";
     }
     return quesDao.save(questions).toString();

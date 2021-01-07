@@ -24,10 +24,8 @@ import java.util.List;
 @CrossOrigin
 @Api
 public class QuesController {
-  @Autowired
-  private QuesService quesService;
-  @Autowired
-  private UsersService usersService;
+  @Autowired private QuesService quesService;
+  @Autowired private UsersService usersService;
 
   @GetMapping("/findByUid")
   public List<Questions> findByUid(@RequestParam("uid") Long uid) {
@@ -63,7 +61,7 @@ public class QuesController {
   @PostMapping("/editQues")
   @RequiresAuthentication
   public Message<String> edit(
-          @RequestHeader("Authorization") String token, @RequestBody JSONObject data) {
+      @RequestHeader("Authorization") String token, @RequestBody JSONObject data) {
     String account = JWTUtil.getUsername(token);
     Users user = usersService.findByAccount(account);
     if (user == null) return new Message<>(233, "Authentication failed!");
@@ -73,7 +71,7 @@ public class QuesController {
     Questions ques = quesService.findById(qid);
     // not a admin, nor the ask-er
     if (ques.getUsers() == null
-            || (!ques.getUsers().getRole().equals("admin")
+        || (!ques.getUsers().getRole().equals("admin")
             && !ques.getUsers().getUid().equals(user.getUid())))
       return new Message<>(666, "Access denied for current user");
     // within 24hours
