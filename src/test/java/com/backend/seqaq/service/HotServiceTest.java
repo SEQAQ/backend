@@ -19,9 +19,9 @@ class HotServiceTest {
     int i = 0;
     Long j = 1L;
     for (i = 0; i < 50; ++i) {
-      for (; j < 20; ++j) hotService.add(j, j);
-      for (j = 1L; j <= 10; ++j) hotService.add(j, j);
-      for (j = 1L; j <= 5; ++j) hotService.add(j, j);
+      for (; j < 20; ++j) hotService.add(j, j+1);
+      for (j = 1L; j <= 10; ++j) hotService.add(j, j+1);
+      for (j = 1L; j <= 5; ++j) hotService.add(j, j+1);
     }
   }
 

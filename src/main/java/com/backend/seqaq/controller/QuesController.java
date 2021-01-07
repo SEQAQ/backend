@@ -76,4 +76,13 @@ public class QuesController {
   public void del(@RequestParam("qid") Long qid) {
     quesService.delQues(qid);
   }
+
+  @PostMapping("/closeQues")
+  public void close(@RequestParam("qid") Long qid){
+    quesService.close(qid);
+  }
+  @PostMapping("/openQues")
+  public void open(@RequestParam("qid") Long qid){
+    quesService.unbanQues(qid);
+  }
 }

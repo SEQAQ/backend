@@ -28,6 +28,11 @@ public class FollowersDaoImpl implements FollowersDao {
     followersRepository.deleteAllByUid1AndUid2(uid1, uid2);
   }
 
+  public List<Long> recommend(Long uid)
+  {
+    return followersRepository.recommend(uid);
+  }
+  public List<Long> recommendQues(Long uid) {return followersRepository.recommendQues(uid);}
   @Override
   public boolean checkFollowed(Long uid1, Long uid2) {
     return followersRepository.existsByUid1AndUid2(uid1, uid2);
