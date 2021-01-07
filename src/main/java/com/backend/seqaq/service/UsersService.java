@@ -3,6 +3,8 @@ package com.backend.seqaq.service;
 import com.backend.seqaq.entity.UserBean;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.util.exception.RegistrationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UsersService {
   Users findById(Long id);
@@ -22,4 +24,6 @@ public interface UsersService {
   void activate(Users user);
 
   UserBean getUser(String username);
+
+  Page<Users> findAll(Pageable pageable);
 }

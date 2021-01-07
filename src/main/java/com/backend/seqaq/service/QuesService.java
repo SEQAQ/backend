@@ -2,6 +2,8 @@ package com.backend.seqaq.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.backend.seqaq.entity.Questions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -19,4 +21,6 @@ public interface QuesService {
   String unbanQues(Long qid);
 
   String delQues(Long qid);
+
+  Page<Questions> findAll(Pageable pageable);
 }

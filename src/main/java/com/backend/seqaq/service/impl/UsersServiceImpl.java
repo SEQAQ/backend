@@ -6,6 +6,8 @@ import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -74,7 +76,10 @@ public class UsersServiceImpl implements UsersService {
     }
     return result;
   }
-
+  public Page<Users> findAll(Pageable pageable)
+  {
+    return usersDao.findAll(pageable);
+  }
   @Override
   public void activate(Users user) {
     user.setStatus(Users.STAT_ACTIVATED);

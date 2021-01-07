@@ -11,6 +11,8 @@ import com.backend.seqaq.service.QuesService;
 import com.backend.seqaq.tools.examine.Examine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -73,7 +75,7 @@ public class QuesServiceImpl implements QuesService {
               .toString();
       return "问题标题存在敏感词汇: " + words + " 等";
     }
-    if (object3.getInt("conclusionType") != 1) {
+    if (question.getTag().length()!=0&&object3.getInt("conclusionType") != 1) {
       String words =
           object3
               .getJSONArray("data")
@@ -130,6 +132,10 @@ public class QuesServiceImpl implements QuesService {
     return "OK";
   }
 
+  public Page<Questions> findAll(Pageable pageable)
+  {
+    return quesDao.findAll(pageable);
+  }
   public String delQues(Long qid) {
     Questions questions = quesDao.findById(qid);
     if (questions == null) return "Error";

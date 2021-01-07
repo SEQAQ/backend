@@ -14,6 +14,9 @@ import com.backend.seqaq.util.exception.RegistrationException;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,7 +68,11 @@ public class UsersController {
     System.out.println(usersService.findById(uid));
     return usersService.findById(uid);
   }
-
+  @GetMapping("/findAll")
+  public Page<Users> findById(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return usersService.findAll(pageable);
+  }
   @GetMapping("/findbyaccount")
   public Users findByAccount(@RequestParam("account") String account) {
     return usersService.findByAccount(account);

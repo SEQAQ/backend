@@ -6,6 +6,8 @@ import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.repository.UserDetailRepository;
 import com.backend.seqaq.repository.UsersRepository;
 import com.backend.seqaq.util.exception.RegistrationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -70,11 +72,16 @@ public class UsersDaoImpl implements UsersDao {
     if (findByAccount(u.getAccount()) != null) throw new RegistrationException("Account exists");
     else {
       u.setStatus(1);
+      u.setFollowed(0L);
+      u.setFollower(0L);
       u.setRole("user");
       return usersRepository.save(u);
     }
   }
 
+  public Page<Users> findAll(Pageable pageable){
+    return usersRepository.findAll(pageable);
+  }
   @Override
   public Users saveUser(Users user) {
     return usersRepository.save(user);

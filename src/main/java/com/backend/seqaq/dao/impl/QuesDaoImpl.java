@@ -5,6 +5,8 @@ import com.backend.seqaq.entity.QuestionDetail;
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.repository.QuesDetailRepository;
 import com.backend.seqaq.repository.QuesRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,7 +45,10 @@ public class QuesDaoImpl implements QuesDao {
         .map(this::attachDetail)
         .collect(Collectors.toList());
   }
-
+  public Page<Questions> findAll(Pageable pageable)
+  {
+    return quesRepository.findAll(pageable);
+  }
   public List<Questions> findAllByTagContaining(String text) {
     return quesRepository.findAllByTagContaining(text).stream()
         .map(this::attachDetail)

@@ -5,6 +5,8 @@ import com.backend.seqaq.util.exception.RegistrationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Random;
 
@@ -60,5 +62,14 @@ class UsersServiceTest {
     assertEquals("用户已激活", result);
     result = usersService.login(users.getAccount(), users.getPassword());
     assertEquals("Success", result);
+  }
+
+  @Test
+  void findAll()
+  {
+    int page = 0;
+    int size = 10;
+    Pageable pageable = PageRequest.of(page, size);
+    System.out.println(usersService.findAll(pageable));
   }
 }

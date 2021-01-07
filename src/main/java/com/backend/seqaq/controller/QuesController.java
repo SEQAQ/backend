@@ -7,6 +7,9 @@ import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +34,11 @@ public class QuesController {
     return ques;
   }
 
+  @GetMapping("/findAll")
+  public Page<Questions> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return quesService.findAll(pageable);
+  }
   @PostMapping("/new")
   @RequiresAuthentication
   public String createWithDetails(@RequestBody JSONObject test) {
