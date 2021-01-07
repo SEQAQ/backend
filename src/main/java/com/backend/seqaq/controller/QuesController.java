@@ -35,10 +35,12 @@ public class QuesController {
   }
 
   @GetMapping("/findAll")
-  public Page<Questions> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+  public Page<Questions> findAll(
+      @RequestParam("page") Integer page, @RequestParam("size") Integer size) {
     Pageable pageable = PageRequest.of(page, size);
     return quesService.findAll(pageable);
   }
+
   @PostMapping("/new")
   @RequiresAuthentication
   public String createWithDetails(@RequestBody JSONObject test) {

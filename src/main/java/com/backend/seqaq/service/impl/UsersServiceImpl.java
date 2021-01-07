@@ -76,10 +76,11 @@ public class UsersServiceImpl implements UsersService {
     }
     return result;
   }
-  public Page<Users> findAll(Pageable pageable)
-  {
+
+  public Page<Users> findAll(Pageable pageable) {
     return usersDao.findAll(pageable);
   }
+
   @Override
   public void activate(Users user) {
     user.setStatus(Users.STAT_ACTIVATED);

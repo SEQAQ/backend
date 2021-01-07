@@ -65,8 +65,7 @@ class UsersServiceTest {
   }
 
   @Test
-  void findAll()
-  {
+  void findAll() {
     int page = 0;
     int size = 10;
     Pageable pageable = PageRequest.of(page, size);

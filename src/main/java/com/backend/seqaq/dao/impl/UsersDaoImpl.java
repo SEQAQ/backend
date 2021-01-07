@@ -79,9 +79,10 @@ public class UsersDaoImpl implements UsersDao {
     }
   }
 
-  public Page<Users> findAll(Pageable pageable){
+  public Page<Users> findAll(Pageable pageable) {
     return usersRepository.findAll(pageable);
   }
+
   @Override
   public Users saveUser(Users user) {
     return usersRepository.save(user);
