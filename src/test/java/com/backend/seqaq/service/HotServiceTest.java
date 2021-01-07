@@ -3,6 +3,7 @@ package com.backend.seqaq.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -11,19 +12,10 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class HotServiceTest {
   @Autowired HotService hotService;
 
-  @Test
-  void add() {
-    int i = 0;
-    Long j = 1L;
-    for (i = 0; i < 50; ++i) {
-      for (; j < 20; ++j) hotService.add(j, j + 1);
-      for (j = 1L; j <= 10; ++j) hotService.add(j, j + 1);
-      for (j = 1L; j <= 5; ++j) hotService.add(j, j + 1);
-    }
-  }
 
   @Test
   void help() {
