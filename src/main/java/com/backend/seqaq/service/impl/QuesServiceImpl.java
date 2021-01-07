@@ -140,6 +140,7 @@ public class QuesServiceImpl implements QuesService {
     if (questions == null) return "Error";
     Timestamp d = new Timestamp(System.currentTimeMillis());
     questions.setMtime(d);
+    questions.setTitle(title);
     org.json.JSONObject object = examine.forText(title);
     if (object.getInt("conclusionType") != 1) {
       String words =
