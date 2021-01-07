@@ -97,7 +97,7 @@ public class QuesController {
     quesService.unbanQues(qid);
   }
 
-  @PostMapping("/delQues")
+  @GetMapping("/delQues")
   @RequiresAuthentication
   public void del(@RequestParam("qid") Long qid) {
     quesService.delQues(qid);
@@ -109,10 +109,11 @@ public class QuesController {
     Users user = usersService.findByAccount(account);
     Questions questions = quesService.findById(qid);
     if (questions.getUid() != user.getUid()) return;
+
     quesService.close(qid);
   }
 
-  @PostMapping("/openQues")
+  @GetMapping("/openQues")
   public void open(@RequestParam("qid") Long qid) {
     quesService.unbanQues(qid);
   }
