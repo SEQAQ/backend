@@ -12,6 +12,7 @@ import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.Message;
 import com.backend.seqaq.util.exception.RegistrationException;
 import io.swagger.annotations.Api;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -91,6 +92,20 @@ public class UsersController {
   public ResponseBean login(
       @RequestParam("username") String username, @RequestParam("password") String password) {
     UserBean userBean = usersService.getUser(username);
+    String status = usersService.checkStatus(username);
+    if (status.equals("用户未激活")) {
+      return new ResponseBean(403, "用户未激活", "");
+    }
+
+    if (status.equals("用户被禁用")) {
+      return new ResponseBean(403, "用户被禁用", "");
+    }
+    if (userBean == null) {
+      return new ResponseBean(403, "无效的用户名", "");
+    }
+    if (!userBean.getPassword().equals(password)) {
+      return new ResponseBean(403, "密码错误", "");
+    }
     if (userBean.getPassword().equals(password)) {
       return new ResponseBean(200, "Login success", JWTUtil.sign(username, password));
     } else {

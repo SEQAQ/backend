@@ -63,12 +63,22 @@ public class MyRealm extends AuthorizingRealm {
     }
 
     UserBean userBean = userService.getUser(username);
+    String status = userService.checkStatus(username);
+
     if (userBean == null) {
       throw new AuthenticationException("User didn't existed!");
     }
 
     if (!JWTUtil.verify(token, username, userBean.getPassword())) {
       throw new AuthenticationException("Username or password error");
+    }
+
+    if (status.equals("用户未激活")) {
+      throw new AuthenticationException("用户未激活");
+    }
+
+    if (status.equals("用户被禁用")) {
+      throw new AuthenticationException("用户被禁用");
     }
 
     return new SimpleAuthenticationInfo(token, token, "my_realm");
