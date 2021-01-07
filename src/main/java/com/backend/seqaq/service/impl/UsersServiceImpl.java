@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -86,8 +85,7 @@ public class UsersServiceImpl implements UsersService {
     return usersDao.findAll(pageable);
   }
 
-  public Long editUser(Users users)
-  {
+  public Long editUser(Users users) {
     Long result = usersDao.saveForEdit(users);
     return result;
   }
