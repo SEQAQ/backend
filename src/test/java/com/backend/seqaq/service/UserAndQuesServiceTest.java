@@ -9,10 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class UserAndQuesServiceTest {
 
-  @Autowired
-  private UserAndQuesService userAndQuesService;
-  @Autowired
-  private FollowersService followersService;
+  @Autowired private UserAndQuesService userAndQuesService;
+  @Autowired private FollowersService followersService;
 
   @Test
   void UAQ() {

@@ -40,69 +40,69 @@ public class AnswersServiceImpl implements AnswersService {
     return answersDao.findAllByQid(qid);
   }
 
-    @Transactional
-    public String addAnswers(Long uid, Long qid, String text) {
-        Users users = usersDao.findById(uid);
-        Questions questions = quesDao.findById(qid);
-        if (users == null || questions == null) return "Error";
-        else {
-            Answers answers = new Answers();
-            answers.setDislike(0L);
-            answers.setLike(0L);
-            answers.setQid(qid);
-            answers.setQuestions(questions);
-            answers.setStatus(1);
-            answers.setUid(uid);
-            answers.setUsers(users);
-            answers.setQuestions(questions);
-            Timestamp d = new Timestamp(System.currentTimeMillis());
-            answers.setCtime(d);
-            answers.setMtime(d);
-            org.json.JSONObject object = examine.forText(text);
-            if (object.getInt("conclusionType") != 1) {
-                String words =
-                        object
-                                .getJSONArray("data")
-                                .getJSONObject(0)
-                                .getJSONArray("hits")
-                                .getJSONObject(0)
-                                .getJSONArray("words")
-                                .toString();
-                return "问题内容存在敏感词汇: " + words + " 等";
-            }
-            AnswerDetail detail = new AnswerDetail();
-            detail.setMdText(text);
-            answers.setDetail(detail);
-            String result = answersDao.addOrChangeAnswer(answers).toString();
-            eventPublisher.publishEvent(new OnNewAnswerEvent(answers));
-            return result;
-        }
+  @Transactional
+  public String addAnswers(Long uid, Long qid, String text) {
+    Users users = usersDao.findById(uid);
+    Questions questions = quesDao.findById(qid);
+    if (users == null || questions == null) return "Error";
+    else {
+      Answers answers = new Answers();
+      answers.setDislike(0L);
+      answers.setLike(0L);
+      answers.setQid(qid);
+      answers.setQuestions(questions);
+      answers.setStatus(1);
+      answers.setUid(uid);
+      answers.setUsers(users);
+      answers.setQuestions(questions);
+      Timestamp d = new Timestamp(System.currentTimeMillis());
+      answers.setCtime(d);
+      answers.setMtime(d);
+      org.json.JSONObject object = examine.forText(text);
+      if (object.getInt("conclusionType") != 1) {
+        String words =
+            object
+                .getJSONArray("data")
+                .getJSONObject(0)
+                .getJSONArray("hits")
+                .getJSONObject(0)
+                .getJSONArray("words")
+                .toString();
+        return "问题内容存在敏感词汇: " + words + " 等";
+      }
+      AnswerDetail detail = new AnswerDetail();
+      detail.setMdText(text);
+      answers.setDetail(detail);
+      String result = answersDao.addOrChangeAnswer(answers).toString();
+      eventPublisher.publishEvent(new OnNewAnswerEvent(answers));
+      return result;
     }
+  }
 
   @Transactional
   public String editAnswers(Long aid, String text) {
     Answers answers = answersDao.findById(aid);
     if (answers == null) return "Error";
     else {
-        Timestamp d = new Timestamp(System.currentTimeMillis());
-        answers.setMtime(d);
-        org.json.JSONObject object = examine.forText(text);
-        if (object.getInt("conclusionType") != 1) {
-            String words =
-                    object
-                            .getJSONArray("data")
-                            .getJSONObject(0)
-                            .getJSONArray("hits")
-                            .getJSONObject(0)
-                            .getJSONArray("words")
-                            .toString();
-            return "问题内容存在敏感词汇: " + words + " 等";
-        }
-        AnswerDetail detail = answers.getDetail();
-        detail.setMdText(text);
-        answers.setDetail(detail);
-        answersDao.addOrChangeAnswer(answers);
-        return "OK";
+      Timestamp d = new Timestamp(System.currentTimeMillis());
+      answers.setMtime(d);
+      org.json.JSONObject object = examine.forText(text);
+      if (object.getInt("conclusionType") != 1) {
+        String words =
+            object
+                .getJSONArray("data")
+                .getJSONObject(0)
+                .getJSONArray("hits")
+                .getJSONObject(0)
+                .getJSONArray("words")
+                .toString();
+        return "问题内容存在敏感词汇: " + words + " 等";
+      }
+      AnswerDetail detail = answers.getDetail();
+      detail.setMdText(text);
+      answers.setDetail(detail);
+      answersDao.addOrChangeAnswer(answers);
+      return "OK";
     }
   }
 

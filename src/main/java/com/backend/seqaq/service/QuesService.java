@@ -14,9 +14,9 @@ public interface QuesService {
 
   String editQues(Long qid, String text);
 
-    String banQues(Long qid);
+  String banQues(Long qid);
 
-    String unbanQues(Long qid);
+  String unbanQues(Long qid);
 
-    String delQues(Long qid);
+  String delQues(Long qid);
 }

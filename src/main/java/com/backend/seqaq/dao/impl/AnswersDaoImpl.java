@@ -23,10 +23,10 @@ public class AnswersDaoImpl implements AnswersDao {
 
   @Transactional
   public Long addOrChangeAnswer(Answers answers) {
-      Answers ans = answersRepository.save(answers);
-      AnswerDetail detail = answers.getDetail();
-      detail.setAid(ans.getAid());
-      return answerDetailRepository.save(detail).getAid();
+    Answers ans = answersRepository.save(answers);
+    AnswerDetail detail = answers.getDetail();
+    detail.setAid(ans.getAid());
+    return answerDetailRepository.save(detail).getAid();
   }
 
   public List<Answers> findAllByQid(Long qid) {

@@ -27,10 +27,10 @@ public class QuesDaoImpl implements QuesDao {
   }
 
   public Long save(Questions questions) {
-      Questions savedQues = quesRepository.save(questions);
-      QuestionDetail detail = questions.getDetail();
-      detail.setQid(savedQues.getQid());
-      return detailRepository.save(detail).getQid();
+    Questions savedQues = quesRepository.save(questions);
+    QuestionDetail detail = questions.getDetail();
+    detail.setQid(savedQues.getQid());
+    return detailRepository.save(detail).getQid();
   }
 
   public Questions findById(Long id) {

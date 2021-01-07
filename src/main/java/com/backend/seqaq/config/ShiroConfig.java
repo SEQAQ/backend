@@ -31,7 +31,7 @@ public class ShiroConfig {
      */
     DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
     DefaultSessionStorageEvaluator defaultSessionStorageEvaluator =
-            new DefaultSessionStorageEvaluator();
+        new DefaultSessionStorageEvaluator();
     defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
     subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
     manager.setSubjectDAO(subjectDAO);
@@ -64,14 +64,12 @@ public class ShiroConfig {
     return factoryBean;
   }
 
-  /**
-   * 下面的代码是添加注解支持
-   */
+  /** 下面的代码是添加注解支持 */
   @Bean
   @DependsOn("lifecycleBeanPostProcessor")
   public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
     DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator =
-            new DefaultAdvisorAutoProxyCreator();
+        new DefaultAdvisorAutoProxyCreator();
     // 强制使用cglib，防止重复代理和可能引起代理出错的问题
     // https://zhuanlan.zhihu.com/p/29161098
     defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
@@ -85,7 +83,7 @@ public class ShiroConfig {
 
   @Bean
   public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(
-          DefaultWebSecurityManager securityManager) {
+      DefaultWebSecurityManager securityManager) {
     AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
     advisor.setSecurityManager(securityManager);
     return advisor;

@@ -48,61 +48,61 @@ public class UsersController {
     }
   }
 
-    @PostMapping("/ban")
-    @RequiresRoles("admin")
+  @PostMapping("/ban")
+  @RequiresRoles("admin")
   public String ban(@RequestParam("uid") Long uid) {
     return usersService.banUser(uid);
   }
 
-    @PostMapping("/unban")
-    @RequiresRoles("admin")
+  @PostMapping("/unban")
+  @RequiresRoles("admin")
   public String unban(@RequestParam("uid") Long uid) {
     return usersService.unbanUser(uid);
   }
 
   @GetMapping("/findbyid")
   public Users findById(@RequestParam("uid") Long uid) {
-      System.out.println(usersService.findById(uid));
-      return usersService.findById(uid);
+    System.out.println(usersService.findById(uid));
+    return usersService.findById(uid);
   }
 
-    @GetMapping("/findbyaccount")
-    public Users findByAccount(@RequestParam("account") String account) {
-        return usersService.findByAccount(account);
-    }
+  @GetMapping("/findbyaccount")
+  public Users findByAccount(@RequestParam("account") String account) {
+    return usersService.findByAccount(account);
+  }
 
-    @PostMapping("/login")
-    public ResponseBean login(
-            @RequestParam("username") String username, @RequestParam("password") String password) {
-        UserBean userBean = usersService.getUser(username);
-        if (userBean.getPassword().equals(password)) {
-            return new ResponseBean(200, "Login success", JWTUtil.sign(username, password));
-        } else {
-            throw new UnauthorizedException();
-        }
+  @PostMapping("/login")
+  public ResponseBean login(
+      @RequestParam("username") String username, @RequestParam("password") String password) {
+    UserBean userBean = usersService.getUser(username);
+    if (userBean.getPassword().equals(password)) {
+      return new ResponseBean(200, "Login success", JWTUtil.sign(username, password));
+    } else {
+      throw new UnauthorizedException();
     }
-    //  public String login(
-    //      @RequestParam("account") String account, @RequestParam("password") String password) {
-    //    return usersService.login(account, password);
-    //  }
+  }
+  //  public String login(
+  //      @RequestParam("account") String account, @RequestParam("password") String password) {
+  //    return usersService.login(account, password);
+  //  }
 
-    @PostMapping("/checkstatus")
-    public String checkstatus(@RequestParam("account") String account) {
-        return usersService.checkStatus(account);
-    }
+  @PostMapping("/checkstatus")
+  public String checkstatus(@RequestParam("account") String account) {
+    return usersService.checkStatus(account);
+  }
 
-    @GetMapping("/activate")
-    public Message<String> confirmRegistration(@RequestParam("token") String tokenString) {
-        ConfirmationToken token = confirmationTokenService.findByToken(tokenString);
-        Users user = token.getUser();
-        if (user == null) return new Message<>(1, "invalid token");
-        usersService.activate(user);
-        return new Message<>("OK!");
-    }
+  @GetMapping("/activate")
+  public Message<String> confirmRegistration(@RequestParam("token") String tokenString) {
+    ConfirmationToken token = confirmationTokenService.findByToken(tokenString);
+    Users user = token.getUser();
+    if (user == null) return new Message<>(1, "invalid token");
+    usersService.activate(user);
+    return new Message<>("OK!");
+  }
 
-    @RequestMapping(path = "/401")
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseBean unauthorized() {
-        return new ResponseBean(401, "Unauthorized", null);
-    }
+  @RequestMapping(path = "/401")
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  public ResponseBean unauthorized() {
+    return new ResponseBean(401, "Unauthorized", null);
+  }
 }

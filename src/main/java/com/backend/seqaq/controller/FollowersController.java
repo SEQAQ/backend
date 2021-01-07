@@ -30,14 +30,14 @@ public class FollowersController {
     return followersService.findAllFollowerByUid(uid);
   }
 
-    @PostMapping("/followSomeone")
-    @RequiresAuthentication
+  @PostMapping("/followSomeone")
+  @RequiresAuthentication
   public String follow(@RequestParam("uid1") Long uid1, @RequestParam("uid2") Long uid2) {
     return followersService.addFollow(uid1, uid2);
   }
 
-    @PostMapping("/unfollowSomeone")
-    @RequiresAuthentication
+  @PostMapping("/unfollowSomeone")
+  @RequiresAuthentication
   public String unfollow(@RequestParam("uid1") Long uid1, @RequestParam("uid2") Long uid2) {
     return followersService.delFollow(uid1, uid2);
   }

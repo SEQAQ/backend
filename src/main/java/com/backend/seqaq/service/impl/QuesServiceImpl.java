@@ -39,103 +39,102 @@ public class QuesServiceImpl implements QuesService {
     Users u = usersDao.findById(json.getLong("uid"));
     if (u == null) return "Error";
     question.setTitle(json.getString("title"));
-      question.setUid(json.getLong("uid"));
-      QuestionDetail detail = new QuestionDetail(json.getString("detail"));
-      question.setUsers(u);
-      question.setTag(json.getString("tag"));
-      question.setFollower(0L);
-      question.setStatus(1);
-      Timestamp d = new Timestamp(System.currentTimeMillis());
-      question.setCtime(d);
-      question.setMtime(d);
-      org.json.JSONObject object = examine.forText(detail.getDetail());
-      org.json.JSONObject object2 = examine.forText(question.getTitle());
-      org.json.JSONObject object3 = examine.forText(question.getTag());
-      if (object.getInt("conclusionType") != 1) {
-          String words =
-                  object
-                          .getJSONArray("data")
-                          .getJSONObject(0)
-                          .getJSONArray("hits")
-                          .getJSONObject(0)
-                          .getJSONArray("words")
-                          .toString();
-          return "问题内容存在敏感词汇: " + words + " 等";
-      }
-      if (object2.getInt("conclusionType") != 1) {
-          String words =
-                  object2
-                          .getJSONArray("data")
-                          .getJSONObject(0)
-                          .getJSONArray("hits")
-                          .getJSONObject(0)
-                          .getJSONArray("words")
-                          .toString();
-          return "问题标题存在敏感词汇: " + words + " 等";
-      }
-      if (object3.getInt("conclusionType") != 1) {
-          String words =
-                  object3
-                          .getJSONArray("data")
-                          .getJSONObject(0)
-                          .getJSONArray("hits")
-                          .getJSONObject(0)
-                          .getJSONArray("words")
-                          .toString();
-          return "问题标签存在敏感词汇: " + words + " 等";
-      }
-      question.setDetail(detail);
-      String result = quesDao.save(question).toString();
-      if (result.equals("OK"))
-          eventPublisher.publishEvent(new OnNewQuestionEvent(question));
-      return result;
+    question.setUid(json.getLong("uid"));
+    QuestionDetail detail = new QuestionDetail(json.getString("detail"));
+    question.setUsers(u);
+    question.setTag(json.getString("tag"));
+    question.setFollower(0L);
+    question.setStatus(1);
+    Timestamp d = new Timestamp(System.currentTimeMillis());
+    question.setCtime(d);
+    question.setMtime(d);
+    org.json.JSONObject object = examine.forText(detail.getDetail());
+    org.json.JSONObject object2 = examine.forText(question.getTitle());
+    org.json.JSONObject object3 = examine.forText(question.getTag());
+    if (object.getInt("conclusionType") != 1) {
+      String words =
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题内容存在敏感词汇: " + words + " 等";
+    }
+    if (object2.getInt("conclusionType") != 1) {
+      String words =
+          object2
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题标题存在敏感词汇: " + words + " 等";
+    }
+    if (object3.getInt("conclusionType") != 1) {
+      String words =
+          object3
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题标签存在敏感词汇: " + words + " 等";
+    }
+    question.setDetail(detail);
+    String result = quesDao.save(question).toString();
+    if (result.equals("OK")) eventPublisher.publishEvent(new OnNewQuestionEvent(question));
+    return result;
   }
 
-    public String editQues(Long qid, String text) {
-        Questions questions = quesDao.findById(qid);
-        if (questions == null) return "Error";
-        Timestamp d = new Timestamp(System.currentTimeMillis());
-        questions.setMtime(d);
-        org.json.JSONObject object = examine.forText(text);
-        if (object.getInt("conclusionType") != 1) {
-            String words =
-                    object
-                            .getJSONArray("data")
-                            .getJSONObject(0)
-                            .getJSONArray("hits")
-                            .getJSONObject(0)
-                            .getJSONArray("words")
-                            .toString();
-            return "问题内容存在敏感词汇: " + words + " 等";
-        }
-        QuestionDetail detail = questions.getDetail();
-        detail.setDetail(text);
-        questions.setDetail(detail);
-        String result = quesDao.save(questions).toString();
-        return result;
+  public String editQues(Long qid, String text) {
+    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
+    Timestamp d = new Timestamp(System.currentTimeMillis());
+    questions.setMtime(d);
+    org.json.JSONObject object = examine.forText(text);
+    if (object.getInt("conclusionType") != 1) {
+      String words =
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题内容存在敏感词汇: " + words + " 等";
     }
+    QuestionDetail detail = questions.getDetail();
+    detail.setDetail(text);
+    questions.setDetail(detail);
+    String result = quesDao.save(questions).toString();
+    return result;
+  }
 
-    public String banQues(Long qid) {
-        Questions questions = quesDao.findById(qid);
-        if (questions == null) return "Error";
-        questions.setStatus(0);
-        quesDao.save(questions);
-        return "OK";
-    }
+  public String banQues(Long qid) {
+    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
+    questions.setStatus(0);
+    quesDao.save(questions);
+    return "OK";
+  }
 
-    public String unbanQues(Long qid) {
-        Questions questions = quesDao.findById(qid);
-        if (questions == null) return "Error";
-        questions.setStatus(1);
-        quesDao.save(questions);
-        return "OK";
-    }
+  public String unbanQues(Long qid) {
+    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
+    questions.setStatus(1);
+    quesDao.save(questions);
+    return "OK";
+  }
 
-    public String delQues(Long qid) {
-        Questions questions = quesDao.findById(qid);
-        if (questions == null) return "Error";
-        questions.setStatus(-1);
-        quesDao.save(questions);
-        return "OK";
-    }
+  public String delQues(Long qid) {
+    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
+    questions.setStatus(-1);
+    quesDao.save(questions);
+    return "OK";
+  }
 }

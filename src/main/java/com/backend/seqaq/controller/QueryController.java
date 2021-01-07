@@ -22,8 +22,8 @@ public class QueryController {
     return queryService.queryForUsers(nickname);
   }
 
-    @GetMapping("/ques/tag")
-    @RequiresAuthentication
+  @GetMapping("/ques/tag")
+  @RequiresAuthentication
   public List<Questions> queryForQuesByTag(@RequestParam("tag") String tag) {
     return queryService.queryForQuesByTag(tag);
   }

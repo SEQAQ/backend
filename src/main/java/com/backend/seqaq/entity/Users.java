@@ -35,27 +35,27 @@ public class Users {
   @Column(name = "rname")
   private String rname; // real name
 
-    @Column(name = "cid")
-    private String cid; // colledge's id
+  @Column(name = "cid")
+  private String cid; // colledge's id
 
-    @Column(name = "department")
-    private String department;
+  @Column(name = "department")
+  private String department;
 
-    @Column(name = "role")
-    private String role;
+  @Column(name = "role")
+  private String role;
 
-    @Column(name = "permission")
-    private String permission;
+  @Column(name = "permission")
+  private String permission;
 
-    // 0: banned 1: 待激活 -1: delete 2: active
-    @Column(name = "stat")
-    private Integer status; // ban or not?
+  // 0: banned 1: 待激活 -1: delete 2: active
+  @Column(name = "stat")
+  private Integer status; // ban or not?
 
-    @Column(name = "follower")
-    private Long follower; // follower
+  @Column(name = "follower")
+  private Long follower; // follower
 
-    @Column(name = "followed")
-    private Long followed; // #fans
+  @Column(name = "followed")
+  private Long followed; // #fans
 
   @Transient private UserDetail detail;
 
@@ -158,31 +158,31 @@ public class Users {
     this.department = department;
   }
 
-    public String getRole() {
-        return role;
-    }
+  public String getRole() {
+    return role;
+  }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+  public void setRole(String role) {
+    this.role = role;
+  }
 
-    public String getPermission() {
-        return permission;
-    }
+  public String getPermission() {
+    return permission;
+  }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
+  public void setPermission(String permission) {
+    this.permission = permission;
+  }
 
-    public Integer getStatus() {
-        return status;
-    }
+  public Integer getStatus() {
+    return status;
+  }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
 
-    public Long getFollower() {
+  public Long getFollower() {
     return follower;
   }
 

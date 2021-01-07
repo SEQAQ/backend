@@ -12,26 +12,26 @@ import java.util.List;
 
 @Repository
 public class RepliesDaoImpl implements RepliesDao {
-    private final RepliesRepository repliesRepository;
-    private final ReplyContentRepository replyContentRepository;
+  private final RepliesRepository repliesRepository;
+  private final ReplyContentRepository replyContentRepository;
 
-    public RepliesDaoImpl(
-            RepliesRepository repliesRepository, ReplyContentRepository replyContentRepository) {
-        this.repliesRepository = repliesRepository;
-        this.replyContentRepository = replyContentRepository;
-    }
+  public RepliesDaoImpl(
+      RepliesRepository repliesRepository, ReplyContentRepository replyContentRepository) {
+    this.repliesRepository = repliesRepository;
+    this.replyContentRepository = replyContentRepository;
+  }
 
-    @Transactional
-    public Long reply(Replies replies) {
-        Replies r = repliesRepository.save(replies);
-        ReplyContent content = replies.getContent();
-        content.setRid(r.getRid());
-        return replyContentRepository.save(content).getRid();
-    }
+  @Transactional
+  public Long reply(Replies replies) {
+    Replies r = repliesRepository.save(replies);
+    ReplyContent content = replies.getContent();
+    content.setRid(r.getRid());
+    return replyContentRepository.save(content).getRid();
+  }
 
-    public Replies findReply(Long rid) {
-        return attachDetail(repliesRepository.findById(rid).orElse(null));
-    }
+  public Replies findReply(Long rid) {
+    return attachDetail(repliesRepository.findById(rid).orElse(null));
+  }
 
   public List<Replies> findByUid(Long uid) {
     return attachDetail(repliesRepository.findAllByUidAndDtype(uid, 0));

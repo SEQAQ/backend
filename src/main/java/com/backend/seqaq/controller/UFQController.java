@@ -27,14 +27,14 @@ public class UFQController {
     return userAndQuesService.findAllUsersByQid(qid);
   }
 
-    @PostMapping("/followSomeQues")
-    @RequiresAuthentication
+  @PostMapping("/followSomeQues")
+  @RequiresAuthentication
   public String follow(@RequestParam("uid") Long uid, @RequestParam("qid") Long qid) {
     return userAndQuesService.addFollow(uid, qid);
   }
 
-    @PostMapping("/unfollowSomeQues")
-    @RequiresAuthentication
+  @PostMapping("/unfollowSomeQues")
+  @RequiresAuthentication
   public String unfollow(@RequestParam("uid") Long uid, @RequestParam("qid") Long qid) {
     return userAndQuesService.delFollow(uid, qid);
   }

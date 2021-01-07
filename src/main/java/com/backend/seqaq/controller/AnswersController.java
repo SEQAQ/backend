@@ -35,8 +35,8 @@ public class AnswersController {
     return answersService.findAnswersByQid(qid);
   }
 
-    @PostMapping("/addAnswer")
-    @RequiresAuthentication
+  @PostMapping("/addAnswer")
+  @RequiresAuthentication
   public String addAnswer(@RequestBody JSONObject jsonObject) {
     Long uid = jsonObject.getLong("uid");
     Long qid = jsonObject.getLong("qid");
@@ -44,40 +44,40 @@ public class AnswersController {
     return answersService.addAnswers(uid, qid, text);
   }
 
-    @PostMapping("/editAnswer")
-    @RequiresAuthentication
+  @PostMapping("/editAnswer")
+  @RequiresAuthentication
   public String editAnswer(@RequestBody JSONObject jsonObject) {
     String text = jsonObject.getString("text");
     Long aid = jsonObject.getLong("aid");
     return answersService.editAnswers(aid, text);
   }
 
-    @PostMapping("/ban")
-    @RequiresRoles("admin")
+  @PostMapping("/ban")
+  @RequiresRoles("admin")
   public String ban(@RequestParam("aid") Long aid) {
     return answersService.banAnswers(aid);
   }
 
-    @PostMapping("/unban")
-    @RequiresRoles("admin")
+  @PostMapping("/unban")
+  @RequiresRoles("admin")
   public String unban(@RequestParam("aid") Long aid) {
     return answersService.unbanAnswers(aid);
   }
 
-    @PostMapping("/delete")
-    @RequiresAuthentication
+  @PostMapping("/delete")
+  @RequiresAuthentication
   public String delete(@RequestParam("aid") Long aid) {
     return answersService.deleteAnswers(aid);
   }
 
-    @PostMapping("/dislike")
-    @RequiresAuthentication
+  @PostMapping("/dislike")
+  @RequiresAuthentication
   public String dislike(@RequestParam("aid") Long aid) {
     return answersService.dislikeAnswers(aid);
   }
 
-    @PostMapping("/like")
-    @RequiresAuthentication
+  @PostMapping("/like")
+  @RequiresAuthentication
   public String like(@RequestParam("aid") Long aid) {
     return answersService.likeAnswers(aid);
   }

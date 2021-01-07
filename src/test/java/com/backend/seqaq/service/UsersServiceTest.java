@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class UsersServiceTest {
-  @Autowired
-  private UsersService usersService;
+  @Autowired private UsersService usersService;
 
   @Test
   void findById() {

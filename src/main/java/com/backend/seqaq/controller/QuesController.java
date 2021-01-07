@@ -31,33 +31,33 @@ public class QuesController {
     return ques;
   }
 
-    @PostMapping("/new")
-    @RequiresAuthentication
+  @PostMapping("/new")
+  @RequiresAuthentication
   public String createWithDetails(@RequestBody JSONObject test) {
     System.out.println(test);
     return quesService.createQuestion(test);
   }
 
-    @PostMapping("/editQues")
-    @RequiresAuthentication
+  @PostMapping("/editQues")
+  @RequiresAuthentication
   public void edit(@RequestParam("qid") Long qid, @RequestParam("text") String text) {
     quesService.editQues(qid, text);
   }
 
-    @PostMapping("/banQues")
-    @RequiresRoles("admin")
+  @PostMapping("/banQues")
+  @RequiresRoles("admin")
   public void ban(@RequestParam("qid") Long qid) {
     quesService.banQues(qid);
   }
 
-    @PostMapping("/unbanQues")
-    @RequiresRoles("admin")
+  @PostMapping("/unbanQues")
+  @RequiresRoles("admin")
   public void unban(@RequestParam("qid") Long qid) {
     quesService.unbanQues(qid);
   }
 
-    @PostMapping("/delQues")
-    @RequiresAuthentication
+  @PostMapping("/delQues")
+  @RequiresAuthentication
   public void del(@RequestParam("qid") Long qid) {
     quesService.delQues(qid);
   }

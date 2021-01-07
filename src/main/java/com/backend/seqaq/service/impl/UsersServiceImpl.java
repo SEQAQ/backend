@@ -28,8 +28,8 @@ public class UsersServiceImpl implements UsersService {
     Users users = usersDao.findById(uid);
     if (users == null) return "Error";
     else {
-        users.setStatus(0);
-        usersDao.saveUser(users);
+      users.setStatus(0);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
@@ -38,8 +38,8 @@ public class UsersServiceImpl implements UsersService {
     Users users = usersDao.findById(uid);
     if (users == null) return "Error";
     else {
-        users.setStatus(1);
-        usersDao.saveUser(users);
+      users.setStatus(1);
+      usersDao.saveUser(users);
       return "OK";
     }
   }
@@ -70,30 +70,30 @@ public class UsersServiceImpl implements UsersService {
         break;
       case -1:
         result = "用户被删除";
-          break;
+        break;
     }
-      return result;
+    return result;
   }
 
-    @Override
-    public void activate(Users user) {
-        user.setStatus(Users.STAT_ACTIVATED);
-        usersDao.saveUser(user);
+  @Override
+  public void activate(Users user) {
+    user.setStatus(Users.STAT_ACTIVATED);
+    usersDao.saveUser(user);
+  }
+
+  @Override
+  public UserBean getUser(String username) {
+    Users users = usersDao.findByAccount(username);
+    if (users == null) {
+      return null;
     }
 
-    @Override
-    public UserBean getUser(String username) {
-        Users users = usersDao.findByAccount(username);
-        if (users == null) {
-            return null;
-        }
+    UserBean user = new UserBean();
+    user.setUsername(username);
+    user.setPassword(users.getPassword());
+    user.setRole(users.getRole());
+    user.setPermission(users.getPermission());
 
-        UserBean user = new UserBean();
-        user.setUsername(username);
-        user.setPassword(users.getPassword());
-        user.setRole(users.getRole());
-        user.setPermission(users.getPermission());
-
-        return user;
-    }
+    return user;
+  }
 }
