@@ -96,18 +96,18 @@ public class QuesController {
     quesService.unbanQues(qid);
   }
 
-  @PostMapping("/delQues")
+  @GetMapping("/delQues")
   @RequiresAuthentication
   public void del(@RequestParam("qid") Long qid) {
     quesService.delQues(qid);
   }
 
-  @PostMapping("/closeQues")
+  @GetMapping("/closeQues")
   public void close(@RequestParam("qid") Long qid) {
     quesService.close(qid);
   }
 
-  @PostMapping("/openQues")
+  @GetMapping("/openQues")
   public void open(@RequestParam("qid") Long qid) {
     quesService.unbanQues(qid);
   }
