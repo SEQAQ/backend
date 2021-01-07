@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class HotServiceTest {
   @Autowired HotService hotService;
 
-
   @Test
   void help() {
     Date d = new java.util.Date();
