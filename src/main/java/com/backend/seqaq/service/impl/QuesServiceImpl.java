@@ -140,7 +140,6 @@ public class QuesServiceImpl implements QuesService {
     if (questions == null) return "Error";
     Timestamp d = new Timestamp(System.currentTimeMillis());
     questions.setMtime(d);
-    questions.setTitle(title);
     org.json.JSONObject object = examine.forText(title);
     if (object.getInt("conclusionType") != 1) {
       String words =
@@ -153,6 +152,7 @@ public class QuesServiceImpl implements QuesService {
               .toString();
       return "问题内容存在敏感词汇: " + words + " 等";
     }
+    questions.setTitle(title);
     return quesDao.save(questions).toString();
   }
 
