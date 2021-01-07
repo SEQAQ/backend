@@ -20,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
@@ -73,12 +75,17 @@ public class UsersController {
     return usersService.findById(uid);
   }
 
-  @GetMapping("/findAll")
-  public Page<Users> findById(
+  @GetMapping("/findAllbyPage")
+  public Page<Users> findAllByPage(
       @RequestParam("page") Integer page, @RequestParam("size") Integer size) {
     Pageable pageable = PageRequest.of(page, size);
     return usersService.findAll(pageable);
   }
+  @GetMapping("/findAll")
+  public List<Users> findAll() {
+    return usersService.findAll();
+  }
+
 
   @GetMapping("/findbyaccount")
   public Users findByAccount(@RequestParam("account") String account) {

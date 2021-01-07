@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsersServiceImpl implements UsersService {
   @Autowired private UsersDao usersDao;
@@ -83,6 +85,7 @@ public class UsersServiceImpl implements UsersService {
   public Page<Users> findAll(Pageable pageable) {
     return usersDao.findAll(pageable);
   }
+  public List<Users> findAll() {return usersDao.findAll();}
 
   public Long editUser(Users users) {
     Long result = usersDao.saveForEdit(users);
