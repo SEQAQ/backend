@@ -86,7 +86,7 @@ class QuesServiceTest {
     Long qid = Long.parseLong(ret);
     Questions q = quesService.findById(qid);
     assertEquals(1L, q.getQid());
-    assertEquals(edit, q.getDetail().getDetail());
+    assertEquals(edit, q.getTitle());
     ret = quesService.editQues(1L, abnormal);
     assertNotEquals("1", ret);
   }
@@ -99,5 +99,10 @@ class QuesServiceTest {
     quesService.unbanQues(1L);
     Questions questions1 = quesService.findById(1L);
     assertEquals(1, questions1.getStatus());
+  }
+
+  @Test
+  void tmp() {
+    System.out.println(quesService.findById(1L).getCtime());
   }
 }

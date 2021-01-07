@@ -3,11 +3,9 @@ package com.backend.seqaq.service.impl;
 import com.backend.seqaq.dao.AnswersDao;
 import com.backend.seqaq.dao.QuesDao;
 import com.backend.seqaq.dao.UsersDao;
-import com.backend.seqaq.entity.AnswerDetail;
-import com.backend.seqaq.entity.Answers;
-import com.backend.seqaq.entity.Questions;
-import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.entity.*;
 import com.backend.seqaq.event.OnNewAnswerEvent;
+import com.backend.seqaq.repository.Like_recordRepository;
 import com.backend.seqaq.service.AnswersService;
 import com.backend.seqaq.tools.examine.Examine;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,7 @@ public class AnswersServiceImpl implements AnswersService {
   @Autowired private AnswersDao answersDao;
   @Autowired private UsersDao usersDao;
   @Autowired private QuesDao quesDao;
+  @Autowired private Like_recordRepository like_recordRepository;
   private Examine examine = new Examine();
   @Autowired private ApplicationEventPublisher eventPublisher;
 
@@ -40,12 +39,31 @@ public class AnswersServiceImpl implements AnswersService {
     return answersDao.findAllByQid(qid);
   }
 
+  private int checklevel(int exp) {
+    if (exp < 50) return 1;
+    else if (exp < 150) return 2;
+    else if (exp < 300) return 3;
+    else if (exp < 600) return 4;
+    else if (exp < 1000) return 5;
+    else return 6;
+  }
+
   @Transactional
   public String addAnswers(Long uid, Long qid, String text) {
     Users users = usersDao.findById(uid);
     Questions questions = quesDao.findById(qid);
     if (users == null || questions == null) return "Error";
     else {
+      int exp = users.getExp();
+      int level = 1;
+      exp += 5;
+      if (exp > 1000) {
+        exp = 1000;
+        level = 6;
+      } else level = checklevel(exp);
+      users.setExp(exp);
+      users.setLevel(level);
+      usersDao.saveUser(users);
       Answers answers = new Answers();
       answers.setDislike(0L);
       answers.setLike(0L);
@@ -129,13 +147,42 @@ public class AnswersServiceImpl implements AnswersService {
   }
 
   @Transactional
-  public String likeAnswers(Long aid) {
+  public String likeAnswers(Long aid, Long uid) {
+    Answers answers = answersDao.findById(aid);
+    if (answers == null) return "Error";
+    else {
+
+      Long like = answers.getLike();
+      answers.setLike(like + 1);
+      answersDao.addOrChangeAnswer(answers);
+      Users u = usersDao.findById(answers.getUid());
+      int exp = u.getExp();
+      int level = 1;
+      exp += 2;
+      if (exp > 1000) {
+        exp = 1000;
+        level = 6;
+      } else level = checklevel(exp);
+      u.setExp(exp);
+      u.setLevel(level);
+      usersDao.saveUser(u);
+      Like_record like_record = new Like_record();
+      like_record.setAid(aid);
+      like_record.setUid(uid);
+      like_recordRepository.save(like_record);
+      return "OK";
+    }
+  }
+
+  @Transactional
+  public String unlikeAnswers(Long aid, Long uid) {
     Answers answers = answersDao.findById(aid);
     if (answers == null) return "Error";
     else {
       Long like = answers.getLike();
-      answers.setLike(like + 1);
+      answers.setLike(like - 1);
       answersDao.addOrChangeAnswer(answers);
+      like_recordRepository.deleteByAidAndUid(aid, uid);
       return "OK";
     }
   }
@@ -147,6 +194,18 @@ public class AnswersServiceImpl implements AnswersService {
     else {
       Long dislike = answers.getDislike();
       answers.setDislike(dislike + 1);
+      answersDao.addOrChangeAnswer(answers);
+      return "OK";
+    }
+  }
+
+  @Transactional
+  public String undislikeAnswers(Long aid) {
+    Answers answers = answersDao.findById(aid);
+    if (answers == null) return "Error";
+    else {
+      Long dislike = answers.getDislike();
+      answers.setDislike(dislike - 1);
       answersDao.addOrChangeAnswer(answers);
       return "OK";
     }

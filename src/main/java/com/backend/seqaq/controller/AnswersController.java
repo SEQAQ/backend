@@ -2,6 +2,7 @@ package com.backend.seqaq.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.backend.seqaq.entity.Answers;
+import com.backend.seqaq.repository.Like_recordRepository;
 import com.backend.seqaq.service.AnswersService;
 import com.backend.seqaq.util.Message;
 import io.swagger.annotations.Api;
@@ -19,6 +20,7 @@ import java.util.List;
 public class AnswersController {
 
   @Autowired private AnswersService answersService;
+  @Autowired private Like_recordRepository like_recordRepository;
 
   @GetMapping("/findByAid")
   public Message<Answers> findAnswer(@RequestParam("aid") Long aid) {
@@ -76,9 +78,27 @@ public class AnswersController {
     return answersService.dislikeAnswers(aid);
   }
 
+  @PostMapping("/undislike")
+  @RequiresAuthentication
+  public String undislike(@RequestParam("aid") Long aid) {
+    return answersService.undislikeAnswers(aid);
+  }
+
   @PostMapping("/like")
   @RequiresAuthentication
-  public String like(@RequestParam("aid") Long aid) {
-    return answersService.likeAnswers(aid);
+  public String like(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
+    return answersService.likeAnswers(aid, uid);
+  }
+
+  @PostMapping("/unlike")
+  @RequiresAuthentication
+  public String undlike(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
+    return answersService.unlikeAnswers(aid, uid);
+  }
+
+  @PostMapping("/islike")
+  @RequiresAuthentication
+  public boolean islike(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
+    return like_recordRepository.existsByAidAndUid(aid, uid);
   }
 }

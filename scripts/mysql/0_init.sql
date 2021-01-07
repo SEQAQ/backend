@@ -15,7 +15,9 @@ create table users
     department varchar(20),
     role       varchar(20),
     permission varchar(50),
-    stat       int,
+    stat       int default 1 null,
+    exp        int default 0 null,
+    lev        int default 1 null,
     follower   bigint,
     followed   bigint,
     PRIMARY KEY (uid)
@@ -95,4 +97,22 @@ created_date timestamp,
 uid				BIGINT NOT NULL,
 primary key (tid),
 foreign key (uid) references users(uid)
+)DEFAULT CHARSET=utf8;
+
+
+create table hot
+(
+hid             BIGINT NOT null AUTO_INCREMENT,
+qid             BIGINT NOT null,
+uid             BIGINT NOT null,
+created_date timestamp,
+primary key (hid)
+)DEFAULT CHARSET=utf8;
+
+create table like_record
+(
+lid             BIGINT NOT null AUTO_INCREMENT,
+aid             BIGINT NOT null,
+uid             BIGINT NOT null,
+primary key (lid)
 )DEFAULT CHARSET=utf8;

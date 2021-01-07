@@ -14,4 +14,8 @@ public interface FollowersDao {
   void addFollow(Followers followers);
 
   boolean checkFollowed(Long uid1, Long uid2);
+
+  List<Long> recommend(Long uid);
+
+  List<Long> recommendQues(Long uid);
 }

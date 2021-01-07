@@ -1,5 +1,6 @@
 package com.backend.seqaq.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -47,6 +48,12 @@ public class Users {
   @Column(name = "permission")
   private String permission;
 
+  @Column(name = "exp")
+  private Integer exp;
+
+  @Column(name = "lev")
+  private Integer level;
+
   // 0: banned 1: 待激活 -1: delete 2: active
   @Column(name = "stat")
   private Integer status; // ban or not?
@@ -60,6 +67,7 @@ public class Users {
   @Transient private UserDetail detail;
 
   @OneToOne(mappedBy = "user")
+  @JsonIgnore
   private ConfirmationToken token;
 
   public ConfirmationToken getToken() {

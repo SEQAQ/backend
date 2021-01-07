@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class UsersDaoImpl implements UsersDao {
@@ -81,6 +82,10 @@ public class UsersDaoImpl implements UsersDao {
 
   public Page<Users> findAll(Pageable pageable) {
     return usersRepository.findAll(pageable);
+  }
+
+  public List<Users> findAll() {
+    return usersRepository.findAll().stream().map(this::attachDetail).collect(Collectors.toList());
   }
 
   @Override
