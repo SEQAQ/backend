@@ -33,7 +33,7 @@ public class UsersDaoImpl implements UsersDao {
   }
 
   public static boolean checkAccount(String name) {
-    String regExp = "^[^0-9][\\w_]{5,9}$";
+    String regExp = "^[^0-9][\\w_]{5,20}$";
     return name.matches(regExp);
   }
 
