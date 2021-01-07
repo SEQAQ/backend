@@ -78,11 +78,12 @@ public class QuesController {
   }
 
   @PostMapping("/closeQues")
-  public void close(@RequestParam("qid") Long qid){
+  public void close(@RequestParam("qid") Long qid) {
     quesService.close(qid);
   }
+
   @PostMapping("/openQues")
-  public void open(@RequestParam("qid") Long qid){
+  public void open(@RequestParam("qid") Long qid) {
     quesService.unbanQues(qid);
   }
 }
