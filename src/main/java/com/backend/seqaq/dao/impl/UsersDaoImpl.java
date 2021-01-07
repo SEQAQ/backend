@@ -1,6 +1,8 @@
 package com.backend.seqaq.dao.impl;
 
 import com.backend.seqaq.dao.UsersDao;
+import com.backend.seqaq.entity.QuestionDetail;
+import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.UserDetail;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.repository.UserDetailRepository;
@@ -75,7 +77,7 @@ public class UsersDaoImpl implements UsersDao {
       u.setFollowed(0L);
       u.setFollower(0L);
       u.setRole("user");
-      return usersRepository.save(u);
+      return usersRepository.findById(saveForEdit(u)).orElse(null);
     }
   }
 
@@ -86,5 +88,16 @@ public class UsersDaoImpl implements UsersDao {
   @Override
   public Users saveUser(Users user) {
     return usersRepository.save(user);
+  }
+
+  public Long saveForEdit(Users users) {
+//    Questions savedQues = quesRepository.save(questions);
+    Users saveUsers = usersRepository.save(users);
+
+    UserDetail detail = users.getDetail();
+//    QuestionDetail detail = questions.getDetail();
+//    detail.setQid(savedQues.getQid());
+    detail.setUid(users.getUid());
+    return userDetailRepository.save(detail).getUid();
   }
 }

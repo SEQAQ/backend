@@ -1,14 +1,15 @@
 package com.backend.seqaq.service.impl;
 
 import com.backend.seqaq.dao.UsersDao;
-import com.backend.seqaq.entity.UserBean;
-import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.entity.*;
 import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.exception.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -23,6 +24,10 @@ public class UsersServiceImpl implements UsersService {
   }
 
   public Users register(Users u) throws RegistrationException {
+    UserDetail userDetail = new UserDetail();
+    userDetail.setUid(u.getUid());
+    userDetail.setAvatar("");
+    u.setDetail(userDetail);
     return usersDao.register(u);
   }
 
@@ -79,6 +84,12 @@ public class UsersServiceImpl implements UsersService {
 
   public Page<Users> findAll(Pageable pageable) {
     return usersDao.findAll(pageable);
+  }
+
+  public Long editUser(Users users)
+  {
+    Long result = usersDao.saveForEdit(users);
+    return result;
   }
 
   @Override

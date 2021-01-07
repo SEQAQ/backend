@@ -19,4 +19,6 @@ public interface UsersDao {
   Users saveUser(Users user);
 
   Page<Users> findAll(Pageable pageable);
+
+  Long saveForEdit(Users users);
 }

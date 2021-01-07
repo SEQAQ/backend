@@ -26,4 +26,6 @@ public interface UsersService {
   UserBean getUser(String username);
 
   Page<Users> findAll(Pageable pageable);
+
+  Long editUser(Users users);
 }
