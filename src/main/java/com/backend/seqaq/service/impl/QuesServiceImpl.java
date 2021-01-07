@@ -88,7 +88,7 @@ public class QuesServiceImpl implements QuesService {
     }
     question.setDetail(detail);
     String result = quesDao.save(question).toString();
-    if (result.equals("OK")) eventPublisher.publishEvent(new OnNewQuestionEvent(question));
+    eventPublisher.publishEvent(new OnNewQuestionEvent(question));
     return result;
   }
 

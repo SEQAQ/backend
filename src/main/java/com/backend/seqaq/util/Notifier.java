@@ -18,6 +18,7 @@ public class Notifier {
   }
 
   public <T> void notify(Users user, NotificationMsg<T> message) {
+    System.out.println("notify => " + user.getUid());
     websocket.convertAndSend(buildDst(user), message);
   }
 

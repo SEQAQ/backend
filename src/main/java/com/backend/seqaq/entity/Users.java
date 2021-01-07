@@ -1,5 +1,6 @@
 package com.backend.seqaq.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Users {
   private String account;
 
   @Column(name = "password")
+  @JsonIgnore
   private String password;
 
   @Column(name = "email")
@@ -60,6 +62,7 @@ public class Users {
   @Transient private UserDetail detail;
 
   @OneToOne(mappedBy = "user")
+  @JsonIgnore
   private ConfirmationToken token;
 
   public ConfirmationToken getToken() {
