@@ -128,7 +128,7 @@ public class AnswersServiceImpl implements AnswersService {
   }
 
   @Transactional
-  public String likeAnswers(Long aid,Long uid) {
+  public String likeAnswers(Long aid, Long uid) {
     Answers answers = answersDao.findById(aid);
     if (answers == null) return "Error";
     else {
@@ -144,14 +144,14 @@ public class AnswersServiceImpl implements AnswersService {
   }
 
   @Transactional
-  public String unlikeAnswers(Long aid,Long uid) {
+  public String unlikeAnswers(Long aid, Long uid) {
     Answers answers = answersDao.findById(aid);
     if (answers == null) return "Error";
     else {
       Long like = answers.getLike();
       answers.setLike(like - 1);
       answersDao.addOrChangeAnswer(answers);
-      like_recordRepository.deleteByAidAndUid(aid,uid);
+      like_recordRepository.deleteByAidAndUid(aid, uid);
       return "OK";
     }
   }

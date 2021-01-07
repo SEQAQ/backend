@@ -21,6 +21,7 @@ public class AnswersController {
 
   @Autowired private AnswersService answersService;
   @Autowired private Like_recordRepository like_recordRepository;
+
   @GetMapping("/findByAid")
   public Message<Answers> findAnswer(@RequestParam("aid") Long aid) {
     return new Message<>(answersService.findAnswersById(aid));
@@ -85,18 +86,19 @@ public class AnswersController {
 
   @PostMapping("/like")
   @RequiresAuthentication
-  public String like(@RequestParam("aid") Long aid,@RequestParam("uid") Long uid) {
-    return answersService.likeAnswers(aid,uid);
+  public String like(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
+    return answersService.likeAnswers(aid, uid);
   }
 
   @PostMapping("/unlike")
   @RequiresAuthentication
-  public String undlike(@RequestParam("aid") Long aid,@RequestParam("uid") Long uid) {
-    return answersService.unlikeAnswers(aid,uid);
+  public String undlike(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
+    return answersService.unlikeAnswers(aid, uid);
   }
+
   @PostMapping("/islike")
   @RequiresAuthentication
-  public boolean islike(@RequestParam("aid") Long aid,@RequestParam("uid") Long uid) {
-    return like_recordRepository.existsByAidAndUid(aid,uid);
+  public boolean islike(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
+    return like_recordRepository.existsByAidAndUid(aid, uid);
   }
 }

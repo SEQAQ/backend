@@ -18,9 +18,9 @@ public interface AnswersService {
 
   Answers findAnswersById(Long aid);
 
-  String likeAnswers(Long aid,Long uid);
+  String likeAnswers(Long aid, Long uid);
 
-  String unlikeAnswers(Long aid,Long uid);
+  String unlikeAnswers(Long aid, Long uid);
 
   String dislikeAnswers(Long aid);
 
