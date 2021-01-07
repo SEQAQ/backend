@@ -38,11 +38,14 @@ class UsersServiceTest {
     Users u = new Users();
     Random random = new Random(System.currentTimeMillis());
     Integer account = random.nextInt(10000);
-    random = new Random(System.currentTimeMillis());
-    Integer account2 = random.nextInt(10000);
     String Account = account.toString();
-    Account = "t" + Account + account2.toString();
-    Account = Account.substring(0, 18);
+    Account = "t" + Account;
+//    Account = Account.substring(0, 18);
+    while(Account.length()<6) {
+      random = new Random(System.currentTimeMillis());
+      Integer account2 = random.nextInt(10000);
+      Account += account2.toString();
+    }
     System.out.println(Account);
     u.setAccount(Account);
     u.setPassword("sadadwdd");
