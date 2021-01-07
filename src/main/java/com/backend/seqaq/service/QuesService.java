@@ -14,7 +14,9 @@ public interface QuesService {
 
   Questions findById(Long qid);
 
-  String editQues(Long qid, String text);
+  String editQues(Long qid, String title, String detail);
+
+  String editQues(Long qid, String title);
 
   String banQues(Long qid);
 

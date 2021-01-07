@@ -53,6 +53,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     email.setSubject(subject);
     email.setText(text);
     mailSender.send(email);
+    System.out.println("Successfully sent email to " + email);
     tokenService.saveNewToken(user, tokenString);
   }
 }

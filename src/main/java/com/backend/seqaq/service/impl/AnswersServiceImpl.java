@@ -3,11 +3,9 @@ package com.backend.seqaq.service.impl;
 import com.backend.seqaq.dao.AnswersDao;
 import com.backend.seqaq.dao.QuesDao;
 import com.backend.seqaq.dao.UsersDao;
-import com.backend.seqaq.entity.AnswerDetail;
-import com.backend.seqaq.entity.Answers;
-import com.backend.seqaq.entity.Questions;
-import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.entity.*;
 import com.backend.seqaq.event.OnNewAnswerEvent;
+import com.backend.seqaq.repository.Like_recordRepository;
 import com.backend.seqaq.service.AnswersService;
 import com.backend.seqaq.tools.examine.Examine;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,7 @@ public class AnswersServiceImpl implements AnswersService {
   @Autowired private AnswersDao answersDao;
   @Autowired private UsersDao usersDao;
   @Autowired private QuesDao quesDao;
+  @Autowired private Like_recordRepository like_recordRepository;
   private Examine examine = new Examine();
   @Autowired private ApplicationEventPublisher eventPublisher;
 
@@ -148,7 +147,7 @@ public class AnswersServiceImpl implements AnswersService {
   }
 
   @Transactional
-  public String likeAnswers(Long aid) {
+  public String likeAnswers(Long aid, Long uid) {
     Answers answers = answersDao.findById(aid);
     if (answers == null) return "Error";
     else {
@@ -167,6 +166,23 @@ public class AnswersServiceImpl implements AnswersService {
       u.setExp(exp);
       u.setLevel(level);
       usersDao.saveUser(u);
+      Like_record like_record = new Like_record();
+      like_record.setAid(aid);
+      like_record.setUid(uid);
+      like_recordRepository.save(like_record);
+      return "OK";
+    }
+  }
+
+  @Transactional
+  public String unlikeAnswers(Long aid, Long uid) {
+    Answers answers = answersDao.findById(aid);
+    if (answers == null) return "Error";
+    else {
+      Long like = answers.getLike();
+      answers.setLike(like - 1);
+      answersDao.addOrChangeAnswer(answers);
+      like_recordRepository.deleteByAidAndUid(aid, uid);
       return "OK";
     }
   }
@@ -178,6 +194,18 @@ public class AnswersServiceImpl implements AnswersService {
     else {
       Long dislike = answers.getDislike();
       answers.setDislike(dislike + 1);
+      answersDao.addOrChangeAnswer(answers);
+      return "OK";
+    }
+  }
+
+  @Transactional
+  public String undislikeAnswers(Long aid) {
+    Answers answers = answersDao.findById(aid);
+    if (answers == null) return "Error";
+    else {
+      Long dislike = answers.getDislike();
+      answers.setDislike(dislike - 1);
       answersDao.addOrChangeAnswer(answers);
       return "OK";
     }
