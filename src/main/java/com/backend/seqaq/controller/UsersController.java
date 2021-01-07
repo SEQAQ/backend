@@ -12,7 +12,6 @@ import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.Message;
 import com.backend.seqaq.util.exception.RegistrationException;
 import io.swagger.annotations.Api;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
