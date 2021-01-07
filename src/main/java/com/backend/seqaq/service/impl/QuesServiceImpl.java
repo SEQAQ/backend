@@ -92,28 +92,48 @@ public class QuesServiceImpl implements QuesService {
     return result;
   }
 
-  public String editQues(Long qid, String text) {
+  public String editQues(Long qid, String title, String detailString) {
     Questions questions = quesDao.findById(qid);
     if (questions == null) return "Error";
     Timestamp d = new Timestamp(System.currentTimeMillis());
     questions.setMtime(d);
-    org.json.JSONObject object = examine.forText(text);
+    questions.setTitle(title);
+    org.json.JSONObject object = examine.forText(title);
     if (object.getInt("conclusionType") != 1) {
       String words =
-          object
-              .getJSONArray("data")
-              .getJSONObject(0)
-              .getJSONArray("hits")
-              .getJSONObject(0)
-              .getJSONArray("words")
-              .toString();
+              object
+                      .getJSONArray("data")
+                      .getJSONObject(0)
+                      .getJSONArray("hits")
+                      .getJSONObject(0)
+                      .getJSONArray("words")
+                      .toString();
       return "问题内容存在敏感词汇: " + words + " 等";
     }
     QuestionDetail detail = questions.getDetail();
-    detail.setDetail(text);
+    detail.setDetail(detailString);
     questions.setDetail(detail);
-    String result = quesDao.save(questions).toString();
-    return result;
+    return quesDao.save(questions).toString();
+  }
+
+  public String editQues(Long qid, String title) {
+    Questions questions = quesDao.findById(qid);
+    if (questions == null) return "Error";
+    Timestamp d = new Timestamp(System.currentTimeMillis());
+    questions.setMtime(d);
+    org.json.JSONObject object = examine.forText(title);
+    if (object.getInt("conclusionType") != 1) {
+      String words =
+              object
+                      .getJSONArray("data")
+                      .getJSONObject(0)
+                      .getJSONArray("hits")
+                      .getJSONObject(0)
+                      .getJSONArray("words")
+                      .toString();
+      return "问题内容存在敏感词汇: " + words + " 等";
+    }
+    return quesDao.save(questions).toString();
   }
 
   public String banQues(Long qid) {
