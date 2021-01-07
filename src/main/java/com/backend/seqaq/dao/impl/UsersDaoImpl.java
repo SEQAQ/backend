@@ -86,6 +86,7 @@ public class UsersDaoImpl implements UsersDao {
   public List<Users> findAll() {
     return usersRepository.findAll();
   }
+
   @Override
   public Users saveUser(Users user) {
     return usersRepository.save(user);

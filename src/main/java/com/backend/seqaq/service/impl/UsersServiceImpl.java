@@ -85,7 +85,10 @@ public class UsersServiceImpl implements UsersService {
   public Page<Users> findAll(Pageable pageable) {
     return usersDao.findAll(pageable);
   }
-  public List<Users> findAll() {return usersDao.findAll();}
+
+  public List<Users> findAll() {
+    return usersDao.findAll();
+  }
 
   public Long editUser(Users users) {
     Long result = usersDao.saveForEdit(users);

@@ -136,7 +136,9 @@ public class QuesServiceImpl implements QuesService {
     return quesDao.findAll(pageable);
   }
 
-  public List<Questions> findAll() {return quesDao.findAll();}
+  public List<Questions> findAll() {
+    return quesDao.findAll();
+  }
 
   public String delQues(Long qid) {
     Questions questions = quesDao.findById(qid);

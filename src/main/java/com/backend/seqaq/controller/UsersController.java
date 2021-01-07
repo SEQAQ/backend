@@ -52,11 +52,13 @@ public class UsersController {
       return new Message<>(CODE_REG_FAILED, e.getMessage());
     }
   }
+
   @PostMapping("/edit")
   public String edit(@RequestBody Users users) {
     usersService.editUser(users);
     return "OK";
   }
+
   @PostMapping("/ban")
   @RequiresRoles("admin")
   public String ban(@RequestParam("uid") Long uid) {
@@ -81,11 +83,11 @@ public class UsersController {
     Pageable pageable = PageRequest.of(page, size);
     return usersService.findAll(pageable);
   }
+
   @GetMapping("/findAll")
   public List<Users> findAll() {
     return usersService.findAll();
   }
-
 
   @GetMapping("/findbyaccount")
   public Users findByAccount(@RequestParam("account") String account) {

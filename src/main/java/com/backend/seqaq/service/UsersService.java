@@ -30,5 +30,6 @@ public interface UsersService {
   Page<Users> findAll(Pageable pageable);
 
   List<Users> findAll();
+
   Long editUser(Users users);
 }
