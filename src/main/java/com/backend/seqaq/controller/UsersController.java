@@ -50,11 +50,13 @@ public class UsersController {
       return new Message<>(CODE_REG_FAILED, e.getMessage());
     }
   }
+
   @PostMapping("/edit")
   public String edit(@RequestBody Users users) {
     usersService.editUser(users);
     return "OK";
   }
+
   @PostMapping("/ban")
   @RequiresRoles("admin")
   public String ban(@RequestParam("uid") Long uid) {

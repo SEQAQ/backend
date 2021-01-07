@@ -40,8 +40,8 @@ class UsersServiceTest {
     Integer account = random.nextInt(10000);
     String Account = account.toString();
     Account = "t" + Account;
-//    Account = Account.substring(0, 18);
-    while(Account.length()<6) {
+    //    Account = Account.substring(0, 18);
+    while (Account.length() < 6) {
       random = new Random(System.currentTimeMillis());
       Integer account2 = random.nextInt(10000);
       Account += account2.toString();
