@@ -34,11 +34,16 @@ public class QuesController {
     return ques;
   }
 
-  @GetMapping("/findAll")
+  @GetMapping("/findAllByPage")
   public Page<Questions> findAll(
       @RequestParam("page") Integer page, @RequestParam("size") Integer size) {
     Pageable pageable = PageRequest.of(page, size);
     return quesService.findAll(pageable);
+  }
+
+  @GetMapping("/findAll")
+  public List<Questions> findAll() {
+    return quesService.findAll();
   }
 
   @PostMapping("/new")

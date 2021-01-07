@@ -20,4 +20,6 @@ public interface QuesDao {
   List<Questions> findAllByDetailContaining(String text);
 
   Page<Questions> findAll(Pageable pageable);
+
+  List<Questions> findAll();
 }

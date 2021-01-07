@@ -96,3 +96,13 @@ uid				BIGINT NOT NULL,
 primary key (tid),
 foreign key (uid) references users(uid)
 )DEFAULT CHARSET=utf8;
+
+
+create table hot
+(
+hid             BIGINT NOT null AUTO_INCREMENT,
+qid             BIGINT NOT null,
+uid             BIGINT NOT null,
+created_date timestamp,
+primary key (hid)
+)DEFAULT CHARSET=utf8;
