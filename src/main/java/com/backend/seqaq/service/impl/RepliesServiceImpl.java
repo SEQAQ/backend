@@ -7,9 +7,11 @@ import com.backend.seqaq.entity.Answers;
 import com.backend.seqaq.entity.Replies;
 import com.backend.seqaq.entity.ReplyContent;
 import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.event.OnNewReplyEvent;
 import com.backend.seqaq.service.RepliesService;
 import com.backend.seqaq.tools.examine.Examine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -20,6 +22,8 @@ public class RepliesServiceImpl implements RepliesService {
   @Autowired private RepliesDao repliesDao;
   @Autowired private UsersDao usersDao;
   @Autowired private AnswersDao answersDao;
+  @Autowired private ApplicationEventPublisher eventPublisher;
+
   private Examine examine = new Examine();
 
   public String replyAnswers(Long uid, Long did, String text) {
@@ -56,6 +60,7 @@ public class RepliesServiceImpl implements RepliesService {
       replies.setContent(content);
       System.out.println(replies);
       String result = repliesDao.reply(replies).toString();
+      if (result.equals("OK")) eventPublisher.publishEvent(new OnNewReplyEvent(replies));
       return result;
     }
   }
@@ -94,6 +99,7 @@ public class RepliesServiceImpl implements RepliesService {
       replies.setContent(content);
       System.out.println(replies);
       String result = repliesDao.reply(replies).toString();
+      if (result.equals("OK")) eventPublisher.publishEvent(new OnNewReplyEvent(replies));
       return result;
     }
   }

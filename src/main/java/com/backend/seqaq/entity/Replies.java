@@ -37,6 +37,9 @@ public class Replies {
   private Long did;
 
   // 0:answers,1:replies
+  public static final Integer TYPE_ANSWER = 0;
+  public static final Integer TYPE_REPLY = 1;
+
   @Column(name = "dtype")
   private Integer dtype;
 

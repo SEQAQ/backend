@@ -3,22 +3,22 @@ create database seqaq;
 use seqaq;
 create table users
 (
-	uid				BIGINT NOT null AUTO_INCREMENT,
-	uname			varchar(30),
-	account		varchar(30),
-	`password` varchar(30),
-	email			varchar(50),
-	phone			varchar(30),
-	sex				varchar(2),
-	rname			varchar(30),
-	cid				varchar(20),
-	department varchar(20),
-	role			varchar(20),
-	permission      varchar(50),
-    stat  int,
-	follower	bigint,
-	followed  bigint,
-  primary key (uid)
+    uid        BIGINT NOT null AUTO_INCREMENT,
+    uname      varchar(30),
+    account    varchar(30),
+    `password` varchar(30),
+    email      varchar(50),
+    phone      varchar(30),
+    sex        varchar(2),
+    rname      varchar(30),
+    cid        varchar(20),
+    department varchar(20),
+    role       varchar(20),
+    permission varchar(50),
+    stat       int,
+    follower   bigint,
+    followed   bigint,
+    PRIMARY KEY (uid)
 )DEFAULT CHARSET=utf8;
 
 create table questions

@@ -7,9 +7,11 @@ import com.backend.seqaq.entity.AnswerDetail;
 import com.backend.seqaq.entity.Answers;
 import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
+import com.backend.seqaq.event.OnNewAnswerEvent;
 import com.backend.seqaq.service.AnswersService;
 import com.backend.seqaq.tools.examine.Examine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,7 @@ public class AnswersServiceImpl implements AnswersService {
   @Autowired private UsersDao usersDao;
   @Autowired private QuesDao quesDao;
   private Examine examine = new Examine();
+  @Autowired private ApplicationEventPublisher eventPublisher;
 
   public Answers findAnswersById(Long aid) {
     return answersDao.findById(aid);
@@ -71,6 +74,7 @@ public class AnswersServiceImpl implements AnswersService {
       detail.setMdText(text);
       answers.setDetail(detail);
       String result = answersDao.addOrChangeAnswer(answers).toString();
+      eventPublisher.publishEvent(new OnNewAnswerEvent(answers));
       return result;
     }
   }
