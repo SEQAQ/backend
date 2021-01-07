@@ -51,7 +51,8 @@ public class QuesDaoImpl implements QuesDao {
   }
 
   public List<Questions> findAll() {
-    return quesRepository.findAll();
+    return quesRepository.findAll().stream()
+            .map(this::attachDetail).collect(Collectors.toList());
   }
 
   public List<Questions> findAllByTagContaining(String text) {

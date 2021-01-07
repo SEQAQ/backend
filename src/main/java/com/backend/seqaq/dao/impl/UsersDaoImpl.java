@@ -1,6 +1,8 @@
 package com.backend.seqaq.dao.impl;
 
 import com.backend.seqaq.dao.UsersDao;
+import com.backend.seqaq.entity.QuestionDetail;
+import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.UserDetail;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.repository.UserDetailRepository;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class UsersDaoImpl implements UsersDao {
@@ -84,7 +87,7 @@ public class UsersDaoImpl implements UsersDao {
   }
 
   public List<Users> findAll() {
-    return usersRepository.findAll();
+    return usersRepository.findAll().stream().map(this::attachDetail).collect(Collectors.toList());
   }
 
   @Override
@@ -102,4 +105,6 @@ public class UsersDaoImpl implements UsersDao {
     detail.setUid(users.getUid());
     return userDetailRepository.save(detail).getUid();
   }
+
+
 }
