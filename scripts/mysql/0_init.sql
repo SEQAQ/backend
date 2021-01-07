@@ -15,7 +15,9 @@ create table users
     department varchar(20),
     role       varchar(20),
     permission varchar(50),
-    stat       int,
+    stat       int default 1 null,
+    exp        int default 0 null,
+    lev        int default 1 null,
     follower   bigint,
     followed   bigint,
     PRIMARY KEY (uid)
