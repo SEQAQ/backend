@@ -1,10 +1,10 @@
 package com.backend.seqaq.controller;
 
 import com.alibaba.fastjson.JSONObject;
-
 import com.backend.seqaq.entity.Replies;
 import com.backend.seqaq.service.RepliesService;
 import io.swagger.annotations.Api;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +33,7 @@ public class RepliesController {
   }
 
   @PostMapping("/replyForAnswer")
+  @RequiresAuthentication
   public String replyForAnswer(@RequestBody JSONObject jsonObject) {
     Long uid = jsonObject.getLong("uid");
     Long did = jsonObject.getLong("did");
@@ -41,6 +42,7 @@ public class RepliesController {
   }
 
   @PostMapping("/replyForReply")
+  @RequiresAuthentication
   public String replyForReply(@RequestBody JSONObject jsonObject) {
     Long uid = jsonObject.getLong("uid");
     Long did = jsonObject.getLong("did");
@@ -49,11 +51,13 @@ public class RepliesController {
   }
 
   @PostMapping("/dislike")
+  @RequiresAuthentication
   public String dislike(@RequestParam("rid") Long rid) {
     return repliesService.dislikeReplies(rid);
   }
 
   @PostMapping("/like")
+  @RequiresAuthentication
   public String like(@RequestParam("rid") Long rid) {
     return repliesService.likeReplies(rid);
   }

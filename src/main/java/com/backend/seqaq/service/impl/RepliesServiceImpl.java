@@ -49,19 +49,20 @@ public class RepliesServiceImpl implements RepliesService {
             object
                 .getJSONArray("data")
                 .getJSONObject(0)
-                .getJSONArray("hits")
-                .getJSONObject(0)
-                .getJSONArray("words")
-                .toString();
+                    .getJSONArray("hits")
+                    .getJSONObject(0)
+                    .getJSONArray("words")
+                    .toString();
         return "问题内容存在敏感词汇: " + words + " 等";
       }
       ReplyContent content = new ReplyContent();
       content.setContent(text);
       replies.setContent(content);
       System.out.println(replies);
-      repliesDao.reply(replies);
-      eventPublisher.publishEvent(new OnNewReplyEvent(replies));
-      return "OK";
+      String result = repliesDao.reply(replies).toString();
+      if (result.equals("OK"))
+        eventPublisher.publishEvent(new OnNewReplyEvent(replies));
+      return result;
     }
   }
 
@@ -88,19 +89,20 @@ public class RepliesServiceImpl implements RepliesService {
             object
                 .getJSONArray("data")
                 .getJSONObject(0)
-                .getJSONArray("hits")
-                .getJSONObject(0)
-                .getJSONArray("words")
-                .toString();
+                    .getJSONArray("hits")
+                    .getJSONObject(0)
+                    .getJSONArray("words")
+                    .toString();
         return "问题内容存在敏感词汇: " + words + " 等";
       }
       ReplyContent content = new ReplyContent();
       content.setContent(text);
       replies.setContent(content);
       System.out.println(replies);
-      repliesDao.reply(replies);
-      eventPublisher.publishEvent(new OnNewReplyEvent(replies));
-      return "OK";
+      String result = repliesDao.reply(replies).toString();
+      if (result.equals("OK"))
+        eventPublisher.publishEvent(new OnNewReplyEvent(replies));
+      return result;
     }
   }
 

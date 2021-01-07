@@ -1,6 +1,10 @@
 package com.backend.seqaq.controller;
 
+import com.backend.seqaq.config.JWTUtil;
+import com.backend.seqaq.config.UnauthorizedException;
 import com.backend.seqaq.entity.ConfirmationToken;
+import com.backend.seqaq.entity.ResponseBean;
+import com.backend.seqaq.entity.UserBean;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.event.OnRegistrationCompletedEvent;
 import com.backend.seqaq.service.ConfirmationTokenService;
@@ -8,7 +12,9 @@ import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.Message;
 import com.backend.seqaq.util.exception.RegistrationException;
 import io.swagger.annotations.Api;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,44 +48,61 @@ public class UsersController {
     }
   }
 
-  @PostMapping("/ban")
+    @PostMapping("/ban")
+    @RequiresRoles("admin")
   public String ban(@RequestParam("uid") Long uid) {
     return usersService.banUser(uid);
   }
 
-  @PostMapping("/unban")
+    @PostMapping("/unban")
+    @RequiresRoles("admin")
   public String unban(@RequestParam("uid") Long uid) {
     return usersService.unbanUser(uid);
   }
 
   @GetMapping("/findbyid")
   public Users findById(@RequestParam("uid") Long uid) {
-    System.out.println(usersService.findById(uid));
-    return usersService.findById(uid);
+      System.out.println(usersService.findById(uid));
+      return usersService.findById(uid);
   }
 
-  @GetMapping("/findbyaccount")
-  public Users findByAccount(@RequestParam("account") String account) {
-    return usersService.findByAccount(account);
-  }
+    @GetMapping("/findbyaccount")
+    public Users findByAccount(@RequestParam("account") String account) {
+        return usersService.findByAccount(account);
+    }
 
-  @PostMapping("/login")
-  public String login(
-      @RequestParam("account") String account, @RequestParam("password") String password) {
-    return usersService.login(account, password);
-  }
+    @PostMapping("/login")
+    public ResponseBean login(
+            @RequestParam("username") String username, @RequestParam("password") String password) {
+        UserBean userBean = usersService.getUser(username);
+        if (userBean.getPassword().equals(password)) {
+            return new ResponseBean(200, "Login success", JWTUtil.sign(username, password));
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
+    //  public String login(
+    //      @RequestParam("account") String account, @RequestParam("password") String password) {
+    //    return usersService.login(account, password);
+    //  }
 
-  @PostMapping("/checkstatus")
-  public String checkstatus(@RequestParam("account") String account) {
-    return usersService.checkStatus(account);
-  }
+    @PostMapping("/checkstatus")
+    public String checkstatus(@RequestParam("account") String account) {
+        return usersService.checkStatus(account);
+    }
 
-  @GetMapping("/activate")
-  public Message<String> confirmRegistration(@RequestParam("token") String tokenString) {
-    ConfirmationToken token = confirmationTokenService.findByToken(tokenString);
-    Users user = token.getUser();
-    if (user == null) return new Message<>(1, "invalid token");
-    usersService.activate(user);
-    return new Message<>("OK!");
-  }
+    @GetMapping("/activate")
+    public Message<String> confirmRegistration(@RequestParam("token") String tokenString) {
+        ConfirmationToken token = confirmationTokenService.findByToken(tokenString);
+        Users user = token.getUser();
+        if (user == null) return new Message<>(1, "invalid token");
+        usersService.activate(user);
+        return new Message<>("OK!");
+    }
+
+    @RequestMapping(path = "/401")
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseBean unauthorized() {
+        return new ResponseBean(401, "Unauthorized", null);
+    }
 }

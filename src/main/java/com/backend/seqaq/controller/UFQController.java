@@ -3,6 +3,7 @@ package com.backend.seqaq.controller;
 import com.backend.seqaq.entity.UserAndQues;
 import com.backend.seqaq.service.UserAndQuesService;
 import io.swagger.annotations.Api;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,14 @@ public class UFQController {
     return userAndQuesService.findAllUsersByQid(qid);
   }
 
-  @PostMapping("/followSomeQues")
+    @PostMapping("/followSomeQues")
+    @RequiresAuthentication
   public String follow(@RequestParam("uid") Long uid, @RequestParam("qid") Long qid) {
     return userAndQuesService.addFollow(uid, qid);
   }
 
-  @PostMapping("/unfollowSomeQues")
+    @PostMapping("/unfollowSomeQues")
+    @RequiresAuthentication
   public String unfollow(@RequestParam("uid") Long uid, @RequestParam("qid") Long qid) {
     return userAndQuesService.delFollow(uid, qid);
   }
