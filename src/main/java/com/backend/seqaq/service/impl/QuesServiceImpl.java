@@ -25,7 +25,7 @@ public class QuesServiceImpl implements QuesService {
   private Examine examine = new Examine();
   @Autowired private ApplicationEventPublisher eventPublisher;
 
-  private int checklevel(int exp) {
+  public int checklevel(int exp) {
     if (exp < 50) return 1;
     else if (exp < 150) return 2;
     else if (exp < 300) return 3;
@@ -116,8 +116,21 @@ public class QuesServiceImpl implements QuesService {
     if (questions == null) return "Error";
     Timestamp d = new Timestamp(System.currentTimeMillis());
     questions.setMtime(d);
-    questions.setTitle(title);
     org.json.JSONObject object = examine.forText(title);
+    if (object.getInt("conclusionType") != 1) {
+      String words =
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
+      return "问题标题存在敏感词汇: " + words + " 等";
+    }
+
+    questions.setTitle(title);
+    object = examine.forText(detailString);
     if (object.getInt("conclusionType") != 1) {
       String words =
           object

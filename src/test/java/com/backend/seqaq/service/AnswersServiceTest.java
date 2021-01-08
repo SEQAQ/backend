@@ -21,7 +21,7 @@ public class AnswersServiceTest {
     System.out.println(ans);
     Answers ans0 = ans.get(0);
     assertNotNull(ans0);
-    assertEquals(1L, ans0.getDetail().getAid());
+    assertEquals(1L, ans0.getQid());
     assertNotNull(ans0.getDetail().getMdText());
     assertNotEquals("", ans0.getDetail().getMdText());
     List<Answers> ans2 = answersService.findAnswersByQid(-1L);
@@ -35,7 +35,7 @@ public class AnswersServiceTest {
     System.out.println(ans);
     Answers ans0 = ans.get(0);
     assertNotNull(ans0);
-    assertEquals(1L, ans0.getDetail().getAid());
+    assertEquals(1L, ans0.getUid());
     assertNotNull(ans0.getDetail().getMdText());
     assertNotEquals("", ans0.getDetail().getMdText());
     List<Answers> ans2 = answersService.findAnswersByUid(-1L);
@@ -59,9 +59,17 @@ public class AnswersServiceTest {
     answersService.likeAnswers(1L, 1L);
     Long likeafter = answersService.findAnswersById(1L).getLike();
     assertEquals(1L, likeafter - likebefore);
+    likebefore = answersService.findAnswersById(1L).getLike();
+    answersService.unlikeAnswers(1L, 1L);
+    likeafter = answersService.findAnswersById(1L).getLike();
+    assertEquals(1L, likebefore - likeafter);
     Long dlikebefore = answersService.findAnswersById(1L).getDislike();
     answersService.dislikeAnswers(1L);
     Long dlikeafter = answersService.findAnswersById(1L).getDislike();
+    assertEquals(1L, dlikeafter - dlikebefore);
+    dlikeafter = answersService.findAnswersById(1L).getDislike();
+    answersService.undislikeAnswers(1L);
+    likeafter = answersService.findAnswersById(1L).getDislike();
     assertEquals(1L, dlikeafter - dlikebefore);
   }
 

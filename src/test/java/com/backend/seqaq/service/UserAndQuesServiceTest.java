@@ -16,6 +16,7 @@ class UserAndQuesServiceTest {
 
   @Test
   void UAQ() {
+    userAndQuesService.checklevel(1000);
     userAndQuesService.addFollow(1L, 1L);
     System.out.println(userAndQuesService.findAllUsersByQid(1L));
     System.out.println(userAndQuesService.findAllQuesByUid(1L));

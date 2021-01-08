@@ -14,4 +14,6 @@ public interface UserAndQuesService {
   String addFollow(Long uid, Long qid);
 
   boolean existsByUidAndQid(Long uid, Long qid);
+
+  int checklevel(int exp);
 }

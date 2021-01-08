@@ -5,6 +5,8 @@ import com.backend.seqaq.entity.Questions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -89,20 +91,35 @@ class QuesServiceTest {
     assertEquals(edit, q.getTitle());
     ret = quesService.editQues(1L, abnormal);
     assertNotEquals("1", ret);
+    ret = quesService.editQues(1L, edit, abnormal);
+    assertNotEquals("1", ret);
+    ret = quesService.editQues(1L, edit, edit);
+    assertEquals("1", ret);
+    ret = quesService.editQues(1L, abnormal, abnormal);
+    assertNotEquals("1", ret);
+    q = quesService.findById(1L);
+    assertEquals(edit, q.getTitle());
   }
 
   @Test
   void ban_unBan() {
-    quesService.banQues(1L);
+    System.out.println(quesService.banQues(1L));
     Questions questions = quesService.findById(1L);
     assertEquals(0, questions.getStatus());
-    quesService.unbanQues(1L);
+    System.out.println(quesService.unbanQues(1L));
     Questions questions1 = quesService.findById(1L);
     assertEquals(1, questions1.getStatus());
+    System.out.println(quesService.close(1L));
+    questions = quesService.findById(1L);
+    assertEquals(2, questions.getStatus());
+    quesService.unbanQues(1L);
   }
 
   @Test
   void tmp() {
-    System.out.println(quesService.findById(1L).getCtime());
+    Pageable pageable = PageRequest.of(0, 1);
+    System.out.println(quesService.findAll(pageable));
+    System.out.println(quesService.findAll());
+    System.out.println(quesService.checklevel(1000));
   }
 }

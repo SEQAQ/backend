@@ -29,4 +29,6 @@ public interface QuesService {
   Page<Questions> findAll(Pageable pageable);
 
   List<Questions> findAll();
+
+  int checklevel(int exp);
 }
