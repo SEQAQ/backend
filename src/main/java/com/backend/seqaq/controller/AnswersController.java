@@ -1,9 +1,13 @@
 package com.backend.seqaq.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.backend.seqaq.config.JWTUtil;
 import com.backend.seqaq.entity.Answers;
+import com.backend.seqaq.entity.AnswerwithTag;
+import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.repository.Like_recordRepository;
 import com.backend.seqaq.service.AnswersService;
+import com.backend.seqaq.service.UsersService;
 import com.backend.seqaq.util.Message;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -11,6 +15,7 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,14 +26,33 @@ public class AnswersController {
 
   @Autowired private AnswersService answersService;
   @Autowired private Like_recordRepository like_recordRepository;
+  @Autowired private UsersService usersService;
 
   @GetMapping("/findByAid")
   public Message<Answers> findAnswer(@RequestParam("aid") Long aid) {
     return new Message<>(answersService.findAnswersById(aid));
   }
 
+  @GetMapping("/findByUidLogin")
+  public List<AnswerwithTag> findAnswersByUidLogin(
+          @RequestHeader("Authorization") String token,@RequestParam("uid") Long uid) {
+    String account = JWTUtil.getUsername(token);
+    Users user = usersService.findByAccount(account);
+    Long tmpuid = user.getUid();
+    List<Answers> list = answersService.findAnswersByQid(uid);
+    List<AnswerwithTag> al = new ArrayList<>();
+    for (int i = 0; i < list.size(); ++i) {
+      Answers answers = list.get(i);
+      AnswerwithTag a = new AnswerwithTag();
+      a.setAnswers(answers);
+      a.setTag(like_recordRepository.existsByAidAndUid(answers.getAid(), tmpuid));
+      al.add(i, a);
+    }
+    return al;
+  }
+
   @GetMapping("/findByUid")
-  public List<Answers> findAnswersByUid(@RequestParam("uid") Long uid) {
+  public List<Answers> findAnswersByUid(@RequestParam("uid") Long uid){
     return answersService.findAnswersByUid(uid);
   }
 
@@ -36,6 +60,25 @@ public class AnswersController {
   public List<Answers> findByQid(@RequestParam("qid") Long qid) {
     return answersService.findAnswersByQid(qid);
   }
+
+  @GetMapping("/findByQidLogin")
+  public List<AnswerwithTag> findByQid(
+          @RequestHeader("Authorization") String token, @RequestParam("qid") Long qid) {
+    String account = JWTUtil.getUsername(token);
+    Users user = usersService.findByAccount(account);
+    Long uid = user.getUid();
+    List<Answers> list = answersService.findAnswersByQid(qid);
+    List<AnswerwithTag> al = new ArrayList<>();
+    for (int i = 0; i < list.size(); ++i) {
+      Answers answers = list.get(i);
+      AnswerwithTag a = new AnswerwithTag();
+      a.setAnswers(answers);
+      a.setTag(like_recordRepository.existsByAidAndUid(answers.getAid(), uid));
+      al.add(i, a);
+    }
+    return al;
+  }
+
 
   @PostMapping("/addAnswer")
   @RequiresAuthentication

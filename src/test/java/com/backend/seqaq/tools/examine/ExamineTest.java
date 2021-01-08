@@ -1,5 +1,6 @@
 package com.backend.seqaq.tools.examine;
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,5 +21,10 @@ class ExamineTest {
             .getJSONObject(0)
             .getJSONArray("words")
             .toString());
+  }
+
+  @Test
+  void forimage()
+  {
   }
 }
