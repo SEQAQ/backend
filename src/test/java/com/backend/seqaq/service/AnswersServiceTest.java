@@ -17,11 +17,11 @@ public class AnswersServiceTest {
 
   @Test
   public void getAnswersByQid() {
-    List<Answers> ans = answersService.findAnswersByQid(2L);
+    List<Answers> ans = answersService.findAnswersByQid(1L);
     System.out.println(ans);
     Answers ans0 = ans.get(0);
     assertNotNull(ans0);
-    assertEquals(2L, ans0.getQid());
+    assertEquals(1L, ans0.getQid());
     assertNotNull(ans0.getDetail().getMdText());
     assertNotEquals("", ans0.getDetail().getMdText());
     List<Answers> ans2 = answersService.findAnswersByQid(-1L);
@@ -31,11 +31,11 @@ public class AnswersServiceTest {
 
   @Test
   public void getAnswersByUid() {
-    List<Answers> ans = answersService.findAnswersByUid(2L);
+    List<Answers> ans = answersService.findAnswersByUid(1L);
     System.out.println(ans);
     Answers ans0 = ans.get(0);
     assertNotNull(ans0);
-    assertEquals(2L, ans0.getUid());
+    assertEquals(1L, ans0.getUid());
     assertNotNull(ans0.getDetail().getMdText());
     assertNotEquals("", ans0.getDetail().getMdText());
     List<Answers> ans2 = answersService.findAnswersByUid(-1L);
