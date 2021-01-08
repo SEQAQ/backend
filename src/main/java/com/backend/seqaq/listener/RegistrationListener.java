@@ -43,10 +43,9 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     String subject = "开启 QAQ 世界的大门";
     String text =
         "Hi, "
-            + user.getRname()
-            + "!\r\n\r\n 🔗 https://uniqaq"
-            + ".tk/users/activate?token="
-            + tokenString;
+                + (user.getRname() == null ? "" : user.getRname())
+                + "!\r\n\r\n 🔗 http://api.uniqaq.tk/users/activate?token="
+                + tokenString;
     SimpleMailMessage email = new SimpleMailMessage();
     email.setFrom(senderAddr);
     email.setTo(recipientAddress);

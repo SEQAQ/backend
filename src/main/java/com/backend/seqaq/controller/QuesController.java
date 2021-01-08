@@ -6,7 +6,6 @@ import com.backend.seqaq.entity.Questions;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.service.QuesService;
 import com.backend.seqaq.service.UsersService;
-
 import com.backend.seqaq.util.Message;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -103,12 +102,13 @@ public class QuesController {
     quesService.delQues(qid);
   }
 
-  @PostMapping("/closeQues")
+  @GetMapping("/closeQues")
+  @RequiresAuthentication
   public void close(@RequestHeader("Authorization") String token, @RequestParam("qid") Long qid) {
     String account = JWTUtil.getUsername(token);
     Users user = usersService.findByAccount(account);
     Questions questions = quesService.findById(qid);
-    if (questions.getUid() != user.getUid()) return;
+    if (!questions.getUid().equals(user.getUid())) return;
 
     quesService.close(qid);
   }

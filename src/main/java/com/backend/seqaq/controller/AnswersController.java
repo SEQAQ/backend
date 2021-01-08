@@ -66,37 +66,37 @@ public class AnswersController {
     return answersService.unbanAnswers(aid);
   }
 
-  @PostMapping("/delete")
+  @GetMapping("/delete")
   @RequiresAuthentication
   public String delete(@RequestParam("aid") Long aid) {
     return answersService.deleteAnswers(aid);
   }
 
-  @PostMapping("/dislike")
+  @GetMapping("/dislike")
   @RequiresAuthentication
   public String dislike(@RequestParam("aid") Long aid) {
     return answersService.dislikeAnswers(aid);
   }
 
-  @PostMapping("/undislike")
+  @GetMapping("/undislike")
   @RequiresAuthentication
   public String undislike(@RequestParam("aid") Long aid) {
     return answersService.undislikeAnswers(aid);
   }
 
-  @PostMapping("/like")
+  @GetMapping("/like")
   @RequiresAuthentication
   public String like(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
     return answersService.likeAnswers(aid, uid);
   }
 
-  @PostMapping("/unlike")
+  @GetMapping("/unlike")
   @RequiresAuthentication
   public String undlike(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
     return answersService.unlikeAnswers(aid, uid);
   }
 
-  @PostMapping("/islike")
+  @GetMapping("/islike")
   @RequiresAuthentication
   public boolean islike(@RequestParam("aid") Long aid, @RequestParam("uid") Long uid) {
     return like_recordRepository.existsByAidAndUid(aid, uid);
