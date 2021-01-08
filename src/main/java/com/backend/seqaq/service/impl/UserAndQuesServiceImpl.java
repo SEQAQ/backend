@@ -18,7 +18,7 @@ public class UserAndQuesServiceImpl implements UserAndQuesService {
   @Autowired private QuesDao quesDao;
   @Autowired private UserAndQuesDao userAndQuesDao;
 
-  private int checklevel(int exp) {
+  public int checklevel(int exp) {
     if (exp < 50) return 1;
     else if (exp < 150) return 2;
     else if (exp < 300) return 3;

@@ -82,5 +82,7 @@ class UsersServiceTest {
     int size = 10;
     Pageable pageable = PageRequest.of(page, size);
     System.out.println(usersService.findAll(pageable));
+    usersService.findAll();
+    System.out.println(usersService.getUser("Cat"));
   }
 }
