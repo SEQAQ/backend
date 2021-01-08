@@ -1,6 +1,5 @@
 package com.backend.seqaq.tools.examine;
 
-import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -24,7 +23,5 @@ class ExamineTest {
   }
 
   @Test
-  void forimage()
-  {
-  }
+  void forimage() {}
 }
