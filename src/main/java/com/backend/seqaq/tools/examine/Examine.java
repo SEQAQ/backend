@@ -15,13 +15,13 @@ public class Examine {
     JSONObject response = client.textCensorUserDefined(text);
     return response;
   }
+
   public JSONObject forImage(String image) {
     String head = "data:image/";
     boolean flag = image.startsWith(head);
     if (flag == true) {
       image = image.substring(head.length());
-      while (!image.startsWith("base64,"))
-      {
+      while (!image.startsWith("base64,")) {
         image = image.substring(1);
       }
       image = image.substring(7);
@@ -29,7 +29,7 @@ public class Examine {
     Base64.Decoder decoder = Base64.getDecoder();
     byte[] bytes = decoder.decode(image);
     for (int i = 0; i < bytes.length; ++i) {
-      if (bytes[i] < 0) {// 调整异常数据
+      if (bytes[i] < 0) { // 调整异常数据
         bytes[i] += 256;
       }
     }

@@ -35,7 +35,7 @@ public class AnswersController {
 
   @GetMapping("/findByUidLogin")
   public List<AnswerwithTag> findAnswersByUidLogin(
-          @RequestHeader("Authorization") String token,@RequestParam("uid") Long uid) {
+      @RequestHeader("Authorization") String token, @RequestParam("uid") Long uid) {
     String account = JWTUtil.getUsername(token);
     Users user = usersService.findByAccount(account);
     Long tmpuid = user.getUid();
@@ -52,7 +52,7 @@ public class AnswersController {
   }
 
   @GetMapping("/findByUid")
-  public List<Answers> findAnswersByUid(@RequestParam("uid") Long uid){
+  public List<Answers> findAnswersByUid(@RequestParam("uid") Long uid) {
     return answersService.findAnswersByUid(uid);
   }
 
@@ -63,7 +63,7 @@ public class AnswersController {
 
   @GetMapping("/findByQidLogin")
   public List<AnswerwithTag> findByQid(
-          @RequestHeader("Authorization") String token, @RequestParam("qid") Long qid) {
+      @RequestHeader("Authorization") String token, @RequestParam("qid") Long qid) {
     String account = JWTUtil.getUsername(token);
     Users user = usersService.findByAccount(account);
     Long uid = user.getUid();
@@ -78,7 +78,6 @@ public class AnswersController {
     }
     return al;
   }
-
 
   @PostMapping("/addAnswer")
   @RequiresAuthentication
