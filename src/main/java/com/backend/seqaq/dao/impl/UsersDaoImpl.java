@@ -78,7 +78,7 @@ public class UsersDaoImpl implements UsersDao {
       u.setFollowed(0L);
       u.setFollower(0L);
       u.setRole("user");
-      return usersRepository.findById(saveForEdit(u,0)).orElse(null);
+      return usersRepository.findById(saveForEdit(u, 0)).orElse(null);
     }
   }
 
@@ -95,7 +95,7 @@ public class UsersDaoImpl implements UsersDao {
     return usersRepository.save(user);
   }
 
-  public Long saveForEdit(Users users,int isChanged) {
+  public Long saveForEdit(Users users, int isChanged) {
     //    Questions savedQues = quesRepository.save(questions);
     Users saveUsers = usersRepository.save(users);
 
@@ -103,8 +103,7 @@ public class UsersDaoImpl implements UsersDao {
     //    QuestionDetail detail = questions.getDetail();
     //    detail.setQid(savedQues.getQid());
     if (isChanged == 1) {
-      if(examine.forImage(detail.getAvatar()).getInt("conclusionType") != 1)
-      {
+      if (examine.forImage(detail.getAvatar()).getInt("conclusionType") != 1) {
         return 0L;
       }
     }

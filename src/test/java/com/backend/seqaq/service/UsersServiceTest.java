@@ -54,7 +54,7 @@ class UsersServiceTest {
     u.setEmail("541551@dobby.free");
     Users users = usersService.findById(usersService.register(u).getUid());
     users.setPassword("wysjzmk");
-    Long id = usersService.editUser(users,0);
+    Long id = usersService.editUser(users, 0);
     users = usersService.findById(id);
     assertEquals("wysjzmk", users.getPassword());
   }
