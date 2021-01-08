@@ -21,4 +21,7 @@ class ExamineTest {
             .getJSONArray("words")
             .toString());
   }
+
+  @Test
+  void forimage() {}
 }
