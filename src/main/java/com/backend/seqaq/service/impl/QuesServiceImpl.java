@@ -129,18 +129,17 @@ public class QuesServiceImpl implements QuesService {
       return "问题标题存在敏感词汇: " + words + " 等";
     }
 
-
     questions.setTitle(title);
     object = examine.forText(detailString);
     if (object.getInt("conclusionType") != 1) {
       String words =
-              object
-                      .getJSONArray("data")
-                      .getJSONObject(0)
-                      .getJSONArray("hits")
-                      .getJSONObject(0)
-                      .getJSONArray("words")
-                      .toString();
+          object
+              .getJSONArray("data")
+              .getJSONObject(0)
+              .getJSONArray("hits")
+              .getJSONObject(0)
+              .getJSONArray("words")
+              .toString();
       return "问题内容存在敏感词汇: " + words + " 等";
     }
     QuestionDetail detail = questions.getDetail();
@@ -148,7 +147,6 @@ public class QuesServiceImpl implements QuesService {
     questions.setDetail(detail);
     return quesDao.save(questions).toString();
   }
-
 
   public String editQues(Long qid, String title) {
     Questions questions = quesDao.findById(qid);
@@ -171,7 +169,6 @@ public class QuesServiceImpl implements QuesService {
     return quesDao.save(questions).toString();
   }
 
-
   public String banQues(Long qid) {
     Questions questions = quesDao.findById(qid);
     if (questions == null) return "Error";
@@ -179,6 +176,7 @@ public class QuesServiceImpl implements QuesService {
     quesDao.save(questions);
     return "OK";
   }
+
   public String close(Long qid) {
     Questions questions = quesDao.findById(qid);
     if (questions == null) return "Error";
@@ -187,7 +185,6 @@ public class QuesServiceImpl implements QuesService {
     return "OK";
   }
 
-
   public String unbanQues(Long qid) {
     Questions questions = quesDao.findById(qid);
     if (questions == null) return "Error";
@@ -195,12 +192,15 @@ public class QuesServiceImpl implements QuesService {
     quesDao.save(questions);
     return "OK";
   }
+
   public Page<Questions> findAll(Pageable pageable) {
     return quesDao.findAll(pageable);
   }
+
   public List<Questions> findAll() {
     return quesDao.findAll();
   }
+
   public String delQues(Long qid) {
     Questions questions = quesDao.findById(qid);
     if (questions == null) return "Error";

@@ -91,12 +91,12 @@ class QuesServiceTest {
     assertEquals(edit, q.getTitle());
     ret = quesService.editQues(1L, abnormal);
     assertNotEquals("1", ret);
-    ret = quesService.editQues(1L,edit,abnormal);
-    assertNotEquals("1",ret);
-    ret = quesService.editQues(1L,edit,edit);
-    assertEquals("1",ret);
-    ret = quesService.editQues(1L,abnormal,abnormal);
-    assertNotEquals("1",ret);
+    ret = quesService.editQues(1L, edit, abnormal);
+    assertNotEquals("1", ret);
+    ret = quesService.editQues(1L, edit, edit);
+    assertEquals("1", ret);
+    ret = quesService.editQues(1L, abnormal, abnormal);
+    assertNotEquals("1", ret);
     q = quesService.findById(1L);
     assertEquals(edit, q.getTitle());
   }
@@ -119,7 +119,7 @@ class QuesServiceTest {
   void tmp() {
     Pageable pageable = PageRequest.of(0, 1);
     System.out.println(quesService.findAll(pageable));
-    System.out.println( quesService.findAll());
+    System.out.println(quesService.findAll());
     System.out.println(quesService.checklevel(1000));
   }
 }

@@ -11,16 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 class HotServiceTest {
 
-    @Autowired private HotService hotService;
-    @Test
-    void add() {
-        hotService.add(1L,1L);
-    }
+  @Autowired private HotService hotService;
 
-    @Test
-    void getTop10() {
-        System.out.println(hotService.getTop10(0));
-        System.out.println(hotService.getTop10(1));
-        System.out.println(hotService.getTop10(2));
-    }
+  @Test
+  void add() {
+    hotService.add(1L, 1L);
+  }
+
+  @Test
+  void getTop10() {
+    System.out.println(hotService.getTop10(0));
+    System.out.println(hotService.getTop10(1));
+    System.out.println(hotService.getTop10(2));
+  }
 }

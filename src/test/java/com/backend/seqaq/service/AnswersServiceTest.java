@@ -60,7 +60,7 @@ public class AnswersServiceTest {
     Long likeafter = answersService.findAnswersById(1L).getLike();
     assertEquals(1L, likeafter - likebefore);
     likebefore = answersService.findAnswersById(1L).getLike();
-    answersService.unlikeAnswers(1L,1L);
+    answersService.unlikeAnswers(1L, 1L);
     likeafter = answersService.findAnswersById(1L).getLike();
     assertEquals(1L, likebefore - likeafter);
     Long dlikebefore = answersService.findAnswersById(1L).getDislike();
@@ -70,7 +70,7 @@ public class AnswersServiceTest {
     dlikeafter = answersService.findAnswersById(1L).getDislike();
     answersService.undislikeAnswers(1L);
     likeafter = answersService.findAnswersById(1L).getDislike();
-    assertEquals(1L, dlikeafter- dlikebefore);
+    assertEquals(1L, dlikeafter - dlikebefore);
   }
 
   @Test
