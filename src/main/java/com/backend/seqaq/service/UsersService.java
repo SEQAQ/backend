@@ -31,5 +31,5 @@ public interface UsersService {
 
   List<Users> findAll();
 
-  Long editUser(Users users,int isChanged);
+  Long editUser(Users users, int isChanged);
 }
