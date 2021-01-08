@@ -90,8 +90,8 @@ public class UsersServiceImpl implements UsersService {
     return usersDao.findAll();
   }
 
-  public Long editUser(Users users) {
-    Long result = usersDao.saveForEdit(users);
+  public Long editUser(Users users,int isChanged) {
+    Long result = usersDao.saveForEdit(users,isChanged);
     return result;
   }
 

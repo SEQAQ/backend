@@ -54,8 +54,10 @@ public class UsersController {
   }
 
   @PostMapping("/edit")
-  public String edit(@RequestBody Users users) {
-    usersService.editUser(users);
+  public String edit(@RequestBody Users users,@RequestParam("tag") int isChanged) {
+
+    Long result = usersService.editUser(users,isChanged);
+    if(result == 0L) return "fail";
     return "OK";
   }
 

@@ -22,5 +22,5 @@ public interface UsersDao {
 
   List<Users> findAll();
 
-  Long saveForEdit(Users users);
+  Long saveForEdit(Users users,int isChanged);
 }

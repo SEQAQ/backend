@@ -5,6 +5,7 @@ import com.backend.seqaq.entity.UserDetail;
 import com.backend.seqaq.entity.Users;
 import com.backend.seqaq.repository.UserDetailRepository;
 import com.backend.seqaq.repository.UsersRepository;
+import com.backend.seqaq.tools.examine.Examine;
 import com.backend.seqaq.util.exception.RegistrationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class UsersDaoImpl implements UsersDao {
   private final UsersRepository usersRepository;
   private final UserDetailRepository userDetailRepository;
+  private Examine examine = new Examine();
 
   public UsersDaoImpl(UsersRepository usersRepository, UserDetailRepository userDetailRepository) {
     this.usersRepository = usersRepository;
@@ -76,7 +78,7 @@ public class UsersDaoImpl implements UsersDao {
       u.setFollowed(0L);
       u.setFollower(0L);
       u.setRole("user");
-      return usersRepository.findById(saveForEdit(u)).orElse(null);
+      return usersRepository.findById(saveForEdit(u,0)).orElse(null);
     }
   }
 
@@ -93,13 +95,19 @@ public class UsersDaoImpl implements UsersDao {
     return usersRepository.save(user);
   }
 
-  public Long saveForEdit(Users users) {
+  public Long saveForEdit(Users users,int isChanged) {
     //    Questions savedQues = quesRepository.save(questions);
     Users saveUsers = usersRepository.save(users);
 
     UserDetail detail = users.getDetail();
     //    QuestionDetail detail = questions.getDetail();
     //    detail.setQid(savedQues.getQid());
+    if (isChanged == 1) {
+      if(examine.forImage(detail.getAvatar()).getInt("conclusionType") != 1)
+      {
+        return 0L;
+      }
+    }
     detail.setUid(users.getUid());
     return userDetailRepository.save(detail).getUid();
   }
